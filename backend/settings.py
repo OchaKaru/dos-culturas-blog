@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': json.load(open('./db_auth.json', 'r'))
+    'default': json.load(open('./sessions/database/db_auth.json', 'r'))
 }
 
 

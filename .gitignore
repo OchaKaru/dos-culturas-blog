@@ -3,4 +3,4 @@ Pipfile
 Pipfile.lock
 
 #ignore authentication files (no passwords for you)
-db_auth.json
+sessions

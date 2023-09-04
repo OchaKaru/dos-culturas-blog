@@ -6,10 +6,10 @@ class RecipeSerializer(serializers.ModelSerializer):
         model = Recipe
         fields = (
             'pk',
-            'source',
+            'image',
             'name',
             'desc',
-            'steps'
+            'steps',
         )
 
 class IngredientSerializer(serializers.ModelSerializer):
@@ -17,17 +17,24 @@ class IngredientSerializer(serializers.ModelSerializer):
         model = Ingredient
         fields = (
             'pk',
-            'name'
+            'name',
         )
 
-class RecipeGroupSerializer(serializers.ModelSerializer):
+class GroupTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Group
+        fields = (
+            'pk',
+            'name',
+        )
+
+class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
         fields = (
             'pk',
             'name',
             'group_type',
-            'desc'
         )
 
 class RecipeIngredientSerializer(serializers.ModelSerializer):
@@ -35,9 +42,9 @@ class RecipeIngredientSerializer(serializers.ModelSerializer):
         model = RecipeIngredient
         fields = (
             'recipe',
-            'ingredients',
+            'ingredient',
             'measure',
-            'unit'
+            'unit',
         )
 
 class RecipeGroupSerializer(serializers.ModelSerializer):
@@ -46,4 +53,5 @@ class RecipeGroupSerializer(serializers.ModelSerializer):
         fields = (
             'recipe',
             'group',
+            'desc',
         )

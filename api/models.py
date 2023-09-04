@@ -16,7 +16,6 @@ class GroupType(dj.Model):
 class Group(dj.Model):
     name = dj.CharField(max_length = 50)
     group_type = dj.ForeignKey(GroupType, on_delete = dj.CASCADE)
-    desc = dj.TextField(1)
 
 class RecipeIngredient(dj.Model):
     recipe = dj.ForeignKey(Recipe, on_delete = dj.CASCADE)
@@ -27,3 +26,4 @@ class RecipeIngredient(dj.Model):
 class RecipeGroup(dj.Model):
     recipe = dj.ForeignKey(Recipe, on_delete = dj.CASCADE)
     group = dj.ForeignKey(Group, on_delete = dj.CASCADE)
+    desc = dj.TextField()
