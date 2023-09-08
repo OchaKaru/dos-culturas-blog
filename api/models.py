@@ -10,12 +10,9 @@ class Recipe(dj.Model):
 class Ingredient(dj.Model):
     name = dj.CharField(max_length = 50)
 
-class GroupType(dj.Model):
-    name = dj.CharField(max_length = 50)
-
 class Group(dj.Model):
     name = dj.CharField(max_length = 50)
-    group_type = dj.ForeignKey(GroupType, on_delete = dj.CASCADE)
+    group_type = dj.CharField(max_length = 70)
 
 class RecipeIngredient(dj.Model):
     recipe = dj.ForeignKey(Recipe, on_delete = dj.CASCADE)

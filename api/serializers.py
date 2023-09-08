@@ -20,14 +20,6 @@ class IngredientSerializer(serializers.ModelSerializer):
             'name',
         )
 
-class GroupTypeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Group
-        fields = (
-            'pk',
-            'name',
-        )
-
 class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
@@ -41,6 +33,7 @@ class RecipeIngredientSerializer(serializers.ModelSerializer):
     class Meta:
         model = RecipeIngredient
         fields = (
+            'pk',
             'recipe',
             'ingredient',
             'measure',
@@ -51,6 +44,7 @@ class RecipeGroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = RecipeGroup
         fields = (
+            'pk',
             'recipe',
             'group',
             'desc',

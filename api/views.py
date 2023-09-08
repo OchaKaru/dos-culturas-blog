@@ -10,16 +10,50 @@ from .serializers import *
 # request handler
 
 @api_view(['GET'])
-def get_all_recipes(request):
+def get_all_recipes(request) -> Response:
     if request.method == 'GET':
         data = Recipe.objects.all()
         serializer = RecipeSerializer(data, context = {'request': request}, many = True)
         return Response(serializer.data)
-    
+
+@api_view(['GET'])
+def get_recipes_by_group(request, group) -> Response:
+    if request.method == 'GET':
+        group = group.replace('_', ' ')
+        groups = group.split('&')
+
+        group_set = []
+        for group in groups:
+            group_set.append(Group.objects.get(name = group))
+        
+        query_set = RecipeGroup.objects.all()
+        subsets = []
+        for group in group_set:
+            subsets.append(query_set.filter(group = group))
+
+        for subset in subsets:
+            new_query_set = []
+            for i in query_set:
+                for j in subset:
+                    if i.recipe == j.recipe:
+                        new_query_set.append(i)
+            query_set = new_query_set
+
+        recipes = []
+        for recipe_group in query_set:
+            recipes.append(recipe_group.recipe)
+
+        serializer = RecipeSerializer(list(set(recipes)), context = {'request': request}, many = True)
+        return Response(serializer.data)
+
 @api_view(['POST'])
-def post_new_recipe(request):
+def post_new_recipe(request) -> Response:
     if request.method == 'POST':
         try:
+            if Recipe.objects.filter(name = request.data['name']).exists():
+                print("ERROR: Recipe Serializer was not valid.")
+                return Response(status = status.HTTP_400_BAD_REQUEST)
+
             recipe = RecipeSerializer(data = {
                 'image': request.data['image'],
                 'name': request.data['name'],
@@ -36,18 +70,16 @@ def post_new_recipe(request):
             for ingredient in request.data['ingredients']:
                 query_set = Ingredient.objects.filter(name = ingredient['name'])
                 if not query_set.exists():
-                    ingredient_ser = IngredientSerializer(data = {'name': ingredient['name']})
-                    if ingredient_ser.is_valid():
+                    ingredient_serializer = IngredientSerializer(data = {'name': ingredient['name']})
+                    if ingredient_serializer.is_valid():
                         ingredients.append({
-                            'ingredient': ingredient_ser.save(),
+                            'ingredient': ingredient_serializer.save(),
                             'measure': ingredient['measure'],
                             'unit': ingredient['unit']
                         })
                     else:
-                        for ingredient in ingredients:
-                            ingredient['ingredient'].delete()
                         recipe.delete()
-                        print("ERROR: Ingredient Serializer was not valid.")
+                        print("ERROR: Ingredient Serializer was not valid.", ingredient_serializer.errors)
                         return Response(status = status.HTTP_500_INTERNAL_SERVER_ERROR)
                 else:
                     ingredients.append({
@@ -56,87 +88,62 @@ def post_new_recipe(request):
                         'unit': ingredient['unit']
                     })
 
-            # groups = []
-            # for group in request.data['groups']:
-            #     query_set = Group.objects.filter(name = group['name'])
-            #     if not query_set.exists():
-            #         group_type = GroupType.objects.filter(name = group['group_type'])
-            #         if not group_type.exists():
-            #             group_type_ser = GroupTypeSerializer(data = {'name': group['group_type']})
-            #             if group_type_ser.is_valid():
-            #                 group_type = group_type_ser.save()
-            #             else:
-            #                 for ingredient in ingredients:
-            #                     ingredient['ingredient'].delete()
-            #                 recipe.delete()
-            #                 print("ERROR: GroupType Serializer was not valid.")
-            #                 return Response(group_type_ser.errors, status = status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-            #         else:
-            #             group_type = group_type[0]
-
-            #         group_ser = GroupSerializer(data = {'name': group['name'], 'group_type': group_type.pk})
-            #         if group_ser.is_valid():
-            #             groups.append({
-            #                 'group': group_ser.save(),
-            #                 'desc': group['desc']
-            #             })
-            #         else:
-            #             for group in groups:
-            #                 groups['group'].delete()
-            #             for ingredient in ingredients:
-            #                 ingredient['ingredient'].delete()
-            #             recipe.delete()
-            #             print("ERROR: Group Serializer was not valid.")
-            #             return Response(group_ser.errors, status = status.HTTP_500_INTERNAL_SERVER_ERROR)
-            #     else:
-            #         groups.append({
-            #             'group': query_set[0],
-            #             'desc': group['desc']
-            #         })
-            
             recipe_ingredients = []
             for ingredient in ingredients:
-                recipe_ingredient = RecipeIngredientSerializer(data = {
+                recipe_ingredient_serializer = RecipeIngredientSerializer(data = {
                     'recipe': recipe.pk,
                     'ingredient': ingredient['ingredient'].pk,
                     'measure': ingredient['measure'],
                     'unit': ingredient['unit']
                 })
-                if recipe_ingredient.is_valid():
-                    recipe_ingredients.append(recipe_ingredient.save())
+                if recipe_ingredient_serializer.is_valid():
+                    recipe_ingredients.append(recipe_ingredient_serializer.save())
                 else:
-                    for group in groups:
-                            groups['group'].delete()
                     for ingredient in ingredients:
                         ingredient['ingredient'].delete()
                     for recipe_ingredient in recipe_ingredients:
                         recipe_ingredient.delete()
                     recipe.delete()
-                    print("ERROR: RecipeIngredient Serializer was not valid.")
-                    return Response(recipe_ingredient.errors, status = status.HTTP_500_INTERNAL_SERVER_ERROR)
-            
-            # recipe_groups = []
-            # for group in groups:
-            #     recipe_group = RecipeGroupSerializer(data = {
-            #         'recipe': recipe.pk,
-            #         'ingredient': group['group'].pk,
-            #         'desc': group['desc'],
-            #     })
-            #     if recipe_group.is_valid():
-            #         recipe_groups.append(recipe_group.save())
-            #     else:
-            #         for group in groups:
-            #                 groups['group'].delete()
-            #         for ingredient in ingredients:
-            #             ingredient['ingredient'].delete()
-            #         for recipe_ingredient in recipe_ingredients:
-            #             recipe_ingredient.delete()
-            #         for recipe_group in recipe_groups:
-            #             recipe_group.delete()
-            #         recipe.delete()
-            #         print("ERROR: RecipeGroup Serializer was not valid.")
-            #         return Response(recipe_group.errors, status = status.HTTP_500_INTERNAL_SERVER_ERROR)
+                    print("ERROR: RecipeIngredient Serializer was not valid.", recipe_ingredient_serializer.errors)
+                    return Response(status = status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+            groups = []
+            for group in request.data['groups']:
+                query_set = Group.objects.filter(name = group['name'])
+                if not query_set.exists():
+                    group_serializer = GroupSerializer(data = {'name': group['name'], 'group_type': group['group_type']})
+                    if group_serializer.is_valid():
+                        groups.append({
+                            'group': group_serializer.save(),
+                            'desc': group['desc']
+                        })
+                    else:
+                        recipe.delete()
+                        print("ERROR: Group Serializer was not valid.", group_serializer.errors)
+                        return Response(status = status.HTTP_500_INTERNAL_SERVER_ERROR)
+                else:
+                    groups.append({
+                        'group': query_set[0],
+                        'desc': group['desc']
+                    })
+
+            recipe_groups = []
+            for group in groups:
+                recipe_group = RecipeGroupSerializer(data = {
+                    'recipe': recipe.pk,
+                    'group': group['group'].pk,
+                    'desc': group['desc'],
+                })
+                if recipe_group.is_valid():
+                    recipe_groups.append(recipe_group.save())
+                else:
+                    for recipe_ingredient in recipe_ingredients:
+                        recipe_ingredient.delete()
+                    for recipe_group in recipe_groups:
+                        recipe_group.delete()
+                    recipe.delete()
+                    print("ERROR: RecipeGroup Serializer was not valid.", recipe_group.errors)
+                    return Response(status = status.HTTP_500_INTERNAL_SERVER_ERROR)
         except KeyError:
             return Response(status = status.HTTP_400_BAD_REQUEST)
 
@@ -150,10 +157,24 @@ def get_all_groups(request):
         return Response(serializer.data)
 
 @api_view(['GET'])
-def get_group_by_type(request, group_type):
+def get_groups_by_type(request, group_type):
     if request.method == 'GET':
-        group_type = GroupType.objects.filter(name = group_type)
-        groups = Group.objects.filter(group_type = group_type)
+        group_type = group_type.replace('_', ' ')
+        group_types = group_type.split('&')
+        
+        query_set = []
+        for group_type in group_types:
+            query_set.extend(Group.objects.filter(group_type = group_type))
+
+        serializer = GroupSerializer(query_set, context = {'request': request}, many = True)
+        return Response(serializer.data)
+    
+@api_view(['GET'])
+def get_all_ingredients(request):
+    if request.method == 'GET':
+        data = Ingredient.objects.all()
+        serializer = IngredientSerializer(data, context = {'request': request}, many = True)
+        return Response(serializer.data)
 
 @api_view(['GET'])
 def reset_database(request):
@@ -165,18 +186,14 @@ def reset_database(request):
         data = Ingredient.objects.all()
         for ingredient in data:
             ingredient.delete()
-
-        data = GroupType.objects.all()
-        for group_type in data:
-            group_type.delete()
-
-        data = Group.objects.all()
-        for group in data:
-            group.delete()
         
         data = RecipeIngredient.objects.all()
         for recipe_ingredient in data:
             recipe_ingredient.delete()
+
+        data = Group.objects.all()
+        for group in data:
+            group.delete()
 
         data = RecipeGroup.objects.all()
         for recipe_group in data:
