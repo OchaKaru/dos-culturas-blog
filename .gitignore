@@ -3,4 +3,9 @@ Pipfile
 Pipfile.lock
 
 #ignore authentication files (no passwords for you)
-sessions
+sessions/
+
+#ignore gatsby files
+frontend/node_modules/
+frontend/.cache/
+frontend/public/

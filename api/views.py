@@ -16,6 +16,38 @@ def get_all_recipes(request) -> Response:
         serializer = RecipeSerializer(data, context = {'request': request}, many = True)
         return Response(serializer.data)
 
+@api_view(['GET', 'PUT'])
+def get_recipe_by_name(request, recipe) -> Response:
+    if request.method == 'GET':
+        recipe = Recipe.objects.get(name = recipe)
+
+        recipe_ingredients = RecipeIngredient.objects.filter(recipe = recipe)
+        recipe_groups = RecipeGroup.objects.filter(recipe = recipe)
+
+        recipe_data = {}
+        recipe_data['image'] = recipe.image
+        recipe_data['name'] = recipe.name
+        recipe_data['desc'] = recipe.desc
+        recipe_data['steps'] = [step for step in recipe.steps.split(';')]
+
+        recipe_data['ingredients'] = []
+        for recipe_ingredient in recipe_ingredients:
+            recipe_data['ingredients'].append({
+                'name': recipe_ingredient.ingredient.name,
+                'measure': recipe_ingredient.measure,
+                'unit': recipe_ingredient.unit
+            })
+
+        recipe_data['groups'] = []
+        for recipe_group in recipe_groups:
+            recipe_data['groups'].append({
+                'name': recipe_group.group.name,
+                'group_type': recipe_group.group.group_type,
+                'desc': recipe_group.desc
+            })
+
+        return Response(recipe_data)
+
 @api_view(['GET'])
 def get_recipes_by_group(request, group) -> Response:
     if request.method == 'GET':
@@ -168,7 +200,10 @@ def get_groups_by_type(request, group_type):
 
         serializer = GroupSerializer(query_set, context = {'request': request}, many = True)
         return Response(serializer.data)
-    
+
+# these api functions are used for testing
+# they don't really serve a functional purpose for the website
+# maybe an all ingredients page where a user can filter recipes by a certain ingredient
 @api_view(['GET'])
 def get_all_ingredients(request):
     if request.method == 'GET':
@@ -200,5 +235,3 @@ def reset_database(request):
             recipe_group.delete()
     
         return Response(status = status.HTTP_205_RESET_CONTENT)
-    
-        
