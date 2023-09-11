@@ -9,3 +9,5 @@ sessions/
 frontend/node_modules/
 frontend/.cache/
 frontend/public/
+frontend/package-lock.json
+frontend/package.json
