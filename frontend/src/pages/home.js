@@ -1,7 +1,7 @@
 import * as React from "react"
 import Header from '../components/header';
 
-const LibraryPage = () => {
+const HomePage = () => {
   return (
     <main>
       <Header />
@@ -9,6 +9,6 @@ const LibraryPage = () => {
   )
 }
 
-export default LibraryPage
+export default HomePage
 
-export const Head = () => <title>All Recipes Page</title>
+export const Head = () => <title>Home Page</title>

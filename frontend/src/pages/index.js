@@ -1,11 +1,22 @@
 import * as React from "react"
+import background from "../images/landing_page_bg.png";
 
-const HomePage = () => {
+let pageStyle = {
+  backgroundImage: `url(${background})`,
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
+  height: '100vh',
+  width: '100vw',
+}
+
+const LandingPage = () => {
   return (
-    <main></main>
+    <main style={pageStyle}>
+      {/* <img src={background} alt="The background image" /> */}
+    </main>
   )
 }
 
-export default HomePage
+export default LandingPage
 
-export const Head = () => <title>Home Page</title>
+export const Head = () => <title>Welcome Page</title>
