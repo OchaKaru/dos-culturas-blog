@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework import status
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 from .models import *
 from .serializers import *
@@ -10,13 +12,25 @@ from .serializers import *
 # request handler
 
 @api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def get_all_recipes(request) -> Response:
     if request.method == 'GET':
         data = Recipe.objects.all()
         serializer = RecipeSerializer(data, context = {'request': request}, many = True)
-        return Response(serializer.data)
+
+        content = {
+            'user': str(request.user),
+            'auth': str(request.auth),
+            'status': 'request was permitted',
+            'data': serializer.data
+        }
+
+        return Response(content)
 
 @api_view(['GET', 'PUT'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def get_recipe_by_name(request, recipe) -> Response:
     if request.method == 'GET':
         recipe = Recipe.objects.get(name = recipe)
@@ -46,9 +60,18 @@ def get_recipe_by_name(request, recipe) -> Response:
                 'desc': recipe_group.desc
             })
 
-        return Response(recipe_data)
+        content = {
+            'user': str(request.user),
+            'auth': str(request.auth),
+            'status': 'request was permitted',
+            'data': recipe_data
+        }
+
+        return Response(content)
 
 @api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def get_recipes_by_group(request, group) -> Response:
     if request.method == 'GET':
         group = group.replace('_', ' ')
@@ -79,6 +102,8 @@ def get_recipes_by_group(request, group) -> Response:
         return Response(serializer.data)
 
 @api_view(['POST'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def post_new_recipe(request) -> Response:
     if request.method == 'POST':
         try:
@@ -182,6 +207,8 @@ def post_new_recipe(request) -> Response:
         return Response(status = status.HTTP_201_CREATED)
 
 @api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def get_all_groups(request):
     if request.method == 'GET':
         data = Group.objects.all()
@@ -189,6 +216,8 @@ def get_all_groups(request):
         return Response(serializer.data)
 
 @api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def get_groups_by_type(request, group_type):
     if request.method == 'GET':
         group_type = group_type.replace('_', ' ')
@@ -204,6 +233,8 @@ def get_groups_by_type(request, group_type):
 # these api functions are used for testing
 # they don't really serve a functional purpose for the website
 # maybe an all ingredients page where a user can filter recipes by a certain ingredient
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 @api_view(['GET'])
 def get_all_ingredients(request):
     if request.method == 'GET':
@@ -211,6 +242,8 @@ def get_all_ingredients(request):
         serializer = IngredientSerializer(data, context = {'request': request}, many = True)
         return Response(serializer.data)
 
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 @api_view(['GET'])
 def reset_database(request):
     if request.method == 'GET':
