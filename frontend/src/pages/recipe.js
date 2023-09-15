@@ -1,28 +1,56 @@
 import * as React from "react"
-import axios from 'axios';
+import RecipeAPI from "../api/recipeapi";
 
-import auth from '../../../sessions/api/auth.json';
-
-let url = "http://127.0.0.1:9000/contentmanager/get-recipe-by-name/Elote/"
+let recipe_name = 'Elote'
 
 const RecipePage = () => {
-  const [recipe_data, set_recipe_data] = React.useState();
+  const [recipe_data, set_recipe_data] = React.useState(undefined);
+  const [rendered_component, set_component] = React.useState(<></>)
 
   React.useEffect(() => {
-    axios.get(url, {
-      headers: {
-        'Authorization': `Token ${auth.token}`
-      }
-    }).then(response => {
-      set_recipe_data(response.data)
-    })
-  });
+    (async () => {
+      set_recipe_data(await RecipeAPI.get_recipe_details(recipe_name));
+    })();
+  }, []);
+
+  React.useEffect(() => {
+    if(recipe_data)
+      set_component(
+        <>
+          <h1>{recipe_data?.name}</h1>
+          <p>{recipe_data?.desc}</p>
+          <ul>
+            {recipe_data?.ingredients.map(ingredient => {
+              return (<li key={ingredient.name}>
+                {ingredient.measure + ' ' + ingredient.unit + ' ' + ingredient.name}
+              </li>);
+            })}
+          </ul>
+          <ol>
+            {recipe_data.steps.map(step => {
+              return (<li key={step}>
+                {step}
+              </li>);
+            })}
+          </ol>
+          <ul>
+            {recipe_data.groups.map(group => {
+              return (<li key={group.name}>
+                {group.name + ': ' + group.desc}
+              </li>);
+            })}
+          </ul>
+        </>
+      );
+  }, [recipe_data])
 
   return (
-    <main>{JSON.stringify(recipe_data)}</main>
+    <main>
+      {rendered_component}
+    </main>
   );
 }
 
 export default RecipePage
 
-export const Head = () => <title>Page</title>
+export const Head = () => <title>{recipe_name} Recipe</title>
