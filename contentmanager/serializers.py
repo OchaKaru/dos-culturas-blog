@@ -2,6 +2,11 @@ from rest_framework import serializers
 from .models import *
 
 class RecipeSerializer(serializers.ModelSerializer):
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['pk'] = str(representation['pk'])   
+        return representation
+
     class Meta:
         model = Recipe
         fields = (
