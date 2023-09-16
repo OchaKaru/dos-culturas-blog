@@ -22,7 +22,7 @@ export default class RecipeCard extends React.Component {
 
     render() {
         return (
-            <Link className='recipe-card' to="/recipe/" state={{'recipe_clicked': this.state.name}}>
+            <Link className='recipe-card' to="/recipe/" state={{'recipe_clicked': this.state.id}}>
                 <img src={this.state.image} alt={this.state.description} />
                 <h2>{this.state.name}</h2>
                 <p>{this.state.description}</p>

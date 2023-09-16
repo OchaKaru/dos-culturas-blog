@@ -6,18 +6,19 @@ const RecipePage = ({location: {state}}) => {
   const [recipe_data, set_recipe_data] = React.useState(undefined);
   const [rendered_component, set_component] = React.useState(<></>)
 
-  let recipe_name = state.recipe_clicked;
+  let recipe_id = state.recipe_clicked;
 
   React.useEffect(() => {
     (async () => {
-      set_recipe_data(await RecipeAPI.get_recipe_details(recipe_name));
+      set_recipe_data(await RecipeAPI.get_recipe_details(recipe_id));
     })();
-  }, [recipe_name]);
+  }, [recipe_id]);
 
   React.useEffect(() => {
     if(recipe_data)
       set_component(
         <>
+          <img />
           <h1>{recipe_data?.name}</h1>
           <p>{recipe_data?.desc}</p>
           <ul>

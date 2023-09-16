@@ -27,7 +27,7 @@ export default class Pagifier extends React.Component {
         let page_size = 9;
         for(let i = 0; i < data.length; i += page_size) {
             const chunk = data.slice(i, i + page_size);
-            page_list.push(<Page key={i} data={chunk} />);
+            page_list.push(<Page key={i} display={false} data={chunk} />);
         }
 
         return page_list;
@@ -87,6 +87,8 @@ export default class Pagifier extends React.Component {
     }
 
     render() {
+        // change_page(0);
+
         return (
             <div>
                 <div className='page-container'>
