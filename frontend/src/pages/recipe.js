@@ -1,17 +1,18 @@
 import * as React from "react"
+
 import RecipeAPI from "../api/recipeapi";
 
-let recipe_name = 'Elote'
-
-const RecipePage = () => {
+const RecipePage = ({location: {state}}) => {
   const [recipe_data, set_recipe_data] = React.useState(undefined);
   const [rendered_component, set_component] = React.useState(<></>)
+
+  let recipe_name = state.recipe_clicked;
 
   React.useEffect(() => {
     (async () => {
       set_recipe_data(await RecipeAPI.get_recipe_details(recipe_name));
     })();
-  }, []);
+  }, [recipe_name]);
 
   React.useEffect(() => {
     if(recipe_data)
@@ -42,7 +43,7 @@ const RecipePage = () => {
           </ul>
         </>
       );
-  }, [recipe_data])
+  }, [recipe_data]);
 
   return (
     <main>
@@ -53,4 +54,4 @@ const RecipePage = () => {
 
 export default RecipePage
 
-export const Head = () => <title>{recipe_name} Recipe</title>
+export const Head = () => <title>Recipe Page</title>
