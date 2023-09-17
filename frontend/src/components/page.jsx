@@ -19,10 +19,6 @@ export default class Page extends React.Component {
         return card_list;
     }
 
-    // should_display() {
-    //     return this.props.display ? "display: block;" : "display: none;";
-    // }
-
     render() {
         return (
             <div className='page'>
