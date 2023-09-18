@@ -1,14 +1,14 @@
 import axios from 'axios';
 import auth from '../../../sessions/api/auth.json';
 
-import {GET_RECIPE_DETAILS_BY_ID, GET_ALL_GROUPS, GET_ALL_RECIPES, GET_RECIPES_BY_GROUP} from './urls';
+import {GET_ALL_RECIPES, GET_RECIPES_BY_GROUP, GET_GROUPS_BY_TYPE, GET_FEATURED_RECIPES, GET_RECIPE_DETAILS_BY_ID} from './urls';
 
 let instance;
 
 class RecipeAPI {
-    recipe
-    group_list
-    recipe_list
+    recipe;
+    group_list;
+    recipe_list;
 
     set_recipe_data(data) {
         this.recipe = data
@@ -33,7 +33,7 @@ class RecipeAPI {
     }
 
     async get_groups() {
-        await axios.get(GET_ALL_GROUPS, {headers: {
+        await axios.get(GET_GROUPS_BY_TYPE, {headers: {
             'Authorization': `Token ${auth.token}`
         }}).then(response => {
             this.set_group_list(response.data.data)
@@ -42,8 +42,18 @@ class RecipeAPI {
         return this.group_list
     }
 
-    async get_recipes() {
-        await axios.get(GET_ALL_RECIPES, {headers: {
+    async get_recipes(group) {
+        if(!group) {
+            await axios.get(GET_ALL_RECIPES, {headers: {
+                'Authorization': `Token ${auth.token}`
+            }}).then(response => {
+                this.set_recipe_list(response.data.data)
+            })
+    
+            return this.recipe_list
+        }
+
+        await axios.get(GET_RECIPES_BY_GROUP + group, {headers: {
             'Authorization': `Token ${auth.token}`
         }}).then(response => {
             this.set_recipe_list(response.data.data)
@@ -52,8 +62,8 @@ class RecipeAPI {
         return this.recipe_list
     }
 
-    async get_recipes_by_group(group) {
-        await axios.get(GET_RECIPES_BY_GROUP + group, {headers: {
+    async get_featured() {
+        await axios.get(GET_FEATURED_RECIPES, {headers: {
             'Authorization': `Token ${auth.token}`
         }}).then(response => {
             this.set_recipe_list(response.data.data)
@@ -63,6 +73,6 @@ class RecipeAPI {
     }
 }
 
-instance = new RecipeAPI()
+instance = new RecipeAPI();
 
-export default instance
+export default instance;

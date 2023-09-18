@@ -132,18 +132,18 @@ def get_random_recipes(request) -> Response:
 
 # this function should be used to get all the groups separated by types
 @api_view(['GET'])
-@authentication_classes([TokenAuthentication])
-@permission_classes([IsAuthenticated])
+# @authentication_classes([TokenAuthentication])
+# @permission_classes([IsAuthenticated])
 def get_groups_by_type(request):
     if request.method == 'GET':
-        group_types = ['']
+        group_types = ['Main Ingredient', 'Dietary Restriction', 'Culture', 'Cooking Method']
 
-        query_set = []
+        groups = {}
         for group_type in group_types:
-            query_set.extend(Group.objects.filter(group_type = group_type))
+            query_set = Group.objects.filter(group_type = group_type)
+            groups[group_type] = GroupSerializer(query_set, context = {'request': request}, many = True).data
 
-        serializer = GroupSerializer(query_set, context = {'request': request}, many = True)
-        return Response(serializer.data)
+        return Response(groups)
 
 # this function should only be used by the backend,
 # so the endpoint will be modified along with the
