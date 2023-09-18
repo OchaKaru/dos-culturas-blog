@@ -82,16 +82,3 @@ export default class Pagifier extends React.Component {
         );
     }
 }
-
-/*
-<div>
-    <Image>
-        <Filter />
-    </Image>
-    <div>
-        <Title />
-        <Subtitle />
-        <Button />
-    </div>
-</div>
-*/
