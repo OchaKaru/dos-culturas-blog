@@ -4,7 +4,7 @@ import RecipeAPI from "../api/recipeapi";
 
 const RecipePage = ({location: {state}}) => {
   const [recipe_data, set_recipe_data] = React.useState(undefined);
-  const [rendered_component, set_component] = React.useState(<></>)
+  const [image, set_image] = React.useState("")
 
   let recipe_id = state.recipe_clicked;
 
@@ -15,10 +15,14 @@ const RecipePage = ({location: {state}}) => {
   }, [recipe_id]);
 
   React.useEffect(() => {
-    if(recipe_data)
-      set_component(
-        <>
-          <img />
+    (async () => {
+      set_image(await import(`../images/${recipe_data?.image}`).default)
+    })();
+  }, [recipe_data]);
+
+  return (
+    <main>
+          <img src={image} alt={recipe_data?.desc} />
           <h1>{recipe_data?.name}</h1>
           <p>{recipe_data?.desc}</p>
           <ul>
@@ -29,26 +33,19 @@ const RecipePage = ({location: {state}}) => {
             })}
           </ul>
           <ol>
-            {recipe_data.steps.map(step => {
+            {recipe_data?.steps.map(step => {
               return (<li key={step}>
                 {step}
               </li>);
             })}
           </ol>
           <ul>
-            {recipe_data.groups.map(group => {
+            {recipe_data?.groups.map(group => {
               return (<li key={group.name}>
                 {group.name + ': ' + group.desc}
               </li>);
             })}
           </ul>
-        </>
-      );
-  }, [recipe_data]);
-
-  return (
-    <main>
-      {rendered_component}
     </main>
   );
 }

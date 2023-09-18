@@ -1,5 +1,5 @@
 import * as React from "react"
-import background from "../images/landing_page_bg.png";
+import background from "../images/dinner.png";
 
 let pageStyle = {
   backgroundImage: `url(${background})`,
