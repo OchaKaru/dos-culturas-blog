@@ -53,7 +53,12 @@ class RecipeAPI {
             return this.recipe_list
         }
 
-        await axios.get(GET_RECIPES_BY_GROUP + group, {headers: {
+        groups.forEach(group => {
+            group = group.replace(" ", "_");
+        });
+        groups = groups.join("&");
+
+        console.log(groups);
 
         await axios.get(GET_RECIPES_BY_GROUP + groups, {headers: {
             'Authorization': `Token ${auth.token}`

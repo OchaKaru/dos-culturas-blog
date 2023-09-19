@@ -1,7 +1,7 @@
 import * as React from "react";
 import Header from '../components/header';
 import AllRecipeCarousel from '../components/allrecipecarousel';
-import Pagifier from '../components/pagifier';
+import FilterAccordian from '../components/filteraccordian';
 
 import RecipeAPI from "../api/recipeapi";
 
@@ -12,22 +12,31 @@ const LibraryPage = () => {
   let [pagifier_component, set_pagifier] = React.useState(<></>);
   let [filter_list_component, set_filter_list] = React.useState(<></>);
 
-  React.useEffect(() => {
+  let [reset, set_reset] = React.useState(true);
+
+  function filter_recipes(groups) {
     (async () => {
-      set_recipe_data(await RecipeAPI.get_recipes());
-      set_group_data(await RecipeAPI.get_groups())
+      set_recipe_data(await RecipeAPI.get_recipes(groups));
     })();
-  }, []);
+  }
+
+  function reset_recipes() {
+    set_reset(true);
+  }
 
   React.useEffect(() => {
-    if(recipe_data)
-      set_pagifier(<Pagifier data={recipe_data} />);
-  }, [recipe_data]);
+    if(reset)
+      (async () => {
+        set_group_data(await RecipeAPI.get_groups());
+        set_recipe_data(await RecipeAPI.get_recipes());
+      })();
+
+    set_reset(false);
+  }, [reset]);
 
   React.useEffect(() => {
     if(group_data)
-      //<FilterAccordian data={group_data} />
-      set_filter_list(<></>);
+      set_filter_list(<FilterAccordian data={group_data} onFilter={filter_recipes}  onReset={reset_recipes} />);
   }, [group_data])
 
   React.useEffect(() => {
