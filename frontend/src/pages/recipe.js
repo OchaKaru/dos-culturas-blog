@@ -15,9 +15,10 @@ const RecipePage = ({location: {state}}) => {
   }, [recipe_id]);
 
   React.useEffect(() => {
-    (async () => {
-      set_image(await import(`../images/${recipe_data?.image}`).default)
-    })();
+    if(recipe_data)
+      (async () => {
+        set_image((await import(`../images/${recipe_data.image}`)).default)
+      })();
   }, [recipe_data]);
 
   return (
