@@ -1,5 +1,6 @@
 import * as React from "react";
 import Header from '../components/header';
+import AllRecipeCarousel from '../components/allrecipecarousel';
 import Pagifier from '../components/pagifier';
 
 import RecipeAPI from "../api/recipeapi";
@@ -28,6 +29,11 @@ const LibraryPage = () => {
       //<FilterAccordian data={group_data} />
       set_filter_list(<></>);
   }, [group_data])
+
+  React.useEffect(() => {
+    if(recipe_data)
+      set_pagifier(<AllRecipeCarousel data={recipe_data} />);
+  }, [recipe_data]);
 
   return (
     <main>
