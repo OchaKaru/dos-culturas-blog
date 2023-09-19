@@ -1,7 +1,7 @@
 import axios from 'axios';
 import auth from '../../../sessions/api/auth.json';
 
-import {GET_ALL_RECIPES, GET_RECIPES_BY_GROUP, GET_GROUPS_BY_TYPE, GET_FEATURED_RECIPES, GET_RECIPE_DETAILS_BY_ID} from './urls';
+import {GET_ALL_RECIPES, GET_RECIPES_BY_GROUP, GET_GROUPS_BY_TYPE, GET_FEATURED_RECIPES, GET_RECIPE_DETAILS_BY_ID} from './util/urls';
 
 let instance;
 
@@ -42,8 +42,8 @@ class RecipeAPI {
         return this.group_list
     }
 
-    async get_recipes(group) {
-        if(!group) {
+    async get_recipes(groups) {
+        if(!groups || groups.length === 0) {
             await axios.get(GET_ALL_RECIPES, {headers: {
                 'Authorization': `Token ${auth.token}`
             }}).then(response => {
@@ -54,6 +54,8 @@ class RecipeAPI {
         }
 
         await axios.get(GET_RECIPES_BY_GROUP + group, {headers: {
+
+        await axios.get(GET_RECIPES_BY_GROUP + groups, {headers: {
             'Authorization': `Token ${auth.token}`
         }}).then(response => {
             this.set_recipe_list(response.data.data)
