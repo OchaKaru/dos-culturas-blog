@@ -5,13 +5,16 @@ export default class FilterAccordian extends React.Component {
     constructor(props) {
         super(props);
 
-        this.filter = this.filter.bind(this);
-        this.toggle_checked = this.toggle_checked.bind(this);
+        if(props.data) {
+            this.filter = this.filter.bind(this);
+            this.reset = this.reset.bind(this);
+            this.toggle_checked = this.toggle_checked.bind(this);
 
-        this.state = {
-            "tab_list": this.tabify_data(props.data),
-            "groups_checked": new Set()
-        };
+            this.state = {
+                "tab_list": this.tabify_data(props.data),
+                "groups_checked": new Set()
+            };
+        }
     }
 
     toggle_checked(group) {
@@ -24,8 +27,18 @@ export default class FilterAccordian extends React.Component {
         this.setState({"groups_checked": groups_checked})
     }
 
+    componentDidUpdate(prevProps) {
+        if(prevProps.data !== this.props.data)
+          this.setState({"tab_list": this.tabify_data(this.props.data)});
+    }
+
     filter() {
         this.props.onFilter(Array.from(this.state.groups_checked));
+    }
+
+    reset() {
+        this.setState({"groups_checked": new Set()});
+        this.props.onReset();
     }
 
     /*
@@ -35,18 +48,29 @@ export default class FilterAccordian extends React.Component {
         let tab_list = [];
 
         ["Main Ingredient", "Dietary Restriction", "Culture", "Cooking Method"].forEach(group_type => {
-            tab_list.push(<FilterTab key={group_type} name={group_type} data={data[group_type]} onToggle={this.toggle_checked} />);
+            tab_list.push(<FilterTab key={group_type} name={group_type} length={data[group_type].length} data={data[group_type]} onToggle={this.toggle_checked} />);
         });
 
         return tab_list;
     }
 
+    display_tab() {
+        let tabs_to_display = [];
+        
+        this.state.tab_list.forEach(tab => {
+            if(tab.props.length !== 0)
+                tabs_to_display.push(tab);
+        });
+
+        return tabs_to_display;
+    }
+
     render() {
         return (
             <div>
-                {this.state.tab_list}
+                {this.display_tab()}
                 <button onClick={this.filter} >Filter Recipes</button>
-                <button onClick={this.props.onReset} >Reset Filters</button>
+                <button onClick={this.reset} >Reset Filters</button>
             </div>
         );
     }

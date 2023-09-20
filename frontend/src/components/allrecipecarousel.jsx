@@ -6,6 +6,8 @@ export default class AllRecipeCarousel extends React.Component {
         super(props);
 
         if(props.data) {
+            this.MAX_RECIPES_ON_PAGE = 9
+
             let page_list = this.pagify_data(props.data);
 
             this.change_page = this.change_page.bind(this);
@@ -23,15 +25,17 @@ export default class AllRecipeCarousel extends React.Component {
         }
     }
 
-    componentWillReceiveProps(nextProps) {
-        let page_list = this.pagify_data(nextProps.data);
+    componentDidUpdate(prevProps) {
+        if(prevProps.data !== this.props.data) {
+            let page_list = this.pagify_data(this.props.data);
 
-        this.setState({
-            'number_of_pages': page_list.length,
-            'current_page': 0,
-            'page_list': page_list,
-            'page_button_list': this.page_buttons(page_list.length)
-        });  
+            this.setState({
+                'number_of_pages': page_list.length,
+                'current_page': 0,
+                'page_list': page_list,
+                'page_button_list': this.page_buttons(page_list.length)
+            });
+        }
     }
 
     /*
@@ -41,9 +45,8 @@ export default class AllRecipeCarousel extends React.Component {
     pagify_data(data) {
         let page_list = [];
 
-        let page_size = 9;
-        for(let i = 0; i < data.length; i += page_size) {
-            const chunk = data.slice(i, i + page_size);
+        for(let i = 0; i < data.length; i += this.MAX_RECIPES_ON_PAGE) {
+            const chunk = data.slice(i, i + this.MAX_RECIPES_ON_PAGE);
             page_list.push(<AllRecipeSlide key={i} data={chunk} />);
         }
 
@@ -70,6 +73,13 @@ export default class AllRecipeCarousel extends React.Component {
         this.setState({'current_page': current_page});            
     }
 
+    display_page() {
+        if(this.state.number_of_pages === 0)
+            return <></>;
+
+        return this.state.page_list[this.state.current_page];
+    }
+
     move_left() {
         this.change_page(this.state.current_page - 1)
     }
@@ -80,11 +90,9 @@ export default class AllRecipeCarousel extends React.Component {
 
     render() {
         return (
-            <div>
-                <div className='page-container'>
-                    {this.state.page_list[this.state.current_page]}
-                </div>
-                <div className='page-button-container'>
+            <div className='allrecipecarousel'>
+                {this.display_page()}
+                <div className='buttoncontainer'>
                     {this.state.left_arrow}
                     {this.state.page_button_list}
                     {this.state.right_arrow}

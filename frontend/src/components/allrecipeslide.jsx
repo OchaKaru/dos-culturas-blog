@@ -10,6 +10,11 @@ export default class AllRecipeSlide extends React.Component {
         }
     }
 
+    componentDidUpdate(prevProps) {
+        if(prevProps.data !== this.props.data)
+            this.setState({"card_list": this.cardify_data(this.props.data)});
+    }
+
     cardify_data(data) {
         let card_list = [];
 

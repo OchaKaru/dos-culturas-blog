@@ -6,11 +6,8 @@ import FilterAccordian from '../components/filteraccordian';
 import RecipeAPI from "../api/recipeapi";
 
 const LibraryPage = () => {
-  let [recipe_data, set_recipe_data] = React.useState(undefined);
-  let [group_data, set_group_data] = React.useState(undefined);
-
-  let [pagifier_component, set_pagifier] = React.useState(<></>);
-  let [filter_list_component, set_filter_list] = React.useState(<></>);
+  let [recipe_data, set_recipe_data] = React.useState([]);
+  let [group_data, set_group_data] = React.useState({"Main Ingredient": [], "Dietary Restriction": [], "Culture": [], "Cooking Method": []});
 
   let [reset, set_reset] = React.useState(true);
 
@@ -34,21 +31,13 @@ const LibraryPage = () => {
     set_reset(false);
   }, [reset]);
 
-  React.useEffect(() => {
-    if(group_data)
-      set_filter_list(<FilterAccordian data={group_data} onFilter={filter_recipes}  onReset={reset_recipes} />);
-  }, [group_data])
-
-  React.useEffect(() => {
-    if(recipe_data)
-      set_pagifier(<AllRecipeCarousel data={recipe_data} />);
-  }, [recipe_data]);
-
   return (
     <main>
       <Header />
-      {filter_list_component}
-      {pagifier_component}
+      <div className="recipelibrary">
+        <FilterAccordian data={group_data} onFilter={filter_recipes} onReset={reset_recipes} />
+        <AllRecipeCarousel data={recipe_data} />
+      </div>
     </main>
   );
 }
