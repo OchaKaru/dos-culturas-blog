@@ -1,7 +1,7 @@
 import * as React from "react";
 import Header from '../components/header';
 import AllRecipeCarousel from '../components/allrecipecarousel';
-import FilterAccordian from '../components/filteraccordian';
+import FilterAccordion from '../components/filteraccordion';
 
 import RecipeAPI from "../api/recipeapi";
 
@@ -34,8 +34,8 @@ const LibraryPage = () => {
   return (
     <main>
       <Header />
-      <div className="recipelibrary">
-        <FilterAccordian data={group_data} onFilter={filter_recipes} onReset={reset_recipes} />
+      <div className="recipe-library">
+        <FilterAccordion data={group_data} onFilter={filter_recipes} onReset={reset_recipes} />
         <AllRecipeCarousel data={recipe_data} />
       </div>
     </main>

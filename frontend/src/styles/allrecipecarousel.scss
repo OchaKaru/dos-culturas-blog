@@ -1,45 +1,134 @@
-.allrecipecarousel {
+$recipe-card-color: rgb(228, 185, 185);
+$recipe-name-color: rgb(71, 71, 71);
+$recipe-culture-color: rgb(96, 136, 21);
+$recipe-card-radius: 5%;
+$recipe-card-shadow:
+  0px 2.8px 2.2px rgba(0, 0, 0, 0.02),
+  0px 6.7px 5.3px rgba(0, 0, 0, 0.028),
+  0px 12.5px 10px rgba(0, 0, 0, 0.035),
+  0px 22.3px 17.9px rgba(0, 0, 0, 0.042),
+  0px 41.8px 33.4px rgba(0, 0, 0, 0.05),
+  0px 100px 80px rgba(0, 0, 0, 0.07)
+;
+
+.all-recipe-carousel {
     height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    padding: 2% 2% 0 2%;
 
-    .allrecipeslide {
-        height: 100%;
-        width: 100%;
-        padding: 5%;
-        background-color: pink;
+    .all-recipe-slide {
+        height: 60%;
+        display: grid;
+        justify-content: center;
+        align-items: center;
+        place-items: center;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        column-gap: 2.5%;
+        row-gap: 2.5%;
+        padding: 0 0 100% 0;
 
-        .recipecard {
+
+        a {
+            text-decoration: none;
+        }
+
+        .recipe-card {
+            background-color: $recipe-card-color;
+            box-shadow: $recipe-card-shadow;
+            color: $recipe-name-color;
+            border-radius: $recipe-card-radius;
             height: 100%;
             width: 100%;
-            display: flex;
-            flex-direction: column;
-            flex-wrap: nowrap;
-            justify-content: flex-start;
-            align-items: center;
-            background-color: aqua;
-            text-align: center;
+            font-family: 'Roboto Slab', serif;
 
-            box-shadow: 0px 10px 20px 0px;
+            padding: 0% 0% 2.5% 0%;
         
-            img {
+            .recipe-image {
                 width: 100%;
+                margin: 0;
+                overflow: hidden;
+                border-radius: $recipe-card-radius $recipe-card-radius 0 0;
+                margin-bottom: 5%;
+
+                img {
+                    width: 100%;
+                    object-fit: cover;
+                }
             }
 
-            .recipecardtext {
-                padding: 5%;
-            }
+            .recipe-meta {
+                margin: 0 5%;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: center;
+
+                .recipe-culture {
+                    font-size: 2vh;
+                    margin: 0;
+                    padding: 2% 4%;
+                    border-radius: 15%/50%;
+                    font-weight: 600;
+                    letter-spacing: -0.25px;
+                    color: white;
+                    background-color: $recipe-culture-color;
+                }
+
+                .recipe-name {
+                    font-size: 3vh;
+                    line-height: 4vh;
+                    font-weight: 900;
+                }
+            }            
         }
     }
 
 
-    .buttoncontainer {
-        height: 100%;
-        width: 50%;
+    .page-button-container {
         display: flex;
-        justify-content: space-around;
+        align-items: center;
+        justify-content: center;
+
+        button {
+            width: 2vw;
+            text-decoration: none;
+            display: inline-block;
+            outline: none;
+            border: none;
+            background-color: none;
+            border-radius: 100%;
+            overflow: none;
+            text-align: center;
+            padding: 0;
+
+            font-size: 3vh;
+            font-family: 'Roboto Slab', serif;
+        }
+
+        button:before {
+            content: '';
+            display: inline-block;;
+            vertical-align: middle;
+        }
+
+        button:hover {
+            background-color: rgb(151, 189, 211);
+        }
+
+        button:active {
+            background-color: rgb(109, 160, 189);
+            color: white;
+        }
+
+        .active-page {
+            background-color: rgb(109, 160, 189);
+            color: white;
+        }
+
     }
 }

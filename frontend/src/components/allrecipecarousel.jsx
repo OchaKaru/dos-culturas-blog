@@ -18,9 +18,9 @@ export default class AllRecipeCarousel extends React.Component {
                 'number_of_pages': page_list.length,
                 'current_page': 0,
                 'page_list': page_list,
-                'page_button_list': this.page_buttons(page_list.length),
-                'left_arrow': <button onClick={this.move_left} >{'<'}</button>,
-                'right_arrow': <button onClick={this.move_right} >{'>'}</button>,
+                // 'page_button_list': this.page_buttons(page_list.length),
+                'left_arrow': <button onClick={this.move_left} >{'←'}</button>,
+                'right_arrow': <button onClick={this.move_right} >{'→'}</button>,
             };
         }
     }
@@ -57,7 +57,11 @@ export default class AllRecipeCarousel extends React.Component {
         let button_list = [];
 
         for(let i = 0; i < length; i++)
-            button_list.push(<button key={i} onClick={() => this.change_page(i)} >{i + 1}</button>); // just set the button as active here when we reach the page
+            button_list.push(<button 
+                key={i}
+                className={i === this.state.current_page ? 'active-page' : ''}  // just set the button as active here when we reach the page
+                onClick={() => this.change_page(i)} >{i + 1}
+            </button>);
 
         return button_list;
     }
@@ -90,11 +94,11 @@ export default class AllRecipeCarousel extends React.Component {
 
     render() {
         return (
-            <div className='allrecipecarousel'>
+            <div className='all-recipe-carousel'>
                 {this.display_page()}
-                <div className='buttoncontainer'>
+                <div className='page-button-container'>
                     {this.state.left_arrow}
-                    {this.state.page_button_list}
+                    {this.page_buttons(this.state.number_of_pages)}
                     {this.state.right_arrow}
                 </div>
             </div>

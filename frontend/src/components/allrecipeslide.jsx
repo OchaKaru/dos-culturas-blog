@@ -26,7 +26,7 @@ export default class AllRecipeSlide extends React.Component {
 
     render() {
         return (
-            <div className="allrecipeslide">
+            <div className="all-recipe-slide">
                 {this.state.card_list}
             </div>
         );

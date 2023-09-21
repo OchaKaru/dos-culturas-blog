@@ -10,7 +10,7 @@ export default class RecipeCard extends React.Component {
             'image_url': props.data.image,
             'image': "",
             'name': props.data.name,
-            'description': props.data.desc,
+            'culture': props.data.culture,
         }
     }
 
@@ -37,9 +37,14 @@ export default class RecipeCard extends React.Component {
     render() {
         return (
             <Link to="/recipe/" state={{'recipe_clicked': this.state.id}}>
-                <div className='recipecard'>
-                    <img src={this.state.image} alt={this.state.description} />
-                    <div className='recipecardtext'>{this.state.name}</div>                    
+                <div className='recipe-card'>
+                    <figure className='recipe-image'>
+                        <img src={this.state.image} alt={this.state.description} />
+                    </figure>
+                    <div className='recipe-meta'>
+                        <p className='recipe-culture'>{this.state.culture}</p>
+                        <h1 className='recipe-name'>{this.state.name}</h1>
+                    </div>
                 </div>
             </Link>
         );
