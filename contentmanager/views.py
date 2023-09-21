@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.db.models import Q
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework import status
@@ -18,13 +19,22 @@ from .serializers import *
 def get_all_recipes(request) -> Response:
     if request.method == 'GET':
         data = Recipe.objects.all()
-        serializer = RecipeSerializer(data, context = {'request': request}, many = True)
+
+        recipes = []
+        for recipe in data:
+            group = RecipeGroup.objects.filter(recipe = recipe).filter(Q(group = Group.objects.get(name = "Mexican")) | Q(group = Group.objects.get(name = "Puerto Rican")))[0]
+            recipes.append({
+                'pk': str(recipe.pk),
+                'image': recipe.image,
+                'name': recipe.name,
+                'culture': group.group.name
+            })
 
         content = {
             'user': str(request.user),
             'auth': str(request.auth),
             'status': 'request was permitted',
-            'data': serializer.data
+            'data': recipes
         }
 
         return Response(content)
@@ -103,13 +113,21 @@ def get_recipes_by_group(request, group) -> Response:
         for recipe_group in query_set:
             recipes.append(recipe_group.recipe)
 
-        serializer = RecipeSerializer(list(set(recipes)), context = {'request': request}, many = True)
+        data = []
+        for recipe in list(set(recipes)):
+            group = RecipeGroup.objects.filter(recipe = recipe).filter(Q(group = Group.objects.get(name = "Mexican")) | Q(group = Group.objects.get(name = "Puerto Rican")))[0]
+            data.append({
+                'pk': str(recipe.pk),
+                'image': recipe.image,
+                'name': recipe.name,
+                'culture': group.group.name
+            })
 
         content = {
             'user': str(request.user),
             'auth': str(request.auth),
             'status': 'request was permitted',
-            'data': serializer.data
+            'data': data
         }
 
         return Response(content)
