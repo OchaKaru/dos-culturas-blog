@@ -1,0 +1,95 @@
+.filter-accordion {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Roboto Slab', serif;
+
+    .filter-tab {
+        width: 100%;
+
+        .accordion-button {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 3vh;
+            background-color: rgb(192, 182, 154);
+            color: rgb(37, 37, 37);
+            font-family: 'Roboto Slab', serif;
+            text-align: left;
+        }
+
+        .accordion-button:after {
+            content: '+';
+            opacity: 50%;
+            float: right;
+        }
+
+        .accordion-button:hover {
+            color: white;
+            background-color: rgb(151, 142, 116);
+        }
+
+        .active {
+            color: white;
+            background-color: rgb(151, 142, 116);
+        }
+
+        .active:after {
+            content: '-';
+        }
+
+        .active:hover {
+            background-color: rgb(192, 182, 154);
+        }
+
+        .accordion-panel {
+            background-color: rgb(231, 229, 222);
+
+            .filter-label {
+                font-size: 2vh;
+                vertical-align: middle;
+
+                input {
+                    height: 2vh;
+                    width: 2vh;
+                    background-color: #ccc;
+                    appearance: none;
+                    vertical-align: middle;
+                    border: solid rgb(92, 92, 92);
+                }
+
+                input:hover {
+                    background-color: #fff;                    
+                }
+
+                input:checked {
+                    background-color: rgb(70, 70, 70);
+                }
+            }
+        }
+    }
+
+    .filter-button-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        button {
+            width: 100%;
+            font-size: 2vh;
+            font-family: 'Roboto Slab', serif;
+            color: white;
+            background-color: rgb(105, 124, 105);
+            border: none;
+            outline: none;
+        }
+
+        button:hover {
+            background-color: rgb(147, 167, 147);
+        }
+
+        button:active {
+            background-color: rgb(115, 126, 115);
+        }
+    }
+}

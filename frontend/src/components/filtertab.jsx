@@ -10,7 +10,8 @@ export default class FilterTab extends React.Component {
         this.state = {
             "name": props.name,
             "label_list": this.labelify_data(props.data),
-            "display": "none"
+            "display": "none",
+            "active": false,
         };
     }
 
@@ -32,19 +33,26 @@ export default class FilterTab extends React.Component {
             });
     }
 
+    is_active() {
+        return this.state.active ? ' active' : '';
+    }
+
     toggle() {
         console.log("toggle");
-        if(this.state.display === "none")
+        if(this.state.display === "none") {
             this.setState({"display": "block"});
-        else
+            this.setState({'active': true})
+        } else {
             this.setState({"display": "none"});
+            this.setState({'active': false})
+        }
     }
 
     render() {
         return (
-            <div className='filtertab'>
-                <button className='accordian' onClick={this.toggle} >{this.state.name}</button>
-                <div className='accordianpanel' style={{"display": this.state.display}}>
+            <div className='filter-tab'>
+                <button className={'accordion-button' + this.is_active()} onClick={this.toggle} >{this.state.name}</button>
+                <div className='accordion-panel' style={{"display": this.state.display}}>
                     {this.state.label_list}
                 </div>
             </div>

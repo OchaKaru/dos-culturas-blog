@@ -1,7 +1,7 @@
 import * as React from 'react';
 import FilterTab from './filtertab';
 
-export default class FilterAccordian extends React.Component {
+export default class FilterAccordion extends React.Component {
     constructor(props) {
         super(props);
 
@@ -67,10 +67,12 @@ export default class FilterAccordian extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className='filter-accordion'>
                 {this.display_tab()}
-                <button onClick={this.filter} >Filter Recipes</button>
-                <button onClick={this.reset} >Reset Filters</button>
+                <div className='filter-button-container'>
+                    <button onClick={this.filter} >Filter Recipes</button>
+                    <button onClick={this.reset} >Reset Filters</button>
+                </div>
             </div>
         );
     }

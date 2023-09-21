@@ -29,7 +29,7 @@ export default class FilterLabel extends React.Component {
 
     render() {
         return (
-            <div className='filterlabel'>
+            <div className='filter-label'>
                 <input id={this.state.name} type="checkbox" checked={this.state.checked} onChange={this.toggle} />
                 <label htmlFor={this.state.name}>{this.state.name}</label>
             </div>
