@@ -74,7 +74,7 @@ export default class AllRecipeCarousel extends React.Component {
         if(current_page >= this.state.number_of_pages - 1)
             current_page = this.state.number_of_pages - 1;
 
-        this.setState({'current_page': current_page});            
+        this.setState({'current_page': current_page});     
     }
 
     display_page() {
