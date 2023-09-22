@@ -1,90 +1,34 @@
-$recipe-card-color: rgb(228, 185, 185);
-$recipe-name-color: rgb(71, 71, 71);
-$recipe-culture-color: rgb(96, 136, 21);
-$recipe-card-radius: 5%;
-$recipe-card-shadow:
-  0px 2.8px 2.2px rgba(0, 0, 0, 0.02),
-  0px 6.7px 5.3px rgba(0, 0, 0, 0.028),
-  0px 12.5px 10px rgba(0, 0, 0, 0.035),
-  0px 22.3px 17.9px rgba(0, 0, 0, 0.042),
-  0px 41.8px 33.4px rgba(0, 0, 0, 0.05),
-  0px 100px 80px rgba(0, 0, 0, 0.07)
+@import 'colors';
+@import 'recipe-card';
+
+$button-color:
+    radial-gradient(49% 81% at 45% 47%, $pale-azure 0%, #00000000 100%),
+    radial-gradient(113% 91% at 17% -2%, $uranian-blue 1%, #00000000 99%),
+    radial-gradient(142% 91% at 83% 7%, $pale-azure 1%, #00000000 99%),
+    radial-gradient(142% 91% at -6% 74%, $uranian-blue 1%, #00000000 99%),
+    radial-gradient(142% 91% at 111% 84%, $pale-azure 0%, $air-force-blue 100%)
 ;
 
 .all-recipe-carousel {
-    height: 100%;
-    width: 100%;
+    width: 70vw;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    padding: 2% 2% 0 2%;
+    padding: 2vh 2vw;
 
     .all-recipe-slide {
-        height: 60%;
         display: grid;
         justify-content: center;
         align-items: center;
         place-items: center;
         grid-template-columns: 1fr 1fr 1fr;
         grid-template-rows: 1fr 1fr 1fr;
-        column-gap: 2.5%;
-        row-gap: 2.5%;
-        padding: 0 0 100% 0;
-
+        column-gap: 2vw;
+        row-gap: 2vh;
 
         a {
             text-decoration: none;
-        }
-
-        .recipe-card {
-            background-color: $recipe-card-color;
-            box-shadow: $recipe-card-shadow;
-            color: $recipe-name-color;
-            border-radius: $recipe-card-radius;
-            height: 100%;
-            width: 100%;
-            font-family: 'Roboto Slab', serif;
-
-            padding: 0% 0% 2.5% 0%;
-        
-            .recipe-image {
-                width: 100%;
-                margin: 0;
-                overflow: hidden;
-                border-radius: $recipe-card-radius $recipe-card-radius 0 0;
-                margin-bottom: 5%;
-
-                img {
-                    width: 100%;
-                    object-fit: cover;
-                }
-            }
-
-            .recipe-meta {
-                margin: 0 5%;
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-                justify-content: center;
-
-                .recipe-culture {
-                    font-size: 2vh;
-                    margin: 0;
-                    padding: 2% 4%;
-                    border-radius: 15%/50%;
-                    font-weight: 600;
-                    letter-spacing: -0.25px;
-                    color: white;
-                    background-color: $recipe-culture-color;
-                }
-
-                .recipe-name {
-                    font-size: 3vh;
-                    line-height: 4vh;
-                    font-weight: 900;
-                }
-            }            
         }
     }
 
@@ -92,7 +36,7 @@ $recipe-card-shadow:
     .page-button-container {
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: space-around;
 
         button {
             width: 2vw;
@@ -100,11 +44,12 @@ $recipe-card-shadow:
             display: inline-block;
             outline: none;
             border: none;
-            background-color: none;
+            background: none;
             border-radius: 100%;
             overflow: none;
             text-align: center;
             padding: 0;
+            margin: 0 1vw;
 
             font-size: 3vh;
             font-family: 'Roboto Slab', serif;
@@ -117,17 +62,40 @@ $recipe-card-shadow:
         }
 
         button:hover {
-            background-color: rgb(151, 189, 211);
+            background: $button-color;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+        }
+
+        button:hover:before {
+            content: "";
+            position: absolute;
+            border-radius: 100%;
+            padding: 0;
+            inset: 0;
+            border: thin solid transparent;
+            background: $button-color border-box;
+            mask:
+               linear-gradient(#fff 0 0) padding-box, 
+               linear-gradient(#fff 0 0)
+            ;
+            mask-composite: exclude;
         }
 
         button:active {
-            background-color: rgb(109, 160, 189);
-            color: white;
+            background: $button-color;
+            color: $jet;
         }
 
         .active-page {
-            background-color: rgb(109, 160, 189);
-            color: white;
+            background: $button-color;
+            color: $jet;
+        }
+
+        .active-page:hover {
+            background: $button-color;
+            color: $jet;
         }
 
     }

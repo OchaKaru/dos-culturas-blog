@@ -1,21 +1,36 @@
+@import 'colors';
+@import 'fonts';
+
+$accordion-color:
+    radial-gradient(49% 81% at 45% 47%, $dim-grey 0%, #00000000 100%),
+    radial-gradient(113% 91% at 17% -2%, $davy-grey 1%, #00000000 99%),
+    radial-gradient(142% 91% at 83% 7%, $davy-grey 1%, #00000000 99%),
+    radial-gradient(142% 91% at -6% 74%, $dim-grey 1%, #00000000 99%),
+    radial-gradient(142% 91% at 111% 84%, $davy-grey 0%, $jet 100%)
+;
+$panel-color: linear-gradient($davy-grey 0%, #00000000 50%);
+$button-color: linear-gradient(150deg, $terracotta 0%, $light-red 50%, $redwood 100%);
+
 .filter-accordion {
-    width: 40%;
+    width: 30vw;
     display: flex;
     flex-direction: column;
-    font-family: 'Roboto Slab', serif;
+    font-family: $primary-font;
+    margin: 0;
+    background: $accordion-color;
 
     .filter-tab {
-        width: 100%;
-
         .accordion-button {
-            border: none;
-            outline: none;
             width: 100%;
+            border: thin solid $jet;
+            outline: none;
             font-size: 3vh;
-            background-color: rgb(192, 182, 154);
-            color: rgb(37, 37, 37);
+            background: none;
+            color: $magnolia;
             font-family: 'Roboto Slab', serif;
             text-align: left;
+            padding: 1vh 1vw;
+            margin: 0;
         }
 
         .accordion-button:after {
@@ -24,72 +39,68 @@
             float: right;
         }
 
-        .accordion-button:hover {
-            color: white;
-            background-color: rgb(151, 142, 116);
-        }
-
-        .active {
-            color: white;
-            background-color: rgb(151, 142, 116);
-        }
-
         .active:after {
             content: '-';
         }
 
-        .active:hover {
-            background-color: rgb(192, 182, 154);
-        }
-
         .accordion-panel {
-            background-color: rgb(231, 229, 222);
+            width: 100%;
+            background: $panel-color;
 
             .filter-label {
                 font-size: 2vh;
                 vertical-align: middle;
+                color: $french-grey;
 
                 input {
+                    margin: 1vh 1vw;
                     height: 2vh;
                     width: 2vh;
-                    background-color: #ccc;
+                    background: $french-grey;
                     appearance: none;
                     vertical-align: middle;
-                    border: solid rgb(92, 92, 92);
+                    border: thin solid $jet;
                 }
 
                 input:hover {
-                    background-color: #fff;                    
+                    background: $magnolia;                    
                 }
 
                 input:checked {
-                    background-color: rgb(70, 70, 70);
+                    background: $dim-grey;
                 }
             }
         }
     }
 
     .filter-button-container {
+        padding-top: 2vh;
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: space-around;
+        border-top: thin solid $jet;
 
         button {
-            width: 100%;
+            padding: 1vh 1vw;
             font-size: 2vh;
             font-family: 'Roboto Slab', serif;
-            color: white;
-            background-color: rgb(105, 124, 105);
-            border: none;
+            font-weight: 600;
+            color: transparent;
+            background: $button-color;
+            background-clip: text;
+            border: thin solid;
+            border-image: $button-color 5;
             outline: none;
         }
 
         button:hover {
-            background-color: rgb(147, 167, 147);
+            background: $button-color;
+            color: $jet;
         }
 
         button:active {
-            background-color: rgb(115, 126, 115);
+            background-clip: text;
+            color: transparent;
         }
     }
 }

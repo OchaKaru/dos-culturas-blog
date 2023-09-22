@@ -1,0 +1,55 @@
+@import 'colors';
+@import 'fonts';
+
+$header-color:
+    radial-gradient(49% 81% at 45% 47%, $pale-azure 0%, #00000000 100%),
+    radial-gradient(113% 91% at 17% -2%, $uranian-blue 1%, #00000000 99%),
+    radial-gradient(142% 91% at 83% 7%, $pale-azure 1%, #00000000 99%),
+    radial-gradient(142% 91% at -6% 74%, $uranian-blue 1%, #00000000 99%),
+    radial-gradient(142% 91% at 111% 84%, $pale-azure 0%, $air-force-blue 100%)
+;
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    background: $header-color;
+    height: 6vh;
+
+    .header-logo {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin: 0 1vw;
+
+        img {
+            height: 60%;
+            padding: 1vh 1vw;
+            opacity: 50%;
+        }
+
+        h1 {
+            font-size: 3vh;
+            color: $jet;
+        }
+    }
+
+    .nav-links {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+            padding: 0;
+            margin: 0 2vw;
+            font-size: 2vh;
+
+            a {
+                text-decoration: none;
+                color: $jet;
+            }
+        }
+    }
+}
