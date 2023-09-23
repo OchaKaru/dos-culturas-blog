@@ -19,8 +19,8 @@ export default class AllRecipeCarousel extends React.Component {
                 'current_page': 0,
                 'page_list': page_list,
                 // 'page_button_list': this.page_buttons(page_list.length),
-                'left_arrow': <button onClick={this.move_left} >{'←'}</button>,
-                'right_arrow': <button onClick={this.move_right} >{'→'}</button>,
+                'left_arrow': <button onClick={this.move_left} >{'◀'}</button>,
+                'right_arrow': <button onClick={this.move_right} >{'▶'}</button>,
             };
         }
     }

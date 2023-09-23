@@ -1,19 +1,28 @@
-$magnolia: #E8E2EB; // light background / light text color
-$french-grey: #BEB7C0; // light background gradient
+@use 'sass:color';
 
-$taupe-grey: #938C95;
-$dim-grey: #68616A;
-$davy-grey: #534C55;
-$jet: #3d363f; // dark background / dark text color
+@function radial-background($primary) {
+    $light: adjust-color($primary, $hue: -24deg, $saturation: -10%, $lightness: 6%);
+    $dark: adjust-color($primary, $hue: 24deg, $saturation: 10%, $lightness: -6%);
 
-$light-red: #FF6B6B; // primary
-$terracotta: #CF5E60;
-$redwood: #9E5155; // primary gradient
+    @return
+        radial-gradient(49% 81% at 45% 47%, adjust-color($light, $alpha: -0.73) 0%, #0000 100%),
+        radial-gradient(113% 91% at 17% -2%, $primary 0%, #0000 100%),
+        radial-gradient(142% 91% at 83% 7%, $light 0%, #0000 100%),
+        radial-gradient(142% 91% at -6% 74%, adjust-color($dark, $hue: -24deg) 0%, #0000 100%),
+        radial-gradient(142% 100% at 111% 84%, $dark 0%, $primary 100%)
+    ;
+}
 
-$asparagus: #629460; // secondary
-$cambridge-blue: #81A080; //secondary gradient light
-$feldgrau: #506550; // secondary gradient dark
+$eerie-black: #252525ff;
+$davys-gray: #545454ff;
+$gray: #828282ff;
+$light-gray: #bebebeff;
+$platinum: #dfdfdfff;
 
-$uranian-blue: #A6DAF5;
-$pale-azure: #63D2FF;
-$air-force-blue: #50849F;
+// primary color
+$verdigris: #61bdb1ff;
+$verdigris-gradient: radial-background($verdigris);
+
+// accent color
+$light-coral: #e47979ff;
+$light-coral-gradient: radial-background($light-coral);

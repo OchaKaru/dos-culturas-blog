@@ -1,13 +1,7 @@
 @import 'colors';
 @import 'fonts';
 
-$header-color:
-    radial-gradient(49% 81% at 45% 47%, $pale-azure 0%, #00000000 100%),
-    radial-gradient(113% 91% at 17% -2%, $uranian-blue 1%, #00000000 99%),
-    radial-gradient(142% 91% at 83% 7%, $pale-azure 1%, #00000000 99%),
-    radial-gradient(142% 91% at -6% 74%, $uranian-blue 1%, #00000000 99%),
-    radial-gradient(142% 91% at 111% 84%, $pale-azure 0%, $air-force-blue 100%)
-;
+$header-color: none;
 
 .header {
     display: flex;
@@ -29,7 +23,7 @@ $header-color:
 
         h1 {
             font-size: 3vh;
-            color: $jet;
+            color: $eerie-black;
         }
     }
 
@@ -39,16 +33,25 @@ $header-color:
         align-items: center;
         list-style-type: none;
         padding: 0;
-        margin: 0;
+        margin: 0 2vw 0 0;
 
         li {
-            padding: 0;
-            margin: 0 2vw;
+            margin: 0 1vw;
             font-size: 2vh;
 
             a {
+                padding: 1vh 1vw;
                 text-decoration: none;
-                color: $jet;
+                color: $eerie-black;
+                border-radius: 10vh;
+            }
+
+            a:hover {
+                background-color: adjust-color($platinum, $alpha: -0.75);
+            }
+    
+            a:active {
+                background-color: adjust-color($platinum, $alpha: -0.5);
             }
         }
     }

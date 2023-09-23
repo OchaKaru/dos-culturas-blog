@@ -1,13 +1,7 @@
 @import 'colors';
 @import 'fonts';
 
-$background-color:
-    radial-gradient(49% 81% at 45% 47%, $jet 0%, #00000000 100%),
-    radial-gradient(113% 91% at 17% -2%, $davy-grey 1%, #00000000 99%),
-    radial-gradient(142% 91% at 83% 7%, $davy-grey 1%, #00000000 99%),
-    radial-gradient(142% 91% at -6% 74%, $jet 1%, #00000000 99%),
-    radial-gradient(142% 91% at 111% 84%, $davy-grey 0%, $dim-grey 100%)
-;
+$background-color: $verdigris-gradient; //radial-background($gray);
 
 html, body {
     font-family: $primary-font;
@@ -18,4 +12,21 @@ html, body {
     padding: 0;
     overflow-x: hidden;
     user-select: none;
+
+    ::-webkit-scrollbar {
+        width: 0.5vw;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: none;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: $davys-gray;
+        border-radius: 10vw;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: $gray;
+    }
 }

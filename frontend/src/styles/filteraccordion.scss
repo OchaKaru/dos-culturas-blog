@@ -1,106 +1,175 @@
 @import 'colors';
 @import 'fonts';
 
-$accordion-color:
-    radial-gradient(49% 81% at 45% 47%, $dim-grey 0%, #00000000 100%),
-    radial-gradient(113% 91% at 17% -2%, $davy-grey 1%, #00000000 99%),
-    radial-gradient(142% 91% at 83% 7%, $davy-grey 1%, #00000000 99%),
-    radial-gradient(142% 91% at -6% 74%, $dim-grey 1%, #00000000 99%),
-    radial-gradient(142% 91% at 111% 84%, $davy-grey 0%, $jet 100%)
-;
-$panel-color: linear-gradient($davy-grey 0%, #00000000 50%);
-$button-color: linear-gradient(150deg, $terracotta 0%, $light-red 50%, $redwood 100%);
+$accordion-color: none;
+$panel-color: none;
+$button-color: radial-background($eerie-black);
+
+$font-color: $eerie-black;
 
 .filter-accordion {
-    width: 30vw;
     display: flex;
-    flex-direction: column;
-    font-family: $primary-font;
-    margin: 0;
-    background: $accordion-color;
+    align-items: center;
+    margin-right: -1.5vw;
 
-    .filter-tab {
-        .accordion-button {
-            width: 100%;
-            border: thin solid $jet;
-            outline: none;
-            font-size: 3vh;
-            background: none;
-            color: $magnolia;
-            font-family: 'Roboto Slab', serif;
-            text-align: left;
-            padding: 1vh 1vw;
-            margin: 0;
-        }
+    .accordian-menu {
+        width: 20vw;
+        height: 94vh;
+        align-self: flex-start;
+        // display: flex;
+        // flex-direction: column;
+        font-family: $primary-font;
+        margin: 0;
+        background: $accordion-color;
 
-        .accordion-button:after {
-            content: '+';
-            opacity: 50%;
-            float: right;
-        }
+        overflow-x: hidden;
+        overflow-y: auto;
 
-        .active:after {
-            content: '-';
-        }
+        transition: width 0.2s ease-out;
 
-        .accordion-panel {
-            width: 100%;
-            background: $panel-color;
-
-            .filter-label {
+        .filter-tab {
+            .accordion-button {
+                width: 100%;
+                border-radius: 15vw/25vh;
+                border: none;
+                outline: none;
                 font-size: 2vh;
-                vertical-align: middle;
-                color: $french-grey;
+                background: none;
+                color: $font-color;
+                font-family: 'Roboto Slab', serif;
+                text-align: left;
+                padding: 1vh 1vw;
+                margin: 0;
+            }
+    
+            .accordion-button:hover {
+                background-color: adjust-color($platinum, $alpha: -0.75);
+            }
 
-                input {
-                    margin: 1vh 1vw;
-                    height: 2vh;
-                    width: 2vh;
-                    background: $french-grey;
-                    appearance: none;
+            .accordion-button:active {
+                background-color: adjust-color($platinum, $alpha: -0.5);
+            }
+    
+            .accordion-button:after {
+                content: '▾';
+                float: right;
+            }
+    
+            .active:after {
+                content: '▴';
+            }
+    
+            .accordion-panel {
+                width: 100%;
+                background: $panel-color;
+    
+                .filter-label {
+                    font-size: 2vh;
                     vertical-align: middle;
-                    border: thin solid $jet;
+                    color: $font-color;
+    
+                    input {
+                        margin: 1vh 1vw;
+                        height: 2vh;
+                        width: 2vh;
+                        background: $light-gray;
+                        appearance: none;
+                        vertical-align: middle;
+                        border: .1vh solid $font-color;
+                    }
+    
+                    input:hover {
+                        background: $platinum;                    
+                    }
+    
+                    input:checked {
+                        background: $font-color;
+                    }
                 }
+            }
+        }
+    
+        .filter-button-container {
+            padding-top: 2vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
 
-                input:hover {
-                    background: $magnolia;                    
-                }
+            button {
+                padding: 1vh 1vw;
+                font-size: 1.5vh;
+                font-family: 'Roboto Slab', serif;
+                font-weight: 600;
+                border-radius: 3vh;
+                outline: none;
+                border: none;
+            }
+    
+            .filter-button {
+                background: $button-color;
+                color: $verdigris;
+                position: relative;
+            }
+    
+            .filter-button:hover {
+                background: adjust-color($eerie-black, $lightness: 10%);
+            }
+    
+            .filter-button:active {
+                background: adjust-color($eerie-black, $lightness: 20%);
+            }
 
-                input:checked {
-                    background: $dim-grey;
-                }
+            .reset-button {
+                position: relative;
+                background: $button-color;
+                background-clip: text;
+                color: transparent;
+            }
+
+            .reset-button:hover {
+                background: $button-color;
+                color: $verdigris;
+            }
+
+            .reset-button:active {
+                background: adjust-color($eerie-black, $lightness: 10%);
+            }
+
+            .reset-button:before {
+                content: "";
+                position: absolute;
+                border-radius: 10vh;
+                padding: 0;
+                inset: 0;
+                border: .1vh solid transparent;
+                background: $button-color border-box;
+                mask:
+                   linear-gradient(#fff 0 0) padding-box, 
+                   linear-gradient(#fff 0 0)
+                ;
+                mask-composite: exclude;
             }
         }
     }
 
-    .filter-button-container {
-        padding-top: 2vh;
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        border-top: thin solid $jet;
+    .collapse-button {
+        width: 1.5vw;
+        height: 6vh;
+        outline: none;
+        border: none;
+        border-radius: 0 20vh 20vh 0;
+        background: $verdigris-gradient;
+        // border-left: .1vh solid $davys-gray;
+        z-index: 100;
+        font-size: 1.5vh;
+        text-align: left;
+    }
 
-        button {
-            padding: 1vh 1vw;
-            font-size: 2vh;
-            font-family: 'Roboto Slab', serif;
-            font-weight: 600;
-            color: transparent;
-            background: $button-color;
-            background-clip: text;
-            border: thin solid;
-            border-image: $button-color 5;
-            outline: none;
-        }
+    .collapse-button:hover {
+        background: radial-background(adjust-color($verdigris, $lightness: 10%));
+    }
 
-        button:hover {
-            background: $button-color;
-            color: $jet;
-        }
-
-        button:active {
-            background-clip: text;
-            color: transparent;
-        }
+    .collapse-button:active {
+        background: radial-background(adjust-color($verdigris, $lightness: 15%));
     }
 }

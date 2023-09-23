@@ -1,6 +1,8 @@
-$recipe-card-color: linear-gradient(150deg, $magnolia 0%, $french-grey 100%);
-$recipe-name-color: $jet;
-$recipe-culture-color: linear-gradient(120deg, $asparagus 0%, $cambridge-blue 50%, $feldgrau 100%);
+@import 'colors';
+
+$recipe-card-color: radial-background($platinum);
+$recipe-name-color: $eerie-black;
+$recipe-culture-color: $light-coral-gradient;
 $recipe-card-width: 20vw;
 $recipe-card-radius: 2vh;
 
@@ -10,13 +12,13 @@ $recipe-card-radius: 2vh;
     border-radius: $recipe-card-radius;
     width: $recipe-card-width;
     padding: 0;
+    overflow: hidden;
 
     .recipe-image {
         width: 100%;
         margin: 0;
         overflow: hidden;
-        border-radius: $recipe-card-radius $recipe-card-radius 0 0;
-        margin-bottom: 2vh;
+        // border-radius: $recipe-card-radius $recipe-card-radius 0 0;
 
         img {
             width: 100%;
@@ -25,7 +27,7 @@ $recipe-card-radius: 2vh;
     }
 
     .recipe-meta {
-        margin: 0 1vw;
+        margin: 2vh 1vw;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
@@ -35,7 +37,7 @@ $recipe-card-radius: 2vh;
             font-size: 2vh;
             margin: 0;
             padding: 1vh 1vw;
-            border-radius: 15vw/25vh;
+            border-radius: 10vh;
             font-weight: 600;
             color: white;
             background: $recipe-culture-color;
@@ -47,4 +49,12 @@ $recipe-card-radius: 2vh;
             font-weight: 900;
         }
     }            
+}
+
+.recipe-card:hover {
+    background: radial-background(adjust-color($platinum, $lightness: 5%));
+}
+
+.recipe-card:active {
+    background: radial-background(adjust-color($platinum, $lightness: 10%));
 }

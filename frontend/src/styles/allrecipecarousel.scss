@@ -1,21 +1,22 @@
 @import 'colors';
 @import 'recipe-card';
 
-$button-color:
-    radial-gradient(49% 81% at 45% 47%, $pale-azure 0%, #00000000 100%),
-    radial-gradient(113% 91% at 17% -2%, $uranian-blue 1%, #00000000 99%),
-    radial-gradient(142% 91% at 83% 7%, $pale-azure 1%, #00000000 99%),
-    radial-gradient(142% 91% at -6% 74%, $uranian-blue 1%, #00000000 99%),
-    radial-gradient(142% 91% at 111% 84%, $pale-azure 0%, $air-force-blue 100%)
-;
+$recipe-carousel-background: radial-background($light-gray);
+$button-color: $light-coral-gradient;
+$font-color: $eerie-black;
 
 .all-recipe-carousel {
-    width: 70vw;
+    width: 100vw;
+    height: 90vh;
+    overflow-x: hidden;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     padding: 2vh 2vw;
+    background: $recipe-carousel-background;
+    border-radius: 3vh 3vh 0 0;
 
     .all-recipe-slide {
         display: grid;
@@ -25,13 +26,12 @@ $button-color:
         grid-template-columns: 1fr 1fr 1fr;
         grid-template-rows: 1fr 1fr 1fr;
         column-gap: 2vw;
-        row-gap: 2vh;
+        row-gap: 1vh;
 
         a {
             text-decoration: none;
         }
     }
-
 
     .page-button-container {
         display: flex;
@@ -55,47 +55,24 @@ $button-color:
             font-family: 'Roboto Slab', serif;
         }
 
-        button:before {
-            content: '';
-            display: inline-block;;
-            vertical-align: middle;
-        }
-
         button:hover {
-            background: $button-color;
-            background-clip: text;
-            color: transparent;
-            position: relative;
-        }
-
-        button:hover:before {
-            content: "";
-            position: absolute;
-            border-radius: 100%;
-            padding: 0;
-            inset: 0;
-            border: thin solid transparent;
-            background: $button-color border-box;
-            mask:
-               linear-gradient(#fff 0 0) padding-box, 
-               linear-gradient(#fff 0 0)
-            ;
-            mask-composite: exclude;
+            background: radial-background(adjust-color($light-coral, $alpha: -0.5));
+            color: $font-color;
         }
 
         button:active {
-            background: $button-color;
-            color: $jet;
+            background: radial-background(adjust-color($light-coral, $alpha: -0.25));
+            color: $font-color;
         }
 
         .active-page {
             background: $button-color;
-            color: $jet;
+            color: $font-color;
         }
 
         .active-page:hover {
             background: $button-color;
-            color: $jet;
+            color: $font-color;
         }
 
     }
