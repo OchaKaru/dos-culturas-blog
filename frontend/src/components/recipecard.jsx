@@ -28,7 +28,7 @@ export default class RecipeCard extends React.Component {
                     'image_url': this.props.data.image,
                     'image': (await import(`../images/${this.props.data.image}`)).default,
                     'name': this.props.data.name,
-                    'description': this.props.data.desc,
+                    'culture': this.props.data.culture,
                 });
             })();
         }
