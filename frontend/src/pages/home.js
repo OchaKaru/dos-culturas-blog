@@ -1,17 +1,17 @@
-import * as React from "react"
-import Header from '../components/header';
+import * as React from "react";
+import Header from '../components/navigation/header';
 
 const HomePage = () => {
   return (
     <main>
       <Header />
     </main>
-  )
+  );
 }
 
-export default HomePage
+export default HomePage;
 
-export const Head = () => <title>Home Page</title>
+export const Head = () => <title>Home Page</title>;
 
 /*
 <div>

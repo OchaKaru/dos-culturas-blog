@@ -1,0 +1,15 @@
+@import 'accordion-button';
+@import 'accordion-panel';
+
+.accordian-menu {
+    width: 20vw;
+    height: 94vh;
+    align-self: flex-start;
+    // display: flex;
+    // flex-direction: column;
+    font-family: $primary-font;
+    margin: 0;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+}

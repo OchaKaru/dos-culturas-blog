@@ -1,0 +1,27 @@
+.accordion-panel {
+    width: 100%;
+
+    .filter-label {
+        font-size: 2vh;
+        vertical-align: middle;
+        color: $font-color-dark;
+
+        input {
+            margin: 1vh 1vw;
+            height: 2vh;
+            width: 2vh;
+            background: $light-gray;
+            appearance: none;
+            vertical-align: middle;
+            border: .1vh solid $font-color-dark;
+        }
+
+        input:hover {
+            background: $platinum;                    
+        }
+
+        input:checked {
+            background: $eerie-black;
+        }
+    }
+}

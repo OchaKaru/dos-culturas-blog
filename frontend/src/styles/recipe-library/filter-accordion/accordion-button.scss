@@ -1,0 +1,30 @@
+.accordion-button {
+    width: 100%;
+    border-radius: 15vw/25vh;
+    border: none;
+    outline: none;
+    font-size: 2vh;
+    background: none;
+    color: $font-color-dark;
+    font-family: 'Roboto Slab', serif;
+    text-align: left;
+    padding: 1vh 1vw;
+    margin: 0;
+}
+
+.accordion-button:hover {
+    background-color: adjust-color($platinum, $alpha: -0.75);
+}
+
+.accordion-button:active {
+    background-color: adjust-color($platinum, $alpha: -0.5);
+}
+
+.accordion-button:after {
+    content: '▾';
+    float: right;
+}
+
+.active:after {
+    content: '▴';
+}

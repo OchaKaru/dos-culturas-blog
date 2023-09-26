@@ -1,0 +1,63 @@
+$button-color: radial-background($eerie-black);
+
+.filter-button-container {
+    padding-top: 2vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    button {
+        padding: 1vh 1vw;
+        font-size: 1.5vh;
+        font-family: 'Roboto Slab', serif;
+        font-weight: 600;
+        border-radius: 3vh;
+        outline: none;
+        border: none;
+    }
+
+    .filter-button {
+        background: $button-color;
+        color: $verdigris;
+        position: relative;
+    }
+
+    .filter-button:hover {
+        background: adjust-color($eerie-black, $lightness: 10%);
+    }
+
+    .filter-button:active {
+        background: adjust-color($eerie-black, $lightness: 20%);
+    }
+
+    .reset-button {
+        position: relative;
+        background: $button-color;
+        background-clip: text;
+        color: transparent;
+    }
+
+    .reset-button:hover {
+        background: $button-color;
+        color: $verdigris;
+    }
+
+    .reset-button:active {
+        background: adjust-color($eerie-black, $lightness: 10%);
+    }
+
+    .reset-button:before {
+        content: "";
+        position: absolute;
+        border-radius: 10vh;
+        padding: 0;
+        inset: 0;
+        border: .1vh solid transparent;
+        background: $button-color border-box;
+        mask:
+           linear-gradient(#fff 0 0) padding-box, 
+           linear-gradient(#fff 0 0)
+        ;
+        mask-composite: exclude;
+    }
+}

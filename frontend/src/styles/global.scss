@@ -1,5 +1,8 @@
-@import 'colors';
-@import 'fonts';
+@import 'utils/colors';
+@import 'utils/fonts';
+@import 'navigation/header';
+@import 'recipe-card';
+@import 'recipe-library/recipe-library';
 
 $background-color: $verdigris-gradient; //radial-background($gray);
 
@@ -29,4 +32,25 @@ html, body {
     ::-webkit-scrollbar-thumb:hover {
         background: $gray;
     }
+}
+
+.fade-enter {
+    opacity: 0;
+    transform: translateY(100%);
+}
+.fade-enter-active {
+    opacity: 1;
+    transform: translateY(0%);
+}
+.fade-exit{
+    opacity: 1;
+    transform: translateX(0%);
+}
+.fade-exit-active {
+    opacity: 0;
+    transform: translateX(100%);
+}
+.fade-enter-active,
+.fade-exit-active {
+    transition: opacity 500ms, transform 500ms;
 }

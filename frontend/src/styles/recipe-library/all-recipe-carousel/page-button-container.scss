@@ -1,0 +1,45 @@
+$button-color: $light-coral-gradient;
+
+.page-button-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    button {
+        width: 2vw;
+        text-decoration: none;
+        display: inline-block;
+        outline: none;
+        border: none;
+        background: none;
+        border-radius: 100%;
+        overflow: none;
+        text-align: center;
+        padding: 0;
+        margin: 0 1vw;
+
+        font-size: 3vh;
+        font-family: 'Roboto Slab', serif;
+    }
+
+    button:hover {
+        background: radial-background(adjust-color($light-coral, $alpha: -0.5));
+        color: $font-color-dark;
+    }
+
+    button:active {
+        background: radial-background(adjust-color($light-coral, $alpha: -0.25));
+        color: $font-color-dark;
+    }
+
+    .active-page {
+        background: $button-color;
+        color: $font-color-dark;
+    }
+
+    .active-page:hover {
+        background: $button-color;
+        color: $font-color-dark;
+    }
+
+}

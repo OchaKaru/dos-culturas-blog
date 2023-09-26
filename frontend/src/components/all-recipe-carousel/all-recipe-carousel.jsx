@@ -1,5 +1,5 @@
 import * as React from 'react';
-import AllRecipeSlide from './allrecipeslide';
+import AllRecipeSlide from './all-recipe-slide';
 
 export default class AllRecipeCarousel extends React.Component {
     constructor(props) {

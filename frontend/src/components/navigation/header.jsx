@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Link } from "gatsby";
 
-import logo from "../images/temp_logo.svg";
+import logo from "../../images/temp_logo.svg";
 
 export default function Header() {
     return (

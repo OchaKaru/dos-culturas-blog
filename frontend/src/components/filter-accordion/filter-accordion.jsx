@@ -1,5 +1,5 @@
 import * as React from 'react';
-import FilterTab from './filtertab';
+import FilterTab from './filter-tab';
 
 export default class FilterAccordion extends React.Component {
     constructor(props) {

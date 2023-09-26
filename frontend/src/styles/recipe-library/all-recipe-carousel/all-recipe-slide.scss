@@ -1,0 +1,14 @@
+.all-recipe-slide {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    place-items: center;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    column-gap: 2vw;
+    row-gap: 1vh;
+
+    a {
+        text-decoration: none;
+    }
+}

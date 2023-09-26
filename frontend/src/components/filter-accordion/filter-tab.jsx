@@ -1,5 +1,5 @@
 import * as React from 'react';
-import FilterLabel from './filterlabel';
+import FilterLabel from './filter-label';
 
 export default class FilterTab extends React.Component {
     constructor(props) {

@@ -1,0 +1,29 @@
+@import 'accordion-menu';
+@import 'filter-button-container';
+
+.filter-accordion {
+    display: flex;
+    align-items: center;
+    margin-right: -1.5vw;
+
+    .collapse-button {
+        width: 1.5vw;
+        height: 6vh;
+        outline: none;
+        border: none;
+        border-radius: 0 20vh 20vh 0;
+        background: $verdigris-gradient;
+        // border-left: .1vh solid $davys-gray;
+        z-index: 100;
+        font-size: 1.5vh;
+        text-align: left;
+    }
+
+    .collapse-button:hover {
+        background: radial-background(adjust-color($verdigris, $lightness: 10%));
+    }
+
+    .collapse-button:active {
+        background: radial-background(adjust-color($verdigris, $lightness: 15%));
+    }
+}

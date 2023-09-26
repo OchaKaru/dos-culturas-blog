@@ -1,7 +1,7 @@
 import * as React from "react";
-import Header from '../components/header';
-import AllRecipeCarousel from '../components/allrecipecarousel';
-import FilterAccordion from '../components/filteraccordion';
+import Header from '../components/navigation/header';
+import AllRecipeCarousel from '../components/all-recipe-carousel/all-recipe-carousel';
+import FilterAccordion from '../components/filter-accordion/filter-accordion';
 
 import RecipeAPI from "../api/recipeapi";
 

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import RecipeCard from './recipecard';
+import RecipeCard from '../recipe-card';
 
 export default class AllRecipeSlide extends React.Component {
     constructor(props) {
