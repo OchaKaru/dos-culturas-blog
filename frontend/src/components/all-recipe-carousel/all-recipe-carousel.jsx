@@ -1,6 +1,8 @@
 import * as React from 'react';
 import AllRecipeSlide from './all-recipe-slide';
 
+import Slideshow from '../arroz-con-web/containment/slideshow';
+
 export default class AllRecipeCarousel extends React.Component {
     constructor(props) {
         super(props);
@@ -94,14 +96,17 @@ export default class AllRecipeCarousel extends React.Component {
 
     render() {
         return (
-            <div className='all-recipe-carousel'>
-                {this.display_page()}
-                <div className='page-button-container'>
-                    {this.state.left_arrow}
-                    {this.page_buttons(this.state.number_of_pages)}
-                    {this.state.right_arrow}
-                </div>
-            </div>
+            <Slideshow className='all-recipe-carousel' enterStyle="fade-in-up" exitStyle="fade-out-against">
+                {this.state.page_list}
+            </Slideshow>
+            // <div className='all-recipe-carousel'>
+            //     {this.display_page()}
+            //     <div className='page-button-container'>
+            //         {this.state.left_arrow}
+            //         {this.page_buttons(this.state.number_of_pages)}
+            //         {this.state.right_arrow}
+            //     </div>
+            // </div>
         );
     }
 }
