@@ -1,0 +1,42 @@
+/**
+ * 
+ */
+@import 'utility';
+
+$dark-mode: true !default;
+
+$primary-key: #CDAE32 !default; // egg yolk
+// primary key color variants
+$primary: tonal($primary-key, check-mode(40%));
+$on-primary: tonal($primary-key, check-mode(90%));
+$primary-container: tonal($primary-key, check-mode(80%));
+$on-primary-container: tonal($primary-key, check-mode(10%));
+
+$secondary-key: #A67359 !default;
+// secondary key color variants
+$secondary: tonal($secondary-key, check-mode(40%));
+$on-secondary: tonal($secondary-key, check-mode(90%));
+$secondary-container: tonal($secondary-key, check-mode(80%));
+$on-secondary-container: tonal($secondary-key, check-mode(10%));
+
+$tertiary-key: #A25D80 !default;
+// tertiary key color variants
+$tertiary: tonal($tertiary-key, check-mode(40%));
+$on-tertiary: tonal($tertiary-key, check-mode(90%));
+$tertiary-container: tonal($tertiary-key, check-mode(80%));
+$on-tertiary-container: tonal($tertiary-key, check-mode(10%));
+
+$error-key: #BF4040 !default;
+// error key color variants
+$error: tonal($error-key, check-mode(40%));
+$on-error: tonal($error-key, check-mode(90%));
+$error-container: tonal($error-key, check-mode(80%));
+$on-error-container: tonal($error-key, check-mode(10%));
+
+$neutral-key: #8C7380 !default;
+// neutral color variants
+$surface-low: tonal($neutral-key, check-mode(90%));
+$surface: tonal($neutral-key, check-mode(84%));
+$surface-high: tonal($neutral-key, check-mode(80%));
+$on-surface: tonal($neutral-key, check-mode(10%))
+
