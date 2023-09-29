@@ -1,51 +1,136 @@
 /**
  * 
  */
-@import 'utility';
 
-:root {
-    --dark-mode: false;
-    --primary-key: #CDAE32;
-    --secondary-key: #A67359;
-    --tertiary-key: #A25D80;
-    --error-key: #BF4040;
-    --neutral-key: #8C7380;
+// default value for darkmode on site load and should be changed if user
+// wants to have a different default using @use instead of @import
+$dark-mode: false !default;
+
+// Default colors for when user hasn't set the theme variables.
+$egg-yellow: #CDAE32;
+$broth-brown: #A67359;
+$kidney-red: #A25D80;
+$tomato-red: #BF4040;
+$rice-pot-gray: #8C7380;
+
+$primary: var(--primary);
+$on-primary: var(--on-primary);
+$primary-container: var(--primary-container);
+$on-primary-container: var(--on-primary-container);
+
+$secondary: var(--secondary);
+$on-secondary: var(--on-secondary);
+$secondary-container: var(--secondary-container);
+$on-secondary-container: var(--on-secondary-container);
+
+$tertiary: var(--tertiary);
+$on-tertiary: var(--on-tertiary);
+$tertiary-container: var(--tertiary-container);
+$on-tertiary-container: var(--on-tertiary-container);
+
+$error: var(--error);
+$on-error: var(--on-error);
+$error-container: var(--error-container);
+$on-error-container: var(--on-error-container);
+
+$surface-bright: var(--surface-bright);
+$surface-dim: var(--surface-dim);
+$surface-low: var(--surface-low);
+$surface-medium: var(--surface-medium);
+$surface-high: var(--surface-high);
+$on-surface: var(--on-surface);
+
+/**
+ * This function just returns the mapping for the initial color load of the site
+ */
+ @function get-mapping($mapping) {
+    // on light mode these are the mappings
+    $accent-lightness: 30%;
+    $on-accent-lightness: 90%;
+    $container-lightness: 80%;
+    $on-container-lightness: 10%;
+
+    $surface-bright-lightness: 90%;
+    $surface-dim-lightness: 80%;
+    $surface-container-low-lightness: 88%;
+    $surface-container-medium-lightness: 86%;
+    $surface-container-high-lightness: 84%;
+    $on-surface-lightness: 10%;
+
+    @if $dark-mode {
+        // on dark mode these are the mappings
+        $accent-lightness: 80%;
+        $on-accent-lightness: 20%;
+        $container-lightness: 30%;
+        $on-container-lightness: 90%;
+
+        $surface-bright-lightness: 20%;
+        $surface-dim-lightness: 10%;
+        $surface-container-low-lightness: 14%;
+        $surface-container-medium-lightness: 16%;
+        $surface-container-high-lightness: 18%;
+        $on-surface-lightness: 90%; 
+    }
+
+    // returning the value necessary for the mapping
+    @return map.get((
+        "accent": $accent-lightness,
+        "on-accent": $on-accent-lightness,
+        "container": $container-lightness,
+        "on-container": $on-container-lightness,
+        
+        "surface-bright": $surface-bright-lightness,
+        "surface-dim": $surface-dim-lightness,
+        "surface-low": $surface-low-lightness,
+        "surface-medium": $surface-medium-lightness,
+        "surface-high": $surface-high-lightness,
+        "on-surface": $on-surface-lightness
+    ), $mapping);
 }
 
-$dark-mode: var(--dark-mode);
+/**
+ * getting the accurate tonal mapping based on the lightness returned by get-mapping
+ */
+ @function tonal-mapping($color, $mapping) {
+    $value: get-mapping($mapping);
 
-$primary-key: var(--primary-key); // egg yolk
-// primary key color variants
-$primary: tonal($primary-key, check-mode(40%));
-$on-primary: tonal($primary-key, check-mode(90%));
-$primary-container: tonal($primary-key, check-mode(80%));
-$on-primary-container: tonal($primary-key, check-mode(10%));
+    $zero: adjust-color($color, $lightness: -100%);
+    @return adjust-color($zero, $lightness: $value);
+}
 
-$secondary-key: var(--secondary-key);
-// secondary key color variants
-$secondary: tonal($secondary-key, check-mode(40%));
-$on-secondary: tonal($secondary-key, check-mode(90%));
-$secondary-container: tonal($secondary-key, check-mode(80%));
-$on-secondary-container: tonal($secondary-key, check-mode(10%));
+:root {
+    /**
+     * Coloring for theming inspired by Material Design Guidelines.
+     */
+    // primary key color variants
+    --primary: tonal-mapping($egg-yellow, "accent");
+    --on-primary: tonal-mapping($egg-yellow, "on-accent");
+    --primary-container: tonal-mapping($egg-yellow, "container");
+    --on-primary-container: tonal-mapping($egg-yellow, "on-container");
 
-$tertiary-key: var(--tertiary-key);
-// tertiary key color variants
-$tertiary: tonal($tertiary-key, check-mode(40%));
-$on-tertiary: tonal($tertiary-key, check-mode(90%));
-$tertiary-container: tonal($tertiary-key, check-mode(80%));
-$on-tertiary-container: tonal($tertiary-key, check-mode(10%));
+    // secondary key color variants
+    --secondary: tonal-mapping($broth-brown, "accent");
+    --on-secondary: tonal-mapping($broth-brown, "on-accent");
+    --secondary-container: tonal-mapping($broth-brown, "container");
+    --on-secondary-container: tonal-mapping($broth-brown, "on-container");
 
-$error-key: var(--error-key);
-// error key color variants
-$error: tonal($error-key, check-mode(40%));
-$on-error: tonal($error-key, check-mode(90%));
-$error-container: tonal($error-key, check-mode(80%));
-$on-error-container: tonal($error-key, check-mode(10%));
+    // tertiary key color variants
+    --tertiary: tonal-mapping($kidney-red, "accent");
+    --on-tertiary: tonal-mapping($kidney-red, "on-accent");
+    --tertiary-container: tonal-mapping(kid$kidney-red, "container");
+    --on-tertiary-container: tonal-mapping($kidney-red, "on-container");
 
-$neutral-key: var(--neutral-key);
-// neutral color variants
-$surface-low: tonal($neutral-key, check-mode(90%));
-$surface: tonal($neutral-key, check-mode(84%));
-$surface-high: tonal($neutral-key, check-mode(80%));
-$on-surface: tonal($neutral-key, check-mode(10%))
+    // error key color variants
+    --error: tonal-mapping($tomato-red, "accent");
+    --on-error: tonal-mapping($tomato-red, "on-accent");
+    --error-container: tonal-mapping($tomato-red, "container");
+    --on-error-container: tonal-mapping($tomato-red, "on-container");
 
+    // neutral color variants    
+    --surface-bright: tonal-mapping($rice-pot-gray, "surface-bright");
+    --surface-dim: tonal-mapping($rice-pot-gray, "surface-dim");
+    --surface-low: tonal-mapping($rice-pot-gray, "surface-low");
+    --surface-medium: tonal-mapping($rice-pot-gray, "surface-medium");
+    --surface-high: tonal-mapping($rice-pot-gray, "surface-high");
+    --on-surface: tonal-mapping($rice-pot-gray, "on-surface");
+}

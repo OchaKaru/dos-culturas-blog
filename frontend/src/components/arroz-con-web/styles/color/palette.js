@@ -12,8 +12,8 @@
  * @param {number} number An integer less than 256.
  * @returns The hexadecimal value as a string.
  */
-const decimal_to_hex = (number) => {
-    if(!number.isInteger())
+const decimal_to_hexcode = (number) => {
+    if(!number.isInteger() || number > 255)
         return new Error();
 
     let hex = number.toString(16);
@@ -24,7 +24,9 @@ const decimal_to_hex = (number) => {
  * @param {string} string A string containing the hexadecimal value less than 256.
  * @returns The integer value.
  */
-const hex_to_decimal = (hex) => {
+const hexcode_to_decimal = (hex) => {
+    if(hex.length > 2)
+        return new Error();
     return parseInt(hex, 16);
 }
 
@@ -40,30 +42,16 @@ function hex_to_rgb(hex) {
         return red + red + green + green + blue + blue;
     });
 
-    let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i;
+    let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     if(!result)
         throw new Error();
 
     return {
-        red: hex_to_decimal(result[1]),
-        green: hex_to_decimal(result[2]),
-        blue: hex_to_decimal(result[3])
+        red: hexcode_to_decimal(result[1]),
+        green: hexcode_to_decimal(result[2]),
+        blue: hexcode_to_decimal(result[3])
     };
 }
-
-/**
- * This function converts HSL values to the RGB colorspace.
- * @param {number} hue The unnormalized value of the hue.
- * @param {number} saturation The unnormalized value of the saturation.
- * @param {number} lightness The unnormalized value of the lightness channel.
- * @returns Object conatining the hue, saturation, and lightness of the color.
- */
-function hsl_to_rgb(hue, saturation, lightness) {
-
-}
-// Not entirely necessary right now.
-// function hex_to_hsl(hex) {
-// }
 
 /**
  * This function converts RGB values to the HSL colorspace.
@@ -102,12 +90,27 @@ function rgb_to_hsl(red, green, blue) {
     // }
 }
 
-function rgb_to_hex(red, green, blue) {
-    return '#' + decimal_to_hex(red) + decimal_to_hex(green) + decimal_to_hex(blue);
+/**
+ * This function converts HSL values to the RGB colorspace.
+ * @param {number} hue The unnormalized value of the hue.
+ * @param {number} saturation The unnormalized value of the saturation.
+ * @param {number} lightness The unnormalized value of the lightness channel.
+ * @returns Object conatining the hue, saturation, and lightness of the color.
+ */
+function hsl_to_rgb(hue, saturation, lightness) {
+
 }
-// Not entirely necessary right now.
-// function hsl_to_hex(hue, saturation, lightness) {
-// }
+
+/**
+ * 
+ * @param {*} red 
+ * @param {*} green 
+ * @param {*} blue 
+ * @returns 
+ */
+function rgb_to_hex(red, green, blue) {
+    return '#' + decimal_to_hexcode(red) + decimal_to_hexcode(green) + decimal_to_hexcode(blue);
+}
 
 /**
  * @class
@@ -119,12 +122,33 @@ class Color {
      * @param {string} hex 
      */
     constructor(hex) {
-        if(typeof hex != "string")
+        // verify valid hexcodes
+        if(typeof hex != "string" || !this.valid_hexcode(hex))
             throw new Error();
-        this.hex = hex;
-        this.rgba = to_RGBA();
+        this.hexcode = hex;
     }
-    // Future plans to add RGBA and HSL contructors.
+ 
+    valid_hexcode(hex) {
+        return /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex) != false;
+    }
+
+    rgb(red = undefined, green = undefined, blue = undefined) {
+        if(red && (!green || !blue) || green && (!red || !blue) || blue && (!green || !red))
+            throw new Error();
+        if(red && green && blue)
+            this.hexcode = rgb_to_hex(red, green, blue);
+
+        return hex_to_rgb(this.hexcode); // return the rgb
+    }
+
+    hsl(hue = undefined, saturation = undefined, lightness = undefined) {
+        if(hue && (!saturation || !lightness) || saturation && (!hue || !lightness) || lightness && (!saturation || !hue))
+            throw new Error();
+        if(hue && saturation && lightness)
+            this.hexcode = rgb_to_hex(...hsl_to_rgb(hue, saturation, lightness)); // spread the rgb object to fit the parameters
+
+        return rgb_to_hsl(...hex_to_rgb(this.hexcode)); // return the hsl
+    }
 }
 
 
@@ -132,39 +156,123 @@ class Color {
  * @class
  * The Arroz con Webo Palette: This is used to generate a palette for the entire document.
  * 
- * @member {string} name Names the theme that will be created from the palette provided.
- * @member {object} theme Specifies the many colors that will be used throughout the website.
+ * @member {object} light Specifies the many light mode colors that will be used throughout the website.
+ * @member {object} dark Specifies the many dark mode colors that will be used throughout the website.
  */
 class Palette {
+    lightness_mappings = {
+        "light": {
+            "accent": 30,
+            "on_accent": 90,
+            "container": 80,
+            "on_container": 10,
+            
+            "surface_bright": 90,
+            "surface_dim": 80,
+            "surface_low": 88,
+            "surface_medium": 86,
+            "surface_hight": 84,
+            "on_surface": 10
+        },
+        "dark": {
+            "accent": 80,
+            "on_accent": 20,
+            "container": 30,
+            "on_container": 90,
+            
+            "surface_bright": 20,
+            "surface_dim": 10,
+            "surface_low": 14,
+            "surface_medium": 16,
+            "surface_high": 18,
+            "on-surface": 90
+        }
+    }
+
+    /**
+     * 
+     * @param {strin} primary_key 
+     * @param {string} secondary_key 
+     * @param {string} tertiary_key 
+     * @param {string} error_key 
+     * @param {string} neutral_key 
+     */
     constructor(primary_key, secondary_key, tertiary_key, error_key, neutral_key) {
-        // this.primary_key = {
-        //         "key": 
-        //         "primary":
-        //         "on_primary":
-        //         "primary_container":
-        //         "on-primary_container":
-        // };
-        // this.secondary_key = {
-        //         "key": 
-        //         "secondary":
-        //         "on_secondary":
-        //         "secondary_container":
-        //         "on-secondary_container":
-        // };
-        // this.tertiary_key = {
-        //         "key": 
-        //         "tertiary":
-        //         "on_tertiary":
-        //         "tertiary_container":
-        //         "on-tertiary_container":
-        // };
-        // this.error_key = {
-        //         "key": 
-        //         "error":
-        //         "on_error":
-        //         "error_container":
-        //         "on-error_container":
-        // };
+        // convert hexcodes to Color object
+        this.light = {
+            "primary": {
+                "accent": this.tonal_mapping(primary_key, this.lightness_mappings.light.accent),
+                "on_accent": this.tonal_mapping(primary_key, this.lightness_mappings.light.on_accent),
+                "container": this.tonal_mapping(primary_key, this.lightness_mappings.light.container),
+                "on_container": this.tonal_mapping(primary_key, this.lightness_mappings.light.on_container)
+            },
+            "secondary": {
+                "accent": this.tonal_mapping(secondary_key, this.lightness_mappings.light.accent),
+                "on_accent": this.tonal_mapping(secondary_key, this.lightness_mappings.light.on_accent),
+                "container": this.tonal_mapping(secondary_key, this.lightness_mappings.light.container),
+                "on_container": this.tonal_mapping(secondary_key, this.lightness_mappings.light.on_container)
+            },
+            "tertiary": {
+                "accent": this.tonal_mapping(tertiary_key, this.lightness_mappings.light.accent),
+                "on_accent": this.tonal_mapping(tertiary_key, this.lightness_mappings.light.on_accent),
+                "container": this.tonal_mapping(tertiary_key, this.lightness_mappings.light.container),
+                "on_container": this.tonal_mapping(tertiary_key, this.lightness_mappings.light.on_container)
+            },
+            "error": {
+                "accent": this.tonal_mapping(error_key, this.lightness_mappings.light.accent),
+                "on_accent": this.tonal_mapping(error_key, this.lightness_mappings.light.on_accent),
+                "container": this.tonal_mapping(error_key, this.lightness_mappings.light.container),
+                "on_container": this.tonal_mapping(error_key, this.lightness_mappings.light.on_container)
+            },
+            "neutral": {
+                "surface_bright": this.tonal_mapping(neutral_key, this.lightness_mappings.light.surface_bright),
+                "surface_dim": this.tonal_mapping(neutral_key, this.lightness_mappings.light.surface_dim),
+                "surface_low": this.tonal_mapping(neutral_key, this.lightness_mappings.light.surface_low),
+                "surface_medium": this.tonal_mapping(neutral_key, this.lightness_mappings.light.surface_medium),
+                "surface_high": this.tonal_mapping(neutral_key, this.lightness_mappings.light.surface_high),
+                "on-surface": this.tonal_mapping(neutral_key, this.lightness_mappings.light.on_surface)
+            }
+        }
+
+        this.dark = {
+            "primary": {
+                "accent": this.tonal_mapping(primary_key, this.lightness_mappings.dark.accent),
+                "on_accent": this.tonal_mapping(primary_key, this.lightness_mappings.dark.on_accent),
+                "container": this.tonal_mapping(primary_key, this.lightness_mappings.dark.container),
+                "on_container": this.tonal_mapping(primary_key, this.lightness_mappings.dark.on_container)
+            },
+            "secondary": {
+                "accent": this.tonal_mapping(secondary_key, this.lightness_mappings.dark.accent),
+                "on_accent": this.tonal_mapping(secondary_key, this.lightness_mappings.dark.on_accent),
+                "container": this.tonal_mapping(secondary_key, this.lightness_mappings.dark.container),
+                "on_container": this.tonal_mapping(secondary_key, this.lightness_mappings.dark.on_container)
+            },
+            "tertiary": {
+                "accent": this.tonal_mapping(tertiary_key, this.lightness_mappings.dark.accent),
+                "on_accent": this.tonal_mapping(tertiary_key, this.lightness_mappings.dark.on_accent),
+                "container": this.tonal_mapping(tertiary_key, this.lightness_mappings.dark.container),
+                "on_container": this.tonal_mapping(tertiary_key, this.lightness_mappings.dark.on_container)
+            },
+            "error": {
+                "accent": this.tonal_mapping(error_key, this.lightness_mappings.dark.accent),
+                "on_accent": this.tonal_mapping(error_key, this.lightness_mappings.dark.on_accent),
+                "container": this.tonal_mapping(error_key, this.lightness_mappings.dark.container),
+                "on_container": this.tonal_mapping(error_key, this.lightness_mappings.dark.on_container)
+            },
+            "neutral": {
+                "surface_bright": this.tonal_mapping(neutral_key, this.lightness_mappings.dark.surface_bright),
+                "surface_dim": this.tonal_mapping(neutral_key, this.lightness_mappings.dark.surface_dim),
+                "surface_low": this.tonal_mapping(neutral_key, this.lightness_mappings.dark.surface_low),
+                "surface_medium": this.tonal_mapping(neutral_key, this.lightness_mappings.dark.surface_medium),
+                "surface_high": this.tonal_mapping(neutral_key, this.lightness_mappings.dark.surface_high),
+                "on-surface": this.tonal_mapping(neutral_key, this.lightness_mappings.dark.on_surface)
+            }
+        }
+    }
+
+    tonal_mapping(color, lightness) {
+        color_hsl = color.hsl();
+        return rgb_to_hex(...hsl_to_rgb(color_hsl.hue, color_hsl.saturation, lightness));
     }
 }
 
@@ -172,22 +280,29 @@ class Palette {
  * @class
  * The Arroz con Webo Themer: This is a singleton that keeps track of the palettes added to the website.
  * 
- * 
- * @member {object} palette_list 
+ * @member {boolean} dark_mode This defines whether dark mode is active.
+ * @member {object} palette_list This should be an object of type Palette.
  */
 class Themer {
-    constructor(default_palette = undefined) {
-        this.dark_mode = false;
+    constructor(default_dark_mode = false, default_palette = undefined) {
+        this.dark_mode = default_dark_mode;
         this.palette_list = {};
         if(default_palette)
-            this.palette_list[default_palette.name] = default_palette.theme;
-        
-        
+            this.palette_list["default"] = default_palette;
     }
-    
 
-    add_palette(palette) {
+    toggle_dark_mode() {
+        this.dark_mode = !this.dark_mode;
+    }
 
+    add_palette(name, palette) {
+        this.palette_list[name] = palette;
+    }
+
+    set_palette(name) {
+        let color_scheme = this.dark_mode? "dark" : "light";
+        let theme = this.palette_list[name][color_scheme];
+        // access the root element and assign all the variables to the appropriate values.
     }
 }
 let instance = Themer()
