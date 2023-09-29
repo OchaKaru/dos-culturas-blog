@@ -65,9 +65,9 @@ function rgb_to_hsl(red, green, blue) {
         throw new Error();
 
     // normalizing the channel values
-    red_normalized = red / 255;
-    green_normalized = green / 255;
-    blue_normalized = blue / 255;
+    let red_normalized = red / 255;
+    let green_normalized = green / 255;
+    let blue_normalized = blue / 255;
 
     // redo to be more readable
     // highest_value = red_normalized > green_normalized?
@@ -133,7 +133,7 @@ class Color {
     }
 
     rgb(red = undefined, green = undefined, blue = undefined) {
-        if(red && (!green || !blue) || green && (!red || !blue) || blue && (!green || !red))
+        if((red && (!green || !blue)) || (green && (!red || !blue)) || (blue && (!green || !red)))
             throw new Error();
         if(red && green && blue)
             this.hexcode = rgb_to_hex(red, green, blue);
@@ -142,7 +142,7 @@ class Color {
     }
 
     hsl(hue = undefined, saturation = undefined, lightness = undefined) {
-        if(hue && (!saturation || !lightness) || saturation && (!hue || !lightness) || lightness && (!saturation || !hue))
+        if((hue && (!saturation || !lightness)) || (saturation && (!hue || !lightness)) || (lightness && (!saturation || !hue)))
             throw new Error();
         if(hue && saturation && lightness)
             this.hexcode = rgb_to_hex(...hsl_to_rgb(hue, saturation, lightness)); // spread the rgb object to fit the parameters
@@ -162,30 +162,12 @@ class Color {
 class Palette {
     lightness_mappings = {
         "light": {
-            "accent": 30,
-            "on_accent": 90,
-            "container": 80,
-            "on_container": 10,
-            
-            "surface_bright": 90,
-            "surface_dim": 80,
-            "surface_low": 88,
-            "surface_medium": 86,
-            "surface_hight": 84,
-            "on_surface": 10
+            "accent": 30, "on_accent": 90, "container": 80, "on_container": 10,
+            "surface_lowest": 90, "surface_lower": 88, "surface": 86, "surface_higher": 84, "surface_highest": 80, "on_surface": 10
         },
         "dark": {
-            "accent": 80,
-            "on_accent": 20,
-            "container": 30,
-            "on_container": 90,
-            
-            "surface_bright": 20,
-            "surface_dim": 10,
-            "surface_low": 14,
-            "surface_medium": 16,
-            "surface_high": 18,
-            "on-surface": 90
+            "accent": 80, "on_accent": 20, "container": 30, "on_container": 90,
+            "surface_lowest": 10, "surface_lower": 14, "surface": 16, "surface_higher": 18, "surface_highest": 20, "on-surface": 90
         }
     }
 
@@ -225,11 +207,11 @@ class Palette {
                 "on_container": this.tonal_mapping(error_key, this.lightness_mappings.light.on_container)
             },
             "neutral": {
-                "surface_bright": this.tonal_mapping(neutral_key, this.lightness_mappings.light.surface_bright),
-                "surface_dim": this.tonal_mapping(neutral_key, this.lightness_mappings.light.surface_dim),
-                "surface_low": this.tonal_mapping(neutral_key, this.lightness_mappings.light.surface_low),
-                "surface_medium": this.tonal_mapping(neutral_key, this.lightness_mappings.light.surface_medium),
-                "surface_high": this.tonal_mapping(neutral_key, this.lightness_mappings.light.surface_high),
+                "surface_lowest": this.tonal_mapping(neutral_key, this.lightness_mappings.light.surface_lowest),
+                "surface_lower": this.tonal_mapping(neutral_key, this.lightness_mappings.light.surface_lower),
+                "surface": this.tonal_mapping(neutral_key, this.lightness_mappings.light.surface),
+                "surface_higher": this.tonal_mapping(neutral_key, this.lightness_mappings.light.surface_higher),
+                "surface_highest": this.tonal_mapping(neutral_key, this.lightness_mappings.light.surface_highest),
                 "on-surface": this.tonal_mapping(neutral_key, this.lightness_mappings.light.on_surface)
             }
         }
@@ -260,18 +242,18 @@ class Palette {
                 "on_container": this.tonal_mapping(error_key, this.lightness_mappings.dark.on_container)
             },
             "neutral": {
-                "surface_bright": this.tonal_mapping(neutral_key, this.lightness_mappings.dark.surface_bright),
-                "surface_dim": this.tonal_mapping(neutral_key, this.lightness_mappings.dark.surface_dim),
-                "surface_low": this.tonal_mapping(neutral_key, this.lightness_mappings.dark.surface_low),
-                "surface_medium": this.tonal_mapping(neutral_key, this.lightness_mappings.dark.surface_medium),
-                "surface_high": this.tonal_mapping(neutral_key, this.lightness_mappings.dark.surface_high),
+                "surface_lowest": this.tonal_mapping(neutral_key, this.lightness_mappings.dark.surface_lowest),
+                "surface_lower": this.tonal_mapping(neutral_key, this.lightness_mappings.dark.surface_lower),
+                "surface": this.tonal_mapping(neutral_key, this.lightness_mappings.dark.surface),
+                "surface_higher": this.tonal_mapping(neutral_key, this.lightness_mappings.dark.surface_higher),
+                "surface_highest": this.tonal_mapping(neutral_key, this.lightness_mappings.dark.surface_highest),
                 "on-surface": this.tonal_mapping(neutral_key, this.lightness_mappings.dark.on_surface)
             }
         }
     }
 
     tonal_mapping(color, lightness) {
-        color_hsl = color.hsl();
+        let color_hsl = color.hsl();
         return rgb_to_hex(...hsl_to_rgb(color_hsl.hue, color_hsl.saturation, lightness));
     }
 }
@@ -286,6 +268,7 @@ class Palette {
 class Themer {
     constructor(default_dark_mode = false, default_palette = undefined) {
         this.dark_mode = default_dark_mode;
+        this.current_theme = undefined;
         this.palette_list = {};
         if(default_palette)
             this.palette_list["default"] = default_palette;
@@ -293,6 +276,8 @@ class Themer {
 
     toggle_dark_mode() {
         this.dark_mode = !this.dark_mode;
+        if(this.current_theme)
+            this.set_palette(this.current_theme);
     }
 
     add_palette(name, palette) {
