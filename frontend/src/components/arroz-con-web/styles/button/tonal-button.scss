@@ -1,0 +1,96 @@
+// primary tonal button style
+.arroz-primary-tonal-button {
+    background-color: $primary-container;
+    color: $on-primary-container;
+
+    border: none;
+}
+
+.arroz-primary-tonal-button:before {
+    content: "";
+    background-color: $on-primary-container;
+    position: absolute;
+    inset: 0;
+    opacity: 0%;
+    transition: opacity 200ms;
+}
+
+.arroz-primary-tonal-button:hover:before {
+    opacity: 20%;
+}
+
+span.arroz-primary-tonal-ripple {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple 600ms linear;
+    background-color: $on-primary-container;
+    opacity: 40%;
+}
+
+// secondary tonal button style
+.arroz-secondary-tonal-button {
+    background-color: $secondary-container;
+    color: $on-secondary-container;
+
+    border: none;
+}
+
+.arroz-secondary-tonal-button:before {
+    content: "";
+    background-color: $on-secondary-container;
+    position: absolute;
+    inset: 0;
+    opacity: 0%;
+    transition: opacity 200ms;
+}
+
+.arroz-secondary-tonal-button:hover:before {
+    opacity: 20%;
+}
+
+span.arroz-secondary-tonal-ripple {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple 600ms linear;
+    background-color: $on-secondary-container;
+    opacity: 40%;
+}
+
+// tertiary tonal button style
+.arroz-tertiary-tonal-button {
+    background-color: $tertiary-container;
+    color: $on-tertiary-container;
+
+    border: none;
+}
+
+.arroz-tertiary-tonal-button:before {
+    content: "";
+    background-color: $on-tertiary-container;
+    position: absolute;
+    inset: 0;
+    opacity: 0%;
+    transition: opacity 200ms;
+}
+
+.arroz-tertiary-tonal-button:hover:before {
+    opacity: 20%;
+}
+
+span.arroz-tertiary-tonal-ripple {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple 600ms linear;
+    background-color: $on-tertiary-container;
+    opacity: 40%;
+}
+
+@keyframes ripple {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}

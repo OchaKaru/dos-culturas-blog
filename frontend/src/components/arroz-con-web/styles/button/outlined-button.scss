@@ -1,0 +1,96 @@
+// primary outlined button style
+.arroz-primary-outlined-button {
+    background-color: transparent;
+    color: $primary;
+
+    border: .1vh solid $on-surface;
+}
+
+.arroz-primary-outlined-button:before {
+    content: "";
+    background-color: $on-primary-container;
+    position: absolute;
+    inset: 0;
+    opacity: 0%;
+    transition: opacity 200ms;
+}
+
+.arroz-primary-outlined-button:hover:before {
+    opacity: 20%;
+}
+
+span.arroz-primary-outlined-ripple {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple 600ms linear;
+    background-color: $on-primary-container;
+    opacity: 40%;
+}
+
+// secondary outlined button style
+.arroz-secondary-outlined-button {
+    background-color: transparent;
+    color: $secondary;
+
+    border: .1vh solid $on-surface;
+}
+
+.arroz-secondary-outlined-button:before {
+    content: "";
+    background-color: $on-secondary-container;
+    position: absolute;
+    inset: 0;
+    opacity: 0%;
+    transition: opacity 200ms;
+}
+
+.arroz-secondary-outlined-button:hover:before {
+    opacity: 20%;
+}
+
+span.arroz-secondary-outlined-ripple {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple 600ms linear;
+    background-color: $on-secondary-container;
+    opacity: 40%;
+}
+
+// tertiary outlined button style
+.arroz-tertiary-outlined-button {
+    background-color: transparent;
+    color: $tertiary;
+
+    border: .1vh solid $on-surface;
+}
+
+.arroz-tertiary-outlined-button:before {
+    content: "";
+    background-color: $on-tertiary-container;
+    position: absolute;
+    inset: 0;
+    opacity: 0%;
+    transition: opacity 200ms;
+}
+
+.arroz-tertiary-outlined-button:hover:before {
+    opacity: 20%;
+}
+
+span.arroz-tertiary-outlined-ripple {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple 600ms linear;
+    background-color: $on-tertiary-container;
+    opacity: 40%;
+}
+
+@keyframes ripple {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}

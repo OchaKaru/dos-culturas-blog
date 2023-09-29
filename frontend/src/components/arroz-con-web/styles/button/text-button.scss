@@ -1,0 +1,96 @@
+// primary text button style
+.arroz-primary-text-button {
+    background-color: transparent;
+    color: $primary;
+
+    border: none;
+}
+
+.arroz-primary-text-button:before {
+    content: "";
+    background-color: $on-primary-container;
+    position: absolute;
+    inset: 0;
+    opacity: 0%;
+    transition: opacity 200ms;
+}
+
+.arroz-primary-text-button:hover:before {
+    opacity: 20%;
+}
+
+span.arroz-primary-text-ripple {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple 600ms linear;
+    background-color: $on-primary-container;
+    opacity: 40%;
+}
+
+// secondary text button style
+.arroz-secondary-text-button {
+    background-color: transparent;
+    color: $secondary;
+
+    border: none;
+}
+
+.arroz-secondary-text-button:before {
+    content: "";
+    background-color: $on-secondary-container;
+    position: absolute;
+    inset: 0;
+    opacity: 0%;
+    transition: opacity 200ms;
+}
+
+.arroz-secondary-text-button:hover:before {
+    opacity: 20%;
+}
+
+span.arroz-secondary-text-ripple {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple 600ms linear;
+    background-color: $on-secondary-container;
+    opacity: 40%;
+}
+
+// tertiary text button style
+.arroz-tertiary-text-button {
+    background-color: transparent;
+    color: $tertiary;
+
+    border: none;
+}
+
+.arroz-tertiary-text-button:before {
+    content: "";
+    background-color: $on-tertiary-container;
+    position: absolute;
+    inset: 0;
+    opacity: 0%;
+    transition: opacity 200ms;
+}
+
+.arroz-tertiary-text-button:hover:before {
+    opacity: 20%;
+}
+
+span.arroz-tertiary-text-ripple {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple 600ms linear;
+    background-color: $on-tertiary-container;
+    opacity: 40%;
+}
+
+@keyframes ripple {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
