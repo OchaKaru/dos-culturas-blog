@@ -1,4 +1,6 @@
 import * as React from 'react';
+import CommonButton from '../arroz-con-web/action/common-button';
+
 import FilterTab from './filter-tab';
 
 export default class FilterAccordion extends React.Component {
@@ -75,11 +77,11 @@ export default class FilterAccordion extends React.Component {
         return (
             <>
                 <div className='filter-accordion'>
-                    <div className='accordian-menu' style={{'display': this.state.collapsed ? 'none': 'block'}}>
+                    <div className='accordian-menu' style={{'width': this.state.collapsed ? '0': '20vw'}} >
                         {this.display_tab()}
                         <div className='filter-button-container'>
-                            <button className="filter-button" onClick={this.filter} >Filter Recipes</button>
-                            <button className="reset-button" onClick={this.reset} >Reset Filters</button>
+                            <CommonButton type="filled" pill onClick={this.filter} >Filter Recipes</CommonButton>
+                            <CommonButton type="tonal" pill onClick={this.reset} >Reset Filters</CommonButton>
                         </div>
                     </div>
                     <button className='collapse-button' style={{'left': this.state.collapsed ? '0' : '30vw'}} onClick={this.toggle_collapse} >{this.state.collapsed ? "▶" : "◀"}</button>
