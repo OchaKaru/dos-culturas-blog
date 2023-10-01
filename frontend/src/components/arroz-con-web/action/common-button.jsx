@@ -30,8 +30,8 @@ const CommonButton = (props) => {
         throw new Error();
     const role = props.role? props.role : "primary";
 
-    const ACCEPTED_STYLES = ['elevated', 'filled', 'tonal', 'outlined', 'text'];
-    if(props.type && !ACCEPTED_STYLES.includes(props.type))
+    const ACCEPTED_TYPES = ['elevated', 'filled', 'tonal', 'outlined', 'text'];
+    if(props.type && !ACCEPTED_TYPES.includes(props.type))
         throw new Error();
     const type = props.type? props.type : "filled";
 
