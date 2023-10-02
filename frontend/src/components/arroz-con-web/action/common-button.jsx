@@ -14,18 +14,16 @@ import '../styles/button/common-button.scss';
  * Elevated buttons should be used sparingly.
  * 
  * These params are props to the React Component:
- * @param {string} role (optional) Can have values 'primary', 'secondary', or 'tertiary'. Defaults to 'primary'.
+ * @param {string} role (optional) Can have values 'primary', 'secondary', or 'tertiary'. Defaults to 'primary'. Also, 'surface' for text buttons.
  * @param {string} type (optional) Can have values 'elevated', 'filled', 'tonal', 'outlined', or 'text'. Defaults to 'filled'.
  *
  * @param {boolean} pill (optional) Specifies if the corners are completely rounded off.
  * @param {boolean} ripple (optional) Specifies whether the ripple animation should play.
- *
- * @param {boolean} custom (optional) Specifies if the `className` should be joined or replaced
  * 
  * @param {string} surface (internal) Contains the value of the surface this component is sitting on.
  */
 const CommonButton = (props) => {
-    const ACCEPTED_ROLES = ['primary', 'secondary', 'tertiary'];
+    const ACCEPTED_ROLES = ['primary', 'secondary', 'tertiary', 'surface'];
     if(props.role && !ACCEPTED_ROLES.includes(props.role))
         throw new Error();
     const role = props.role? props.role : "primary";
@@ -34,13 +32,10 @@ const CommonButton = (props) => {
     if(props.type && !ACCEPTED_TYPES.includes(props.type))
         throw new Error();
     const type = props.type? props.type : "filled";
+    if(role === "surface" && props.type !== "text")
+        throw new Error();
 
-    let computedClassName = props.className? props.className + ` arroz-${role}-${type}-button` : `arroz-${role}-${type}-button`;
-    computedClassName += props.pill? ` arroz-pill-button` : ` arroz-square-button`;
-    if(props.custom && !props.className)
-        throw new Error();    
-    if(props.custom)
-        computedClassName = props.className;
+    const computedClassName = (props.className? props.className + ` arroz-${role}-${type}-button` : `arroz-${role}-${type}-button`) + (props.pill? ` arroz-pill-button` : ` arroz-square-button`);
     
     const handle_click = (event) => {
         const button = event.currentTarget;
