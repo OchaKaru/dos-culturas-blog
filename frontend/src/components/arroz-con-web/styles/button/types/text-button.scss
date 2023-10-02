@@ -88,6 +88,36 @@ span.arroz-tertiary-text-ripple {
     opacity: 40%;
 }
 
+// surface text button style
+.arroz-surface-text-button {
+    background-color: transparent;
+    color: $on-surface;
+
+    border: none;
+}
+
+.arroz-surface-text-button:before {
+    content: "";
+    background-color: $on-surface;
+    position: absolute;
+    inset: 0;
+    opacity: 0%;
+    transition: opacity 200ms;
+}
+
+.arroz-surface-text-button:hover:before {
+    opacity: 20%;
+}
+
+span.arroz-surface-text-ripple {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple 600ms linear;
+    background-color: $on-surface;
+    opacity: 40%;
+}
+
 @keyframes ripple {
     to {
         transform: scale(4);
