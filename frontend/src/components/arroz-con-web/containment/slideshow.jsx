@@ -14,11 +14,14 @@ import '../styles/slideshow/transition/fade-out.scss';
  * @param {string} enterStyle (optional) Can have the value 'fade-in', 'fade-in-up', 'fade-in-down', 'fade-in-with', or 'fade-in-against'. Defaults to 'fade-in'.
  * @param {string} exitStyle (optional) Can have the value of 'fade-out', 'fade-out-with', 'fade-out-against', 'fade-out-up', fade-out-down'. Defaults to 'fade-out'.
  * @param {string} custom (optional) If this prop is true, then `enterStyle` and `exitStyle` will all be ignored.
+ * @param {boolean} dont_animate (optional) Specifies whether the component should be animated.
  * 
  * @param {boolean} wrap (optional) Specifies whether moving past the extremas of the slideshow will wrap around to the other extrema.
  * @param {string} mode (optional) The value can either be 'out-in' or 'in-out'. The value is 'out-in' by default.
+ * 
+ * @param {string} level (optional) Can have a value of 'primary', 'secondary', 'tertiary' or 'neutral'. Defaults to 'primary'.
  */
-export default function Slideshow(props) {
+const Slideshow = (props) => {
     // Default animation modes for SwitchTransition.
     const ACCEPTED_MODES = ["out-in", "in-out"];
     if(props.mode && !ACCEPTED_MODES.includes(props.mode)) // Verify the proper mode is set.
@@ -53,8 +56,7 @@ export default function Slideshow(props) {
     let left, right;
     if(props.custom) { // custom transitions defined by the user
         if(typeof props.custom === "string") { // when the user uses a string custom name
-            left = set_transition_name(props.custom, props.custom);
-            right = left;
+            left = right = set_transition_name(props.custom, props.custom);
         } else if(typeof props.custom === "object") { // when the user wants to define custom left and right transitions
             try {
                 left = set_transition_name(props.custom['customEnterLeft'], props.custom['customExitLeft']);
@@ -71,9 +73,12 @@ export default function Slideshow(props) {
         } else
             throw new Error(); // if either aren't a string we throw an error here
     } else { // the default
-        left = set_transition_name('fade-in', 'fade-out');
-        right = set_transition_name('fade-in', 'fade-out');
+        left = right = set_transition_name('fade-in', 'fade-out');
     }
+
+    // overwrite if dont_animate is set to true
+    if(props.dont_animate)
+        left = right = set_transition_name('none', 'none');
 
     // define if wrapping is enabled
     const wrap = props.wrap;
@@ -139,3 +144,5 @@ export default function Slideshow(props) {
         </div>
     );
 }
+
+export default Slideshow;
