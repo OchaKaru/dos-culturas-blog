@@ -1,7 +1,7 @@
 @import 'all-recipe-slide';
 @import 'page-button-container';
 
-$recipe-carousel-background: radial-background($light-gray);
+$recipe-carousel-background: $surface;
 
 .all-recipe-carousel {
     width: 100vw;

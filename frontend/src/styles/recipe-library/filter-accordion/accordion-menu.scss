@@ -5,11 +5,11 @@
     width: 20vw;
     height: 94vh;
     align-self: flex-start;
-    // display: flex;
+    display: block;
     // flex-direction: column;
-    font-family: $primary-font;
     margin: 0;
 
     overflow-x: hidden;
     overflow-y: auto;
+    transition: width 500ms;
 }

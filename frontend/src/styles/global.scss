@@ -1,35 +1,38 @@
 @import 'utils/colors';
 @import 'utils/fonts';
+
+$background-color: $verdigris-gradient; //radial-background($gray);
+
+@import '../arroz-con-webo/styles/global.scss';
+
 @import 'navigation/header';
 @import 'recipe-card';
 @import 'recipe-library/recipe-library';
 
-$background-color: $verdigris-gradient; //radial-background($gray);
+// html, body {
+//     // font-family: $primary-font;
+//     background: $background-color;
+//     height: 100%;
+//     width: 100vw;
+//     margin: 0;
+//     padding: 0;
+//     overflow-x: hidden;
+//     user-select: none;
 
-html, body {
-    font-family: $primary-font;
-    background: $background-color;
-    height: 100%;
-    width: 100vw;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-    user-select: none;
+//     ::-webkit-scrollbar {
+//         width: 0.5vw;
+//     }
 
-    ::-webkit-scrollbar {
-        width: 0.5vw;
-    }
+//     ::-webkit-scrollbar-track {
+//         background: none;
+//     }
 
-    ::-webkit-scrollbar-track {
-        background: none;
-    }
+//     ::-webkit-scrollbar-thumb {
+//         background: $davys-gray;
+//         border-radius: 10vw;
+//     }
 
-    ::-webkit-scrollbar-thumb {
-        background: $davys-gray;
-        border-radius: 10vw;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-        background: $gray;
-    }
-}
+//     ::-webkit-scrollbar-thumb:hover {
+//         background: $gray;
+//     }
+// }

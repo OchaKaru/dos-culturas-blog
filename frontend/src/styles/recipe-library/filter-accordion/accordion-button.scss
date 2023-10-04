@@ -1,5 +1,6 @@
 .accordion-button {
     width: 100%;
+    transition: width 500ms;
     border-radius: 15vw/25vh;
     border: none;
     outline: none;
@@ -10,6 +11,8 @@
     text-align: left;
     padding: 1vh 1vw;
     margin: 0;
+    text-wrap: nowrap;
+    overflow: hidden;
 }
 
 .accordion-button:hover {
@@ -20,11 +23,11 @@
     background-color: adjust-color($platinum, $alpha: -0.5);
 }
 
-.accordion-button:after {
-    content: '▾';
-    float: right;
-}
+// .accordion-button:after {
+//     content: '▾';
+//     float: right;
+// }
 
-.active:after {
-    content: '▴';
-}
+// .active:after {
+//     content: '▴';
+// }
