@@ -1,7 +1,7 @@
 import * as React from 'react';
 import AllRecipeSlide from './all-recipe-slide';
 
-import Slideshow from '../arroz-con-web/containment/slideshow';
+import Slideshow from '../../arroz-con-webo/containment/slideshow';
 
 export default class AllRecipeCarousel extends React.Component {
     constructor(props) {
