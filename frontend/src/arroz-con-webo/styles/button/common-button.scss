@@ -1,3 +1,4 @@
+@import '../color/palette.scss';
 @import '../typography/font.scss';
 
 @import 'types/filled-button.scss';
@@ -13,19 +14,19 @@ $arroz-border-rounded-radius: $arroz-label-size;
 .arroz-common-button {
     // unstyle the button
     outline: none;
-    // border: none;
 
     position: relative;
 
     // text
+    font-family: $arroz-label-font;
     font-size: $arroz-label-size;
     text-wrap: nowrap;
     text-align: center;
 
     // structure
-    // display: flex;
-    // justify-content: center;
-    // align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: $arroz-button-padding calc($arroz-button-padding * 2);
     overflow: hidden;
     cursor: pointer;

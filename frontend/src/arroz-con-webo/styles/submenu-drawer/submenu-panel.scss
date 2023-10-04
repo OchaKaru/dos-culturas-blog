@@ -1,0 +1,16 @@
+@import '../color/palette.scss';
+
+.arroz-submenu-panel {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    margin-left: 2vw;
+}
+
+.arroz-submenu-panel-outlined {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: .1vh solid $on-surface;
+}

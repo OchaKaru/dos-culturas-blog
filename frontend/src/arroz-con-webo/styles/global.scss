@@ -1,0 +1,33 @@
+@import './color/palette.scss';
+@import './typography/font.scss';
+
+html, body {
+    // font-family: $primary-font;
+    background: $surface-lowest;
+    height: 100%;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    user-select: none;
+
+    ::-webkit-scrollbar {
+        width: 0.5vw;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: none;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: $surface-higher;
+        opacity: 20%;
+        transition: opacity 200ms ease;
+        border-radius: 10vw;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: $surface-highest;
+        opacity: 40%;
+    }
+}

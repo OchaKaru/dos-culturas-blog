@@ -2,9 +2,9 @@ import * as React from 'react';
 import {Transition} from 'react-transition-group';
 import CommonButton from '../action/common-button';
 
-import '../styles/submenu-button/appearance/submenu.scss';
-import '../styles/submenu-button/appearance/submenu-button.scss';
-import '../styles/submenu-button/appearance/submenu-panel.scss';
+import '../styles/submenu-drawer/submenu.scss';
+import '../styles/submenu-drawer/submenu-button.scss';
+import '../styles/submenu-drawer/submenu-panel.scss';
 
 /**
  * The Arroz con Webo Submenu Button: It is used as a pseudo dropdown menu that takes up physical space.
@@ -19,7 +19,7 @@ import '../styles/submenu-button/appearance/submenu-panel.scss';
  * 
  * @param {string} surface
  */
-const SubmenuDrawer = (props) => {
+function SubmenuDrawer(props) {
     if(!props.name) // verify a name is provided
         throw new Error();
 
@@ -29,7 +29,7 @@ const SubmenuDrawer = (props) => {
     const role = props.role? props.role : "surface";
     
     // Defining the animation duration and the transition information
-    const ANIMATION_DURATION = 200;
+    const ANIMATION_DURATION = 300;
     const transition = {
         "transition": `height ${ANIMATION_DURATION}ms ease`
     };
@@ -64,7 +64,7 @@ const SubmenuDrawer = (props) => {
 
     return (
         <div className="arroz-submenu">
-            <CommonButton style={props.style} pill={props.pill} role={role} type="text" onClick={toggle_panel}>
+            <CommonButton pill={props.pill} role={role} type="text" onClick={toggle_panel}>
                 {props.name}
             </CommonButton>
             <Transition 

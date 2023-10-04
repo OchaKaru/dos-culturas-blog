@@ -1,0 +1,112 @@
+@import '../color/palette.scss';
+@import '../typography/font.scss';
+
+@import 'checkbox-label.scss';
+
+.arroz-checkbox {
+    display: flex;
+    align-items: center;
+}
+
+$checkbox-size: $arroz-font-size;
+
+.arroz-checkbox-checkbox {
+    position: relative;
+    padding: calc(0.5 * $checkbox-size);
+    border-radius: 50%;
+    cursor: pointer;
+    overflow: hidden;
+
+    input[type='checkbox'] {
+        appearance: none;
+        vertical-align: middle;
+        position: relative;
+        width: $checkbox-size;
+        height: $checkbox-size;
+        background: transparent;
+        border: calc(0.2 * $checkbox-size) solid $on-surface;
+        border-radius: calc(0.1 * $checkbox-size);
+        cursor: pointer;
+          
+        transition: border 250ms ease-out;
+    }
+
+    input[type='checkbox']:checked {
+        border: calc(0.5 * $checkbox-size) solid $primary;
+        animation: shrink-bounce 300ms ease-out;
+    }
+    input[type='checkbox']:checked:before{
+        content: "";
+        position: absolute;
+        top: calc(-0.125 * $checkbox-size);
+        left: calc(-0.375 * $checkbox-size);
+        border-right: calc(0.2 * $checkbox-size) solid transparent;
+        border-bottom: calc(0.2 * $checkbox-size) solid transparent;
+        transform: rotate(45deg);
+        transform-origin: 0% 100%;
+        animation: checkbox-check 100ms 250ms ease forwards;
+    }
+      
+    @keyframes shrink-bounce{
+        0%{
+            transform: scale(1);
+        }
+        33%{    
+            transform: scale(.85);
+        }
+        100%{
+            transform: scale(1);    
+        }
+    }
+    @keyframes checkbox-check{
+        0%{
+            width: 0;
+            height: 0;
+            border-color: $on-primary;
+            transform: translate(0, 0) rotate(45deg);
+        }
+        33%{
+            width: calc(0.2 * $checkbox-size);
+            height: 0;
+            transform: translate(0, 0) rotate(45deg);
+        }
+        100%{    
+            width: calc(0.2 * $checkbox-size);
+            height: calc(0.5 * $checkbox-size);   
+            border-color: $on-primary;
+            transform: translate(0, calc(-0.5 * $checkbox-size)) rotate(45deg);
+        }
+    }
+}
+
+.arroz-checkbox-checkbox:hover:before {
+    content: "";
+    background-color: $on-surface;
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    opacity: 20%;
+}
+
+.arroz-checkbox-checkbox:active:before {
+    content: "";
+    background-color: $on-surface;
+    opacity: 40%;
+    transition: opacity 300ms ease;
+}
+
+// span.arroz-checkbox-ripple {
+//     position: absolute;
+//     border-radius: 20%;
+//     transform: scale(0);
+//     animation: ripple 600ms forwards;
+//     background-color: $on-surface;
+//     opacity: 40%;
+//     transition: opacity 500ms ease;
+// }
+
+// @keyframes ripple {
+//     to {
+//         transform: scale(4);
+//     }
+// }
