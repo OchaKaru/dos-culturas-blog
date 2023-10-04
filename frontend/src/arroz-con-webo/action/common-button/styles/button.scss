@@ -1,17 +1,20 @@
-@import '../color/palette.scss';
-@import '../typography/font.scss';
+@import '../../../styles/color/palette.scss';
+@import '../../../styles/typography/font.scss';
 
-@import 'types/filled-button.scss';
-@import 'types/tonal-button.scss';
-@import 'types/elevated-button.scss';
-@import 'types/outlined-button.scss';
-@import 'types/text-button.scss';
+@import 'filled-button.scss';
+@import 'tonal-button.scss';
+@import 'elevated-button.scss';
+@import 'outlined-button.scss';
+@import 'text-button.scss';
+
+@import 'on-surface-button.scss';
+@import 'button-ripple.scss';
 
 $arroz-button-padding: calc($arroz-label-size / 2);
 $arroz-border-default-radius: calc($arroz-label-size * 0.2);
 $arroz-border-rounded-radius: $arroz-label-size;
 
-.arroz-common-button {
+.arroz-button {
     // unstyle the button
     outline: none;
 
@@ -24,9 +27,9 @@ $arroz-border-rounded-radius: $arroz-label-size;
     text-align: center;
 
     // structure
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
     padding: $arroz-button-padding calc($arroz-button-padding * 2);
     overflow: hidden;
     cursor: pointer;

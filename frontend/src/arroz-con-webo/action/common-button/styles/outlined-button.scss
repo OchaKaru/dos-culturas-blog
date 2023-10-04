@@ -1,0 +1,24 @@
+// primary outlined button style
+.arroz-primary-outlined-button {
+    background-color: transparent;
+    color: $primary;
+
+    border: .1vh solid $on-surface;
+}
+
+// secondary outlined button style
+.arroz-secondary-outlined-button {
+    background-color: transparent;
+    color: $secondary;
+
+    border: .1vh solid $on-surface;
+}
+
+
+// tertiary outlined button style
+.arroz-tertiary-outlined-button {
+    background-color: transparent;
+    color: $tertiary;
+
+    border: .1vh solid $on-surface;
+}

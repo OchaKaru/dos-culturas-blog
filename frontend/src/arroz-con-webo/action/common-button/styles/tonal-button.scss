@@ -78,19 +78,3 @@ span.arroz-secondary-tonal-ripple {
 .arroz-tertiary-tonal-button:hover:before {
     opacity: 20%;
 }
-
-span.arroz-tertiary-tonal-ripple {
-    position: absolute;
-    border-radius: 50%;
-    transform: scale(0);
-    animation: ripple 600ms linear;
-    background-color: $on-tertiary-container;
-    opacity: 40%;
-}
-
-@keyframes ripple {
-    to {
-        transform: scale(4);
-        opacity: 0;
-    }
-}
