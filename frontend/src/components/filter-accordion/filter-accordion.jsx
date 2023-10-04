@@ -1,5 +1,6 @@
 import * as React from 'react';
-import CommonButton from '../../arroz-con-webo/action/common-button';
+import FilledButton from '../../arroz-con-webo/action/filled-button';
+import TonalButton from '../../arroz-con-webo/action/tonal-button';
 import SubmenuDrawer from '../../arroz-con-webo/containment/submenu-drawer';
 
 import FilterTab from './filter-tab';
@@ -96,8 +97,8 @@ export default class FilterAccordion extends React.Component {
                     <div className='accordian-menu' style={{'width': this.state.collapsed ? '0': '20vw'}} >
                         {this.display_tab()}
                         <div className='filter-button-container'>
-                            <CommonButton type="filled" pill onClick={this.filter} >Filter Recipes</CommonButton>
-                            <CommonButton type="tonal" pill onClick={this.reset} >Reset Filters</CommonButton>
+                            <FilledButton pill onClick={this.filter} >Filter Recipes</FilledButton>
+                            <TonalButton pill onClick={this.reset} >Reset Filters</TonalButton>
                         </div>
                     </div>
                     <button className='collapse-button' style={{'left': this.state.collapsed ? '0' : '30vw'}} onClick={this.toggle_collapse} >{this.state.collapsed ? "▶" : "◀"}</button>

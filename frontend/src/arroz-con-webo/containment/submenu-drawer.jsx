@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Transition} from 'react-transition-group';
-import CommonButton from '../action/common-button';
+import TextButton from '../action/text-button';
 
 import '../styles/submenu-drawer/submenu.scss';
 import '../styles/submenu-drawer/submenu-button.scss';
@@ -64,9 +64,9 @@ function SubmenuDrawer(props) {
 
     return (
         <div className="arroz-submenu">
-            <CommonButton pill={props.pill} role={role} type="text" onClick={toggle_panel}>
+            <TextButton pill={props.pill} role={role} onClick={toggle_panel}>
                 {props.name}
-            </CommonButton>
+            </TextButton>
             <Transition 
                 nodeRef={reference}
 
