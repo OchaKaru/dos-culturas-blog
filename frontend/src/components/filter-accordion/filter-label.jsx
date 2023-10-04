@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Checkbox from '../../arroz-con-webo/selection/checkbox';
 
 export default class FilterLabel extends React.Component {
     constructor(props) {
@@ -29,10 +30,12 @@ export default class FilterLabel extends React.Component {
 
     render() {
         return (
-            <div className='filter-label'>
-                <input id={this.state.name} type="checkbox" checked={this.state.checked} onChange={this.toggle} />
-                <label htmlFor={this.state.name}>{this.state.name}</label>
-            </div>
+            // <div className='filter-label'>
+            //     <input id={this.state.name} type="checkbox" checked={this.state.checked} onChange={this.toggle} />
+            //     <label htmlFor={this.state.name}>{this.state.name}</label>
+            // </div>
+
+            <Checkbox id={this.state.name} label={this.state.name} checked={this.state.checked} onToggle={this.toggle} />
         );
     }
 }

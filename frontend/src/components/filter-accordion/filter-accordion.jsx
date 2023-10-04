@@ -1,7 +1,9 @@
 import * as React from 'react';
-import CommonButton from '../arroz-con-web/action/common-button';
+import CommonButton from '../../arroz-con-webo/action/common-button';
+import SubmenuDrawer from '../../arroz-con-webo/containment/submenu-drawer';
 
 import FilterTab from './filter-tab';
+import FilterLabel from './filter-label';
 
 export default class FilterAccordion extends React.Component {
     constructor(props) {
@@ -51,8 +53,22 @@ export default class FilterAccordion extends React.Component {
     tabify_data(data) {
         let tab_list = [];
 
+        const labelify_data = (data => {
+            let label_list = [];
+    
+            for(let i = 0; i < data.length; i++) {
+                label_list.push(<FilterLabel key={i} data={data[i]} checked={false} onToggle={this.toggle_checked} />);
+            }
+    
+            return label_list;
+        }).bind(this);
+
         ["Main Ingredient", "Dietary Restriction", "Culture", "Cooking Method"].forEach(group_type => {
-            tab_list.push(<FilterTab key={group_type} name={group_type} length={data[group_type].length} data={data[group_type]} onToggle={this.toggle_checked} />);
+            tab_list.push(
+                <SubmenuDrawer key={group_type} name={group_type} pill>
+                    {labelify_data(data[group_type])}
+                </SubmenuDrawer>
+            );
         });
 
         return tab_list;
