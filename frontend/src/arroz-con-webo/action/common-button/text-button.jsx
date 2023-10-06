@@ -1,6 +1,8 @@
 import * as React from 'react';
 import CommonButton from './common-button';
 
+import Validation from '../../util/validation';
+
 /**
  * The Arroz con Webo Text Button: Used where text buttons should be.
  * 
@@ -10,14 +12,17 @@ import CommonButton from './common-button';
  * @param {boolean} ripple (optional) Specifies whether the ripple animation should play.
  * @param {function} onClick (optional) Specifies the callback function when the button is clicked.
  * 
- * @param {string} containerType (internal) Contains the value of the surface this component is sitting on.
+ * @param {string} context (internal) Informs children of the type of container they are inside of.
  */
 function TextButton(props) {
-    const ACCEPTED_ROLES = ['primary', 'secondary', 'tertiary', 'surface'];
-    if(props.role && !ACCEPTED_ROLES.includes(props.role))
+    if(props.role && !Validation.valid_role(props.role))
         throw new Error();
     const role = props.role? props.role : "primary";
-    const surface = props.containerType? props.containerType : "surface";
+
+    let surface;
+    if(!props.context || Validation.surface_role(props.context))
+        surface = 'surface';
+    else surface = props.context;
 
     const computedClassName = props.className? props.className + ` arroz-${role}-text-button arroz-on-${surface}-button` : `arroz-${role}-text-button arroz-on-${surface}-button`;
     
