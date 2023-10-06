@@ -1,0 +1,53 @@
+@import '../../../styles/color/palette.scss';
+
+// primary filled card
+.arroz-primary-filled-card {
+    // color
+    background-color: $primary-container;
+    color: $on-primary-container;
+}
+
+// secondary filled card
+.arroz-secondary-filled-card {
+    // color
+    background-color: $secondary-container;
+    color: $on-secondary-container;
+}
+
+// tertiary filled card
+.arroz-tertiary-filled-card {
+    // color
+    background-color: $tertiary-container;
+    color: $on-tertiary-container;
+}
+
+// surface filled card
+.arroz-surface-filled-card {
+    // color
+    background-color: $surface;
+    color: $on-surface;
+}
+
+.arroz-surface-higher-filled-card {
+    // color
+    background-color: $surface-higher;
+    color: $on-surface;
+}
+
+.arroz-surface-highest-filled-card {
+    // color
+    background-color: $surface-highest;
+    color: $on-surface;
+}
+
+.arroz-surface-lower-filled-card {
+    // color
+    background-color: $surface-lower;
+    color: $on-surface;
+}
+
+.arroz-surface-lowest-filled-card {
+    // color
+    background-color: $surface-lowest;
+    color: $on-surface;
+}
