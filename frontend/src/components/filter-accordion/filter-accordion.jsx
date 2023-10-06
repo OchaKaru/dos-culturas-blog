@@ -1,7 +1,7 @@
 import * as React from 'react';
-import FilledButton from '../../arroz-con-webo/action/filled-button';
-import TonalButton from '../../arroz-con-webo/action/tonal-button';
-import SubmenuDrawer from '../../arroz-con-webo/containment/submenu-drawer';
+import FilledButton from '../../arroz-con-webo/action/common-button/filled-button';
+import TonalButton from '../../arroz-con-webo/action/common-button/tonal-button';
+import Submenu from '../../arroz-con-webo/containment/submenu';
 
 import FilterTab from './filter-tab';
 import FilterLabel from './filter-label';
@@ -66,9 +66,9 @@ export default class FilterAccordion extends React.Component {
 
         ["Main Ingredient", "Dietary Restriction", "Culture", "Cooking Method"].forEach(group_type => {
             tab_list.push(
-                <SubmenuDrawer key={group_type} name={group_type} pill>
+                <Submenu key={group_type} name={group_type} pill>
                     {labelify_data(data[group_type])}
-                </SubmenuDrawer>
+                </Submenu>
             );
         });
 
