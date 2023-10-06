@@ -2,7 +2,7 @@ import * as React from 'react';
 import Card from './card';
 
 import {valid_container_role} from '../../util/validation';
-import {NoContextError} from '../../util/error';
+import {NoContextError, InvalidRoleError} from '../../util/error';
 
 /**
  * This is the Arroz con Webo Filled Card: Used where content needs to be in subcontainers. The cards
@@ -17,8 +17,8 @@ function FilledCard(props) {
     // const context = props.context;
 
     if(props.role && !valid_container_role(props.role))
-        throw new Error();
-    const role = props.role? props.role : 'secondary';
+        throw new InvalidRoleError();
+    const role = props.role? props.role : 'surface';
 
     const computedClassName = props.className? props.className + ` arroz-${role}-filled-card` : `arroz-${role}-filled-card`;
     return (

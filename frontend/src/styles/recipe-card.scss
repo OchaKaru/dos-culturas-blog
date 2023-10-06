@@ -5,10 +5,6 @@ $recipe-card-width: 20vw;
 $recipe-card-radius: 2vh;
 
 .recipe-card {
-    background: $recipe-card-color;
-    color: $recipe-name-color;
-    border-radius: $recipe-card-radius;
-    width: $recipe-card-width;
     padding: 0;
     overflow: hidden;
 
@@ -16,7 +12,6 @@ $recipe-card-radius: 2vh;
         width: 100%;
         margin: 0;
         overflow: hidden;
-        // border-radius: $recipe-card-radius $recipe-card-radius 0 0;
 
         img {
             width: 100%;
@@ -47,12 +42,4 @@ $recipe-card-radius: 2vh;
             font-weight: 900;
         }
     }            
-}
-
-.recipe-card:hover {
-    background: radial-background(adjust-color($platinum, $lightness: 5%));
-}
-
-.recipe-card:active {
-    background: radial-background(adjust-color($platinum, $lightness: 10%));
 }

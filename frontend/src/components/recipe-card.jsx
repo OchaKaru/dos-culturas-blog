@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { Link } from "gatsby";
 
+import FilledCard from '../arroz-con-webo/containment/card/filled-card';
+
 export default class RecipeCard extends React.Component {
     constructor(props) {
         super(props);
@@ -37,7 +39,7 @@ export default class RecipeCard extends React.Component {
     render() {
         return (
             <Link to="/recipe/" state={{'recipe_clicked': this.state.id}}>
-                <div className='recipe-card'>
+                <FilledCard className='recipe-card' role="surface-highest" rounded>
                     <figure className='recipe-image'>
                         <img src={this.state.image} alt={this.state.description} />
                     </figure>
@@ -45,7 +47,7 @@ export default class RecipeCard extends React.Component {
                         <p className='recipe-culture'>{this.state.culture}</p>
                         <h1 className='recipe-name'>{this.state.name}</h1>
                     </div>
-                </div>
+                </FilledCard>
             </Link>
         );
     }
