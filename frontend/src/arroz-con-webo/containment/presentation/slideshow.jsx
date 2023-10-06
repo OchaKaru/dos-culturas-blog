@@ -1,8 +1,8 @@
 import * as React from "react";
 import {SwitchTransition, CSSTransition} from "react-transition-group";
 
-import '../styles/slideshow/transition/fade-in.scss';
-import '../styles/slideshow/transition/fade-out.scss';
+import './styles/fade-in.scss';
+import './styles/fade-out.scss';
 
 // TODO: ADD CUSTOM ERRORS
 
