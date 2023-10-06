@@ -21,22 +21,24 @@ import './styles/button.scss';
  */
 const CommonButton = (props) => {
     const surface = props.containerType? props.containerType : "surface";
-    const computedClassName = props.className? props.className + (props.pill? ` arroz-pill-button` : ` arroz-square-button`) : (props.pill? `arroz-pill-button` : `arroz-square-button`) ;
+    const computedClassName = props.className? props.className + (props.pill? ` arroz-pill-button` : ` arroz-square-button`) : (props.pill? `arroz-pill-button` : `arroz-square-button`);
     
     const handle_click = (event) => {
-        const button = event.currentTarget;
+        event.stopPropagation();
+        const target = event.currentTarget;
+        const target_hitbox = target.getBoundingClientRect();
         const circle = document.createElement("span");
-        const radius = button.clientWidth > button.clientHeight? button.clientWidth / 2 : button.clientHeight / 2;
+        const radius = target_hitbox.width > target_hitbox.height? target_hitbox.width / 2 : target_hitbox.height / 2;
         circle.style.width = circle.style.height = `${radius * 2}px`;
-        circle.style.left = `${event.clientX - button.offsetLeft - radius}px`;
-        circle.style.top = `${event.clientY - button.offsetTop - radius}px`;
+        circle.style.left = `${event.clientX - target_hitbox.left - radius}px`;
+        circle.style.top = `${event.clientY - target_hitbox.top - radius}px`;
         circle.classList.add(`arroz-${surface}-ripple`);
 
-        const ripple = button.getElementsByClassName(`arroz-${surface}-ripple`)[0];
+        const ripple = target.getElementsByClassName(`arroz-${surface}-ripple`)[0];
         if(ripple)
             ripple.remove();
 
-        button.appendChild(circle);
+        target.appendChild(circle);
         if(props.onClick)
             props.onClick();
     }
