@@ -2,9 +2,10 @@ import * as React from 'react';
 import {Transition} from 'react-transition-group';
 import TextButton from '../action/common-button/text-button';
 
+import {surface_role} from '../util/validation';
+import {NoContextError} from '../util/error';
+
 import '../styles/submenu-drawer/submenu.scss';
-import '../styles/submenu-drawer/submenu-button.scss';
-import '../styles/submenu-drawer/submenu-panel.scss';
 
 /**
  * The Arroz con Webo Submenu Button: It is used as a pseudo dropdown menu that takes up physical space.
@@ -20,6 +21,10 @@ import '../styles/submenu-drawer/submenu-panel.scss';
  * @param {string} context (internal) Informs children of the type of container they are inside of.
  */
 function Submenu(props) {
+    if(!props.context)
+        throw new NoContextError();
+    const parent_surface = surface_role(props.context)? "surface" : props.context;
+
     if(!props.name) // verify a name is provided
         throw new Error();
 
@@ -65,8 +70,9 @@ function Submenu(props) {
     const computedClassName = `arroz-${role}-submenu`;
     return (
         <div className="arroz-submenu">
-            <TextButton pill={props.pill} role={role} onClick={toggle_panel} context={props.context}>
+            <TextButton className="arroz-submenu-button" pill={props.pill} role={role} onClick={toggle_panel} context={parent_surface}>
                 {props.name}
+                <span className={open? "arroz-submenu-icon open" : "arroz-submenu-icon"}>▼</span>
             </TextButton>
             <Transition 
                 nodeRef={reference}
@@ -85,7 +91,7 @@ function Submenu(props) {
                     ...transition,
                     ...current_style
                 }}>
-                    {props.children}
+                    {React.Children.map(props.children, child => React.cloneElement(child, {'context': parent_surface}))}
                 </div>
             </Transition>
         </div>
