@@ -50,6 +50,9 @@ $surface-higher: var(--surface-higher) !default;
 $surface-highest: var(--surface-highest) !default;
 $on-surface: var(--on-surface) !default;
 
+$shadow: var(--shadow) !default;
+$outline: var(--outline) !default;
+
 /**
  * This function just returns the mapping for the initial color load of the site
  */
@@ -67,6 +70,9 @@ $on-surface: var(--on-surface) !default;
     $surface-highest-lightness: 80%;
     $on-surface-lightness: 10%;
 
+    $shadow-lightness: 30%;
+    $outline-lightness: 50%;
+
     @if $dark-mode {
         // on dark mode these are the mappings
         $accent-lightness: 80%;
@@ -79,7 +85,10 @@ $on-surface: var(--on-surface) !default;
         $surface-lightness: 16%;
         $surface-higher-lightness: 18%;
         $surface-highest-lightness: 20%;
-        $on-surface-lightness: 90%; 
+        $on-surface-lightness: 90%;
+
+        $shadow-lightness: 0%;
+        $outline-lightness: 60%;
     }
 
     // returning the value necessary for the mapping
@@ -94,7 +103,10 @@ $on-surface: var(--on-surface) !default;
         "surface": $surface-lightness,
         "surface-higher": $surface-higher-lightness,
         "surface-highest": $surface-highest-lightness,
-        "on-surface": $on-surface-lightness
+        "on-surface": $on-surface-lightness,
+
+        "shadow": $shadow-lightness,
+        "outline": $outline-lightness,
     ), $mapping);
 }
 
@@ -146,4 +158,7 @@ $on-surface: var(--on-surface) !default;
     --surface-higher: #{tonal-mapping($rice-pot-gray, "surface-higher")};
     --surface-highest: #{tonal-mapping($rice-pot-gray, "surface-highest")};
     --on-surface: #{tonal-mapping($rice-pot-gray, "on-surface")};
+
+    --shadow: #{tonal-mapping($rice-pot-gray, "shadow")};
+    --outline: #{tonal-mapping($rice-pot-gray, "outline")};
 }
