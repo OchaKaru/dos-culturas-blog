@@ -1,6 +1,9 @@
 import * as React from 'react';
 import CommonButton from './common-button';
 
+import {valid_role} from '../../util/validation';
+import {InvalidRoleError} from '../../util/error';
+
 /**
  * The Arroz con Webo Filled Button: Used where filled buttons should be.
  * 
@@ -11,15 +14,13 @@ import CommonButton from './common-button';
  * @param {function} onClick (optional) Specifies the callback function when the button is clicked.
  */
 function FilledButton(props) {
-    const ACCEPTED_ROLES = ['primary', 'secondary', 'tertiary', 'surface'];
-    if(props.role && !ACCEPTED_ROLES.includes(props.role))
-        throw new Error();
+    if(props.role && !valid_role(props.role))
+        throw new InvalidRoleError({"code": "Invalid props.role value.", "value": props.role});
     const role = props.role? props.role : "primary";
 
     const computedClassName = props.className? props.className + ` arroz-${role}-filled-button` : `arroz-${role}-filled-button`;
-    
     return (
-        <CommonButton className={computedClassName} pill={props.pill} ripple={props.ripple} onClick={props.onClick} containerType={role}>
+        <CommonButton className={computedClassName} pill={props.pill} ripple={props.ripple} onClick={props.onClick} context={role}>
             {props.children}
         </CommonButton>
     );
