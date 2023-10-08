@@ -1,5 +1,9 @@
+@import '../../../styles/color/palette.scss';
 @import '../../../styles/typography/font.scss';
+
 @import './filled-card.scss';
+@import './elevated-card.scss';
+@import './outlined-card.scss';
 
 $arroz-border-default-radius: calc($arroz-label-size * 0.2);
 $arroz-border-rounded-radius: $arroz-label-size;
@@ -12,6 +16,8 @@ $arroz-border-rounded-radius: $arroz-label-size;
     display: inline-block;
     padding: 0;
     overflow: hidden;
+
+    text-wrap: nowrap;
 }
 
 .arroz-square-card {
