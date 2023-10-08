@@ -2,21 +2,6 @@
 .arroz-primary-filled-button {
     background-color: $primary;
     color: $on-primary;
-
-    border: none;
-}
-
-.arroz-primary-filled-button:before {
-    content: "";
-    background-color: $on-primary;
-    position: absolute;
-    inset: 0;
-    opacity: 0%;
-    transition: opacity 200ms;
-}
-
-.arroz-primary-filled-button:hover:before {
-    opacity: 20%;
 }
 
 span.arroz-primary-filled-ripple {
@@ -32,22 +17,8 @@ span.arroz-primary-filled-ripple {
 .arroz-secondary-filled-button {
     background-color: $secondary;
     color: $on-secondary;
-
-    border: none;
 }
 
-.arroz-secondary-filled-button:before {
-    content: "";
-    background-color: $on-secondary;
-    position: absolute;
-    inset: 0;
-    opacity: 0%;
-    transition: opacity 200ms;
-}
-
-.arroz-secondary-filled-button:hover:before {
-    opacity: 20%;
-}
 
 span.arroz-secondary-filled-ripple {
     position: absolute;
@@ -62,21 +33,6 @@ span.arroz-secondary-filled-ripple {
 .arroz-tertiary-filled-button {
     background-color: $tertiary;
     color: $on-tertiary;
-
-    border: none;
-}
-
-.arroz-tertiary-filled-button:before {
-    content: "";
-    background-color: $on-tertiary;
-    position: absolute;
-    inset: 0;
-    opacity: 0%;
-    transition: opacity 200ms;
-}
-
-.arroz-tertiary-filled-button:hover:before {
-    opacity: 20%;
 }
 
 span.arroz-tertiary-filled-ripple {

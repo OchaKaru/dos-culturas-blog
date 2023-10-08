@@ -1,99 +1,29 @@
+$button-shadow-size: calc(0.2 * $arroz-font-size);
+
 // primary elevated  button style
 .arroz-primary-elevated-button {
     background-color: transparent;
     color: $primary;
-
-    border: none;
-    box-shadow: 0 .2vh .2vh 0 $on-surface;
-}
-
-.arroz-primary-elevated-button:before {
-    content: "";
-    background-color: $on-primary-container;
-    position: absolute;
-    inset: 0;
-    opacity: 10%;
-    transition: opacity 200ms;
-}
-
-.arroz-primary-elevated-button:hover:before {
-    opacity: 20%;
-}
-
-span.arroz-primary-elevated-ripple {
-    position: absolute;
-    border-radius: 50%;
-    transform: scale(0);
-    animation: ripple 600ms linear;
-    background-color: $on-primary-container;
-    opacity: 40%;
+    box-shadow: 0 $button-shadow-size $button-shadow-size 0 $shadow;
 }
 
 // secondary elevated button style
 .arroz-secondary-elevated-button {
     background-color: transparent;
     color: $secondary;
-
-    border: none;
-    box-shadow: 0 .2vh .2vh 0 $on-surface;
-}
-
-.arroz-secondary-elevated-button:before {
-    content: "";
-    background-color: $on-secondary-container;
-    position: absolute;
-    inset: 0;
-    opacity: 0%;
-    transition: opacity 200ms;
-}
-
-.arroz-secondary-elevated-button:hover:before {
-    opacity: 20%;
-}
-
-span.arroz-secondary-elevated-ripple {
-    position: absolute;
-    border-radius: 50%;
-    transform: scale(0);
-    animation: ripple 600ms linear;
-    background-color: $on-secondary-container;
-    opacity: 40%;
+    box-shadow: 0 $button-shadow-size $button-shadow-size 0 $shadow;
 }
 
 // tertiary elevated button style
 .arroz-tertiary-elevated-button {
     background-color: transparent;
     color: $tertiary;
-    
-    border: none;
-    box-shadow: 0 .2vh .2vh 0 $on-surface;
+    box-shadow: 0 $button-shadow-size $button-shadow-size 0 $shadow;
 }
 
-.arroz-tertiary-elevated-button:before {
-    content: "";
-    background-color: $on-tertiary-container;
-    position: absolute;
-    inset: 0;
-    opacity: 0%;
-    transition: opacity 200ms;
-}
-
-.arroz-tertiary-elevated-button:hover:before {
-    opacity: 20%;
-}
-
-span.arroz-tertiary-elevated-ripple {
-    position: absolute;
-    border-radius: 50%;
-    transform: scale(0);
-    animation: ripple 600ms linear;
-    background-color: $on-tertiary-container;
-    opacity: 40%;
-}
-
-@keyframes ripple {
-    to {
-        transform: scale(4);
-        opacity: 0;
-    }
+// surface elevated button style
+.arroz-surface-elevated-button {
+    background-color: transparent;
+    color: $on-surface;
+    box-shadow: 0 $button-shadow-size $button-shadow-size 0 $shadow;
 }

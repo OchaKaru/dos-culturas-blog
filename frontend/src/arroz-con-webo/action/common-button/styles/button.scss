@@ -7,8 +7,7 @@
 @import 'outlined-button.scss';
 @import 'text-button.scss';
 
-@import 'on-surface-button.scss';
-@import 'button-ripple.scss';
+@import 'interaction.scss';
 
 $arroz-button-padding: calc($arroz-label-size / 2);
 $arroz-border-default-radius: calc($arroz-label-size * 0.2);
@@ -17,6 +16,7 @@ $arroz-border-rounded-radius: $arroz-label-size;
 .arroz-button {
     // unstyle the button
     outline: none;
+    border: none;
 
     // position
     position: relative;
@@ -28,9 +28,6 @@ $arroz-border-rounded-radius: $arroz-label-size;
     text-align: center;
 
     // structure
-    // display: flex;
-    // justify-content: center;
-    // align-items: center;
     padding: $arroz-button-padding calc($arroz-button-padding * 2);
     overflow: hidden;
     cursor: pointer;
