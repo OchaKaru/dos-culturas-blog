@@ -85,28 +85,12 @@ $checkbox-size: $arroz-font-size;
     position: absolute;
     inset: 0;
     border-radius: 50%;
-    opacity: 20%;
+    opacity: 10%;
 }
 
 .arroz-checkbox-checkbox:active:before {
     content: "";
     background-color: $on-surface;
-    opacity: 40%;
-    transition: opacity 300ms ease;
+    opacity: 20%;
+    transition: opacity 200ms ease;
 }
-
-// span.arroz-checkbox-ripple {
-//     position: absolute;
-//     border-radius: 20%;
-//     transform: scale(0);
-//     animation: ripple 600ms forwards;
-//     background-color: $on-surface;
-//     opacity: 40%;
-//     transition: opacity 500ms ease;
-// }
-
-// @keyframes ripple {
-//     to {
-//         transform: scale(4);
-//     }
-// }

@@ -2,7 +2,7 @@ import * as React from 'react';
 import './styles/button.scss';
 
 import {surface_role} from '../../util/validation';
-import {NoContextError} from '../../util/error';
+import {NoContextError} from '../../error/error';
 
 /**
  * The Arroz con Webo Common Button: Used where buttons should be. It can be elevated, filled, tonal,

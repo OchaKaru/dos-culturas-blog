@@ -2,7 +2,7 @@ import * as React from 'react';
 import CommonButton from './common-button';
 
 import {valid_role, surface_role} from '../../util/validation';
-import {InvalidRoleError, NoContextError} from '../../util/error';
+import {InvalidRoleError, NoContextError} from '../../error/error';
 
 /**
  * The Arroz con Webo Text Button: Used where text buttons should be.

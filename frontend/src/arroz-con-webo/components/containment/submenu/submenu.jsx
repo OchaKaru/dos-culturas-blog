@@ -1,11 +1,11 @@
 import * as React from 'react';
 import {Transition} from 'react-transition-group';
-import TextButton from '../action/common-button/text-button';
+import TextButton from '../../action/common-button/text-button';
 
-import {surface_role} from '../util/validation';
-import {NoContextError} from '../util/error';
+import {surface_role} from '../../../util/validation';
+import {NoContextError} from '../../../error/error';
 
-import '../styles/submenu-drawer/submenu.scss';
+import './submenu.scss';
 
 /**
  * The Arroz con Webo Submenu Button: It is used as a pseudo dropdown menu that takes up physical space.
