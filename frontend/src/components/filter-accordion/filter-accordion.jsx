@@ -1,4 +1,5 @@
 import * as React from 'react';
+import SideSheet from '../../arroz-con-webo/containment/sheet/side-sheet';
 import FilledButton from '../../arroz-con-webo/action/common-button/filled-button';
 import TonalButton from '../../arroz-con-webo/action/common-button/tonal-button';
 import Submenu from '../../arroz-con-webo/containment/submenu';
@@ -19,7 +20,7 @@ export default class FilterAccordion extends React.Component {
             this.state = {
                 "tab_list": this.tabify_data(props.data),
                 "groups_checked": new Set(),
-                "collapsed": true,
+                "open": false,
             };
         }
     }
@@ -66,7 +67,7 @@ export default class FilterAccordion extends React.Component {
 
         ["Main Ingredient", "Dietary Restriction", "Culture", "Cooking Method"].forEach(group_type => {
             tab_list.push(
-                <Submenu key={group_type} name={group_type} pill>
+                <Submenu key={group_type} name={group_type} pill context="surface">
                     {labelify_data(data[group_type])}
                 </Submenu>
             );
@@ -87,21 +88,21 @@ export default class FilterAccordion extends React.Component {
     }
 
     toggle_collapse() {
-        this.setState({'collapsed': !this.state.collapsed});
+        this.setState({'open': !this.state.open});
     }
 
     render() {
         return (
             <>
                 <div className='filter-accordion'>
-                    <div className='accordian-menu' style={{'width': this.state.collapsed ? '0': '20vw'}} >
-                        {this.display_tab()}
+                    <SideSheet open={this.state.open}>
+                        {this.state.tab_list}
                         <div className='filter-button-container'>
-                            <FilledButton pill onClick={this.filter} >Filter Recipes</FilledButton>
-                            <TonalButton pill onClick={this.reset} >Reset Filters</TonalButton>
+                            <FilledButton pill onClick={this.filter}>Filter Recipes</FilledButton>
+                            <TonalButton pill onClick={this.reset}>Reset Filters</TonalButton>
                         </div>
-                    </div>
-                    <button className='collapse-button' style={{'left': this.state.collapsed ? '0' : '30vw'}} onClick={this.toggle_collapse} >{this.state.collapsed ? "▶" : "◀"}</button>
+                    </SideSheet>
+                    <button className='collapse-button' style={{'left': this.state.open ? '0' : '30vw'}} onClick={this.toggle_collapse} >{this.state.open ? "▶" : "◀"}</button>
                 </div>
             </>
         );
