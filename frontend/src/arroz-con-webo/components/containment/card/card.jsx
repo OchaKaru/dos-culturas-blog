@@ -1,8 +1,9 @@
 import * as React from 'react';
-import './styles/card.scss';
 
-import {surface_role} from '../../util/validation';
-import {NoContextError} from '../../util/error';
+// arroz imports
+import {NoContextError} from '../../../error';
+import {Typography, Manager} from '../../../styles';
+import {ContainerContext} from '../container-context';
 
 /**
  * This is the Arroz con Webo Card: Used where content needs to be in subcontainers. The cards
@@ -16,8 +17,20 @@ import {NoContextError} from '../../util/error';
  */
 function Card(props) {
     if(!props.context)
-    throw new NoContextError();
-    const surface = surface_role(props.context)? "surface" : props.context;
+        throw new NoContextError();
+
+    React.useEffect(() => {
+        Manager.style_sheet("base_card", `.arroz-card {
+            // position
+            position: relative;
+        
+            // structure
+            display: inline-block;
+            padding: 0;
+            overflow: hidden;
+            border-radius: ${props.rounded? 0.2 * Typography.font_size : Typography.font_size}${Typography.unit};
+        }`);
+    })
 
     if(props.interactable) {
         if(props.ripple) {
@@ -27,11 +40,11 @@ function Card(props) {
         }
     }
 
-    const corner_class = props.rounded? `arroz-rounded-card` : `arroz-square-card`;
-    const computedClassName = props.className? props.className + " " + corner_class : corner_class;
     return (
-        <div className={'arroz-card ' + computedClassName}>
-            {React.Children.map(props.children, child => React.cloneElement(child, {'context': surface}))}
+        <div className={"arroz-card " + props.className?? ""}>
+            <ContainerContext.Provider value={props.context}>
+                {props.children}
+            </ContainerContext.Provider>
         </div>
     );
 }
