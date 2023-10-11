@@ -1,18 +1,7 @@
-export {
-    InvalidFormatError,
-    NoMatchError,
-    NotAnIntegerError,
-    NotEnoughArgumentsError,
-} from './common-error';
+/**
+ * 
+ */
 
-export {
-    NoContextError,
-    InvalidRoleError,
-} from './component-error';
-
-export {
-    InvalidHexcodeError,
-    AlreadyInitializedError,
-    NotInitializedError,
-    NoPaletteFoundError,
-} from './style-error';
+export * from './common-error';
+export * from './component-error';
+export * from './style-error';

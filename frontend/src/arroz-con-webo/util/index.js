@@ -1,8 +1,6 @@
-export {
-    clamp,
-    modulo,
-} from './auxiliary';
+/**
+ * 
+ */
 
-export {
-    useWindowDimensions,
-} from './hook';
+export * from './auxiliary';
+export * from './hook';
