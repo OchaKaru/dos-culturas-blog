@@ -20,5 +20,6 @@ export {
 } from './palette';
 
 export {
-    default as Themer,
+    default as Scheme,
+    Themer,
 } from './themer';

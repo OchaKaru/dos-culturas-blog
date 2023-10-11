@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 // arroz imports
 import {AlreadyInitializedError, NotInitializedError, NoPaletteFoundError} from '../../error';
 
@@ -22,14 +24,22 @@ class Theme {
     // The lightness mappings of the tonal dynamic colors.
     lightness_mappings = {
         "light": {
-            "accent": 30, "on_accent": 90, "container": 80, "on_container": 10,
-            "container_lowest": 90, "container_lower": 88, "container_neutral": 86, "container_higher": 84, "container_highest": 80, 
-            "on_neutral": 10, "outline": 50, "shadow": 30,
+            "accent_color": {
+                "accent": 30, "on_accent": 90, "container": 80, "on_container": 10,
+            },
+            "neutral_color": {
+                "container_lowest": 90, "container_lower": 88, "container": 86, "container_higher": 84, "container_highest": 80, 
+                "outline": 50, "shadow": 30,
+            },
         },
         "dark": {
-            "accent": 80, "on_accent": 20, "container": 30, "on_container": 90,
-            "container_lowest": 10, "container_lower": 14, "container_neutral": 16, "container_higher": 18, "container_highest": 20,
-            "on_neutral": 90, "outline": 60, "shadow": 0,
+            "accent_color": {
+                "accent": 80, "on_accent": 20, "container": 30, "on_container": 90,
+            },
+            "neutral_color": {
+                "container_lowest": 10, "container_lower": 14, "container": 16, "container_higher": 18, "container_highest": 20,
+                "outline": 60, "shadow": 0,
+            },
         }
     }
 
@@ -45,19 +55,19 @@ class Theme {
         for(const color of ["primary", "secondary", "tertiary", "error"]) {
             this.light[color] = {}
             for(const mapping of ["accent", "on_accent", "container", "on_container"])
-                this.light[color][mapping] = this.palette[color](this.lightness_mappings.light[mapping]); // I have called a member function using map syntax...
+                this.light[color][mapping] = this.palette[color](this.lightness_mappings.light.accent_color[mapping]); // I have called a member function using map syntax...
         }
-        for(const mapping of ["container_lowest", "container_lower", "container_neutral", "container_higher", "container_highest", "on_neutral", "outline", "shadow"])
-            this.light["neutral"][mapping] = this.palette["neutral"](this.lightness_mappings.light[mapping]);
+        for(const mapping of ["container_lowest", "container_lower", "container", "container_higher", "container_highest", "on_container", "outline", "shadow"])
+            this.light["neutral"][mapping] = this.palette["neutral"](this.lightness_mappings.light.neutral_color[mapping]);
 
         this.dark = {}
         for(const color of ["primary", "secondary", "tertiary", "error"]) {
             this.dark[color] = {}
             for(const mapping of ["accent", "on_accent", "container", "on_container"])
-                this.dark[color][mapping] = this.palette[color](this.lightness_mappings.dark[mapping]);
+                this.dark[color][mapping] = this.palette[color](this.lightness_mappings.dark.accent_color[mapping]);
         }
-        for(const mapping of ["container_lowest", "container_lower", "container_neutral", "container_higher", "container_highest", "on_neutral", "outline", "shadow"])
-            this.dark["neutral"][mapping] = this.palette["neutral"](this.lightness_mappings.dark[mapping]);
+        for(const mapping of ["container_lowest", "container_lower", "container", "container_higher", "container_highest", "on_container", "outline", "shadow"])
+            this.dark["neutral"][mapping] = this.palette["neutral"](this.lightness_mappings.dark.neutral_color[mapping]);
     }
 
     /**
@@ -74,16 +84,12 @@ class Theme {
 /**
  * @class
  * The Arroz con Webo Themer: This is a singleton that keeps track of the palettes added to the website.
- * 
- * @member {object} scheme This is the color scheme that is used to populate colors throughout the library.
  */
-export default class Themer {
+export class Themer {
     static _initialized = false;
     static _dark_mode = false;
     static _palette_dictionary = {};
     static _current_theme = undefined;
-
-    static scheme = undefined;
 
     /**
      * This function is used to initialize the singleton. Essentially a constructor.
@@ -97,7 +103,7 @@ export default class Themer {
         // Adding the Arroz Con Webo Palette
         this.palette_dictionary["arroz_con_webo"] = Theme(Palette(egg_yellow, broth_brown, kidney_red, tomato_red, rice_pot_gray));
         this._current_theme = "arroz_con_webo";
-        this.scheme = this.palette_dictionary["arroz_con_webo"];
+        this.set_scheme("arroz_con_webo");
     }
 
     /**
@@ -139,7 +145,7 @@ export default class Themer {
 
         try {
             this._current_theme = name;
-            this.scheme = this.palette_dictionary[name][this.dark_mode? "dark" : "light"];
+            set_scheme(this.palette_dictionary[name][this.dark_mode? "dark" : "light"]);
         } catch {
             throw new NoPaletteFoundError();
         }
@@ -160,4 +166,8 @@ export default class Themer {
         }
     }
 }
+
+const [scheme, set_scheme] = React.useState(undefined); // using state for the scheme object
 Themer.initialize(); // initializing the Themer.
+
+export default scheme;
