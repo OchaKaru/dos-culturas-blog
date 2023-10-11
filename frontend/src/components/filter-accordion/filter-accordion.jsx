@@ -1,10 +1,9 @@
 import * as React from 'react';
-import SideSheet from '../../arroz-con-webo/containment/sheet/side-sheet';
-import FilledButton from '../../arroz-con-webo/action/common-button/filled-button';
-import TonalButton from '../../arroz-con-webo/action/common-button/tonal-button';
-import Submenu from '../../arroz-con-webo/containment/submenu';
+import SideSheet from '../../arroz-con-webo/components/containment/sheet/side-sheet';
+import Submenu from '../../arroz-con-webo/components/containment/submenu';
+import FilledButton from '../../arroz-con-webo/components/action/common-button/filled-button';
+import TonalButton from '../../arroz-con-webo/components/action/common-button/tonal-button';
 
-import FilterTab from './filter-tab';
 import FilterLabel from './filter-label';
 
 export default class FilterAccordion extends React.Component {

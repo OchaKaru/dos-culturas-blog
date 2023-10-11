@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Checkbox from '../../arroz-con-webo/selection/checkbox';
+import Checkbox from '../../arroz-con-webo/components/selection/checkbox';
 
 export default class FilterLabel extends React.Component {
     constructor(props) {
