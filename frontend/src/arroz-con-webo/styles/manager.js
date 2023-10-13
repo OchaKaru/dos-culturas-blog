@@ -9,7 +9,7 @@
  * The global style sheet can always be modified by using the "global" key. It features the basic rules to
  * make the html and body fit the screen without any weird edges or scrolling outside of the x-axis.
  */
-export default class Manager {
+export default class StyleManager {
     static _style_sheets = {};
 
     /**
@@ -26,20 +26,26 @@ export default class Manager {
             user-select: none;
         }`);
         
-        this._style_sheets["global"] = document.adoptedStyleSheets.length;
-        document.adoptedStyleSheets.push(global);        
+        this._style_sheets["arroz-global"] = document.adoptedStyleSheets.length;
+        document.adoptedStyleSheets.push(global);      
     }
 
     /**
-     * THis function adds a <key, value> pair to the Manager if it already exists it instead modifies the sheet.
+     * 
+     * @param {string} name This is the name and key that will be used for the sheet.
+     */
+    static exists(name) {
+        return this._style_sheets.key().includes(name);
+    }
+
+    /**
+     * This function adds a <key, value> pair to the Manager
      * @param {string} name This is the name and key that will be used for the sheet.
      * @param {} sheet_text This is CSSStyleSheet that will be used for the value and document.
      */
-    static style_sheet(name, sheet_text) {
-        if(this._style_sheets.key().includes(name)) {
-            document.adoptedStyleSheets[this._style_sheets[name]].replaceSync(sheet_text);
-            return;
-        }
+    static add_style_sheet(name, sheet_text) {
+        if(this.exists(name))
+            throw new StyleSheetExistsError();
 
         let style_sheet = new CSSStyleSheet();
         style_sheet.replaceSync(sheet_text);
@@ -47,6 +53,19 @@ export default class Manager {
         this._style_sheets[name] = document.adoptedStyleSheets.length;
         document.adoptedStyleSheets.push(style_sheet);
     }
+
+    /**
+     * This function modifies a <key, value> pair in the Manager
+     * @param {string} name This is the name and key that will be used for the sheet.
+     * @param {} sheet_text This is CSSStyleSheet that will be used for the value and document.
+     */
+        static modify_style_sheet(name, sheet_text) {
+            if(!this.exists(name))
+                throw new NoStyleSheetExistsError();
+
+            document.adoptedStyleSheets[this._style_sheets[name]].replaceSync(sheet_text);
+        }
+
 
     /**
      * This function removes the specified style sheet from the document
