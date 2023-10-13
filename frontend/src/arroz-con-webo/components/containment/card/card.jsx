@@ -1,8 +1,7 @@
 import * as React from 'react';
 
 // arroz imports
-import {NoContextError} from '../../../error';
-import {Typography, Manager} from '../../../styles';
+import {Typography} from '../../../styles';
 import {ContainerContext} from '../container-context';
 
 /**
@@ -12,39 +11,48 @@ import {ContainerContext} from '../container-context';
  * @param {boolean} rounded (optional) Specifies if the corners are rounded.
  * @param {boolean} interactable (optional) Specifies if the card should have a hover effect.
  * @param {boolean} ripple (optional) Specifies if the card should have a ripple animation.
- * 
- * @param {string} context (internal) Informs children of the type of container they are inside of.
  */
 function Card(props) {
-    if(!props.context)
-        throw new NoContextError();
+    const {role, container_type} = React.useContext(ContainerContext);
 
+    const [class_name, set_style] = useCSSClass();
     React.useEffect(() => {
-        Manager.style_sheet("base_card", `.arroz-card {
-            // position
-            position: relative;
-        
-            // structure
-            display: inline-block;
-            padding: 0;
-            overflow: hidden;
-            border-radius: ${props.rounded? 0.2 * Typography.font_size : Typography.font_size}${Typography.unit};
-        }`);
-    })
+        const interaction_color = valid_container(container_type)? Scheme[role].on_container : "transparent";
 
-    if(props.interactable) {
-        if(props.ripple) {
-
-        } else {
+        set_style(`
+            .${class_name} {
+                // position
+                position: relative;
             
-        }
-    }
+                // structure
+                display: inline-block;
+                padding: 0;
+                overflow: hidden;
+                border-radius: ${props.rounded? Typography.font_size : 0.2 * Typography.font_size}${Typography.unit};
+            }
+
+            .${class_name}::before {
+                content: "";
+                background-color: ${interaction_color};
+                position: absolute;
+                inset: 0;
+                opacity: 0%;
+                transition: opacity 200ms;
+            }
+
+            ${props.interactable?
+                `.${class_name}:hover::before {opacity: 10%;} ${props.ripple? 
+                    "" : 
+                    `.${class_name}:active::before {opacity: 20%;}`
+                }` : 
+                ""
+            }
+        `);
+    }, [class_name, role, container_type, Typography.font_size, Typography.unit]);
 
     return (
-        <div className={"arroz-card " + props.className?? ""}>
-            <ContainerContext.Provider value={props.context}>
-                {props.children}
-            </ContainerContext.Provider>
+        <div className={`${class_name} ${props.className?? ""}`}>
+            {props.children}
         </div>
     );
 }
