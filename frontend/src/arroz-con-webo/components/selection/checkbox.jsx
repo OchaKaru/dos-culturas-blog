@@ -15,7 +15,7 @@ import {ContainerContext, valid_role} from '../containment/container-context';
  * @param {boolean} ripple (optional)
  * @param {function} onToggle (optional) The callback that is called when the checkbox changes.
  */
-function Checkbox({className, label, role, defaultChecked, ripple, onToggle}) {
+function Checkbox({className, label, role = "primary", defaultChecked, ripple, onToggle}) {
     if(!label)
         throw new NoNameError();
 
@@ -35,74 +35,73 @@ function Checkbox({className, label, role, defaultChecked, ripple, onToggle}) {
                 align-items: center;
             }
             
-            $checkbox-size: $arroz-font-size;
-            
             .${class_name}-checkbox {
                 position: relative;
                 padding: ${0.5 * Typography.font_size}${Typography.unit};
                 border-radius: 50%;
                 cursor: pointer;
                 overflow: hidden;
-            
-                input[type='checkbox'] {
-                    appearance: none;
-                    vertical-align: middle;
-                    position: relative;
-                    width: ${Typography.font_size}${Typography.unit};
-                    height: ${Typography.font_size}${Typography.unit};
-                    background: transparent;
-                    border: ${0.2 * Typography.font_size} solid ${Scheme[context.role].on_container};
-                    border-radius: ${0.1 * Typography.font_size}${Typography.unit};
-                    cursor: pointer;
-                    
-                    transition: border ${ANIMATION_DURATION}ms ease-out;
-                }
-            
-                input[type='checkbox']:checked {
-                    border: ${0.5 * Typography.font_size}${Typography.unit} solid ${Scheme[role].accent};
-                    animation: shrink-bounce ${ANIMATION_DURATION}ms ease-out;
-                }
-                input[type='checkbox']:checked:before{
-                    content: "";
-                    position: absolute;
-                    top: ${-Typography.font_size / 8}${Typography.unit};
-                    left: ${-3 * Typography.font_size / 8}${Typography.unit};
-                    border-right: ${0.2 * Typography.font_size}${Typography.unit} solid transparent;
-                    border-bottom: ${0.2 * Typography.font_size}${Typography.unit} solid transparent;
-                    transform: rotate(45deg);
-                    transform-origin: 0% 100%;
-                    animation: checkbox-check ${ANIMATION_DURATION / 2}ms ${ANIMATION_DURATION}ms ease forwards;
-                }
+            }
+
+            .${class_name}-checkbox input[type='checkbox'] {
+                appearance: none;
+                vertical-align: middle;
+                position: relative;
+                width: ${Typography.font_size}${Typography.unit};
+                height: ${Typography.font_size}${Typography.unit};
+                background: transparent;
+                border: ${0.2 * Typography.font_size}${Typography.unit} solid ${Scheme[context.role].on_container};
+                border-radius: ${0.1 * Typography.font_size}${Typography.unit};
+                cursor: pointer;
                 
-                @keyframes shrink-bounce{
-                    0%{
-                        transform: scale(1);
-                    }
-                    33%{    
-                        transform: scale(.85);
-                    }
-                    100%{
-                        transform: scale(1);    
-                    }
+                transition: border ${ANIMATION_DURATION}ms ease-out;
+            }
+        
+            .${class_name}-checkbox input[type='checkbox']:checked {
+                border: ${0.5 * Typography.font_size}${Typography.unit} solid ${Scheme[role].accent};
+                animation: shrink-bounce ${ANIMATION_DURATION}ms ease-out;
+            }
+
+            .${class_name}-checkbox input[type='checkbox']:checked:before{
+                content: "";
+                position: absolute;
+                top: ${-Typography.font_size / 8}${Typography.unit};
+                left: ${-3 * Typography.font_size / 8}${Typography.unit};
+                border-right: ${0.2 * Typography.font_size}${Typography.unit} solid transparent;
+                border-bottom: ${0.2 * Typography.font_size}${Typography.unit} solid transparent;
+                transform: rotate(45deg);
+                transform-origin: 0% 100%;
+                animation: checkbox-check ${ANIMATION_DURATION / 2}ms ${ANIMATION_DURATION}ms ease forwards;
+            }
+            
+            @keyframes shrink-bounce{
+                0%{
+                    transform: scale(1);
                 }
-                @keyframes checkbox-check{
-                    0%{
-                        width: 0;
-                        height: 0;
-                        border-color: ${Scheme[role].on_accent};
-                        transform: translate(0, 0) rotate(45deg);
-                    }
-                    33%{
-                        width: ${0.2 * Typography.font_size}${Typography.unit};
-                        height: 0;
-                        transform: translate(0, 0) rotate(45deg);
-                    }
-                    100%{    
-                        width: ${0.2 * Typography.font_size}${Typography.unit};
-                        height: ${0.5 * Typography.font_size}${Typography.unit};   
-                        border-color: $on-primary;
-                        transform: translate(0, ${-0.5 * Typography.font_size}${Typography.unit}) rotate(45deg);
-                    }
+                33%{    
+                    transform: scale(.85);
+                }
+                100%{
+                    transform: scale(1);    
+                }
+            }
+            @keyframes checkbox-check{
+                0%{
+                    width: 0;
+                    height: 0;
+                    border-color: ${Scheme[role].on_accent};
+                    transform: translate(0, 0) rotate(45deg);
+                }
+                33%{
+                    width: ${0.2 * Typography.font_size}${Typography.unit};
+                    height: 0;
+                    transform: translate(0, 0) rotate(45deg);
+                }
+                100%{    
+                    width: ${0.2 * Typography.font_size}${Typography.unit};
+                    height: ${0.5 * Typography.font_size}${Typography.unit};   
+                    border-color: ${Scheme[role].on_accent};
+                    transform: translate(0, ${-0.5 * Typography.font_size}${Typography.unit}) rotate(45deg);
                 }
             }
             
