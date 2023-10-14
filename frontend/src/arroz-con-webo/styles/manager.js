@@ -60,12 +60,12 @@ export default class StyleManager {
      * @param {string} name This is the name and key that will be used for the sheet.
      * @param {} sheet_text This is CSSStyleSheet that will be used for the value and document.
      */
-        static modify_style_sheet(name, sheet_text) {
-            if(!this.exists(name))
-                throw new NoStyleSheetExistsError();
+    static modify_style_sheet(name, sheet_text) {
+        if(!this.exists(name))
+            throw new NoStyleSheetExistsError();
 
-            document.adoptedStyleSheets[this._style_sheets[name]].replaceSync(sheet_text);
-        }
+        document.adoptedStyleSheets[this._style_sheets[name]].replaceSync(sheet_text);
+    }
 
 
     /**
