@@ -132,7 +132,6 @@ export function hsl_to_rgb(hue, saturation, lightness) {
     const m_ = Math.round(m * 255);
 
     // depending on the degree, return the correct mapping of the RGB
-    console.log(hue)
     switch(true) {
         case 0 <= hue && hue < 60:
             return {"red": C_, "green": X_, "blue": m_};
@@ -178,7 +177,6 @@ export default class Color {
      */
     constructor(hexcode) {
         // verify valid hexcodes
-        console.log(hexcode);
         if(!valid_hexcode(hexcode))
             throw new InvalidHexcodeError({"code": "The hexcode is invalid", "value": [hexcode]});
         this.hexcode = hexcode;

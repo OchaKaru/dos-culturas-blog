@@ -63,11 +63,11 @@ export default class Palette {
      */
     secondary(lightness = undefined) {
         if(lightness && Number.isInteger(lightness))
-            return this._tonal_mapping(this._primary_color, lightness);
+            return this._tonal_mapping(this._secondary_color, lightness);
         if(lightness && !Number.isInteger(lightness))
             throw NotAnIntegerError();
 
-        return this._primary_color;        
+        return this._secondary_color;
     }
 
     /**
@@ -77,11 +77,11 @@ export default class Palette {
      */
     tertiary(lightness = undefined) {
         if(lightness && Number.isInteger(lightness))
-            return this._tonal_mapping(this._primary_color, lightness);
+            return this._tonal_mapping(this._tertiary_color, lightness);
         if(lightness && !Number.isInteger(lightness))
             throw NotAnIntegerError();
 
-        return this._primary_color;        
+        return this._tertiary_color;        
     }
 
     /**
@@ -91,11 +91,11 @@ export default class Palette {
      */
     error(lightness = undefined) {
         if(lightness && Number.isInteger(lightness))
-            return this._tonal_mapping(this._primary_color, lightness);
+            return this._tonal_mapping(this._error_color, lightness);
         if(lightness && !Number.isInteger(lightness))
             throw NotAnIntegerError();
 
-        return this._primary_color;        
+        return this._error_color;        
     }
 
     /**
@@ -105,10 +105,10 @@ export default class Palette {
      */
     neutral(lightness = undefined) {
         if(lightness && Number.isInteger(lightness))
-            return this._tonal_mapping(this._primary_color, lightness);
+            return this._tonal_mapping(this._neutral_color, lightness);
         if(lightness && !Number.isInteger(lightness))
             throw NotAnIntegerError();
 
-        return this._primary_color;        
+        return this._neutral_color;        
     }
 }

@@ -29,7 +29,7 @@ class Theme {
             },
             "neutral_color": {
                 "container_lowest": 90, "container_lower": 88, "container": 86, "container_higher": 84, "container_highest": 80, 
-                "outline": 50, "shadow": 30,
+                "on_container": 10, "outline": 50, "shadow": 30,
             },
         },
         "dark": {
@@ -38,7 +38,7 @@ class Theme {
             },
             "neutral_color": {
                 "container_lowest": 10, "container_lower": 14, "container": 16, "container_higher": 18, "container_highest": 20,
-                "outline": 60, "shadow": 0,
+                "on_container": 90, "outline": 60, "shadow": 0,
             },
         }
     }
@@ -59,7 +59,7 @@ class Theme {
         }
         this.light.neutral = {};
         for(const mapping of ["container_lowest", "container_lower", "container", "container_higher", "container_highest", "on_container", "outline", "shadow"])
-            this.light.neutral[mapping] = this.palette["neutral"](this.lightness_mappings.light.neutral_color[mapping]);
+            this.light.neutral[mapping] = this.palette.neutral(this.lightness_mappings.light.neutral_color[mapping]);
 
         this.dark = {}
         for(const color of ["primary", "secondary", "tertiary", "error"]) {
@@ -69,7 +69,7 @@ class Theme {
         }
         this.dark.neutral = {};
         for(const mapping of ["container_lowest", "container_lower", "container", "container_higher", "container_highest", "on_container", "outline", "shadow"])
-            this.dark.neutral[mapping] = this.palette["neutral"](this.lightness_mappings.dark.neutral_color[mapping]);
+            this.dark.neutral[mapping] = this.palette.neutral(this.lightness_mappings.dark.neutral_color[mapping]);
     }
 
     /**
@@ -118,7 +118,7 @@ export class Themer {
     static toggle_dark_mode() {
         if(!this._initialized)
             this.initialize();
-        this.dark_mode = !this.dark_mode;
+        this._dark_mode = !this._dark_mode;
         this.set_scheme(this._current_theme);
     }
 
@@ -130,7 +130,7 @@ export class Themer {
     static add_palette(name, palette) {
         if(!this._initialized)
             this.initialize();
-        this.palette_list[name] = new Theme(palette);
+        this._palette_dictionary[name] = new Theme(palette);
     }
 
     /**
@@ -151,7 +151,7 @@ export class Themer {
 
         try {
             this._current_theme = name;
-            this.scheme = this._palette_dictionary[name][this.dark_mode? "dark" : "light"];
+            this.scheme = this._palette_dictionary[name][this._dark_mode? "dark" : "light"];
         } catch {
             throw new NoPaletteFoundError();
         }
@@ -166,7 +166,7 @@ export class Themer {
             throw new NotInitializedError();
 
         try {
-            this.palette_dictionary["default"] = this.palette_dictionary[name];
+            this._palette_dictionary["default"] = this._palette_dictionary[name];
         } catch {
             throw new NoPaletteFoundError();
         }
