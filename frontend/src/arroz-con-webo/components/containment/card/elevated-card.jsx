@@ -1,10 +1,10 @@
 import * as React from 'react';
 
 // arroz imports
-import {InvalidRoleError} from '../../../error';
-import {Scheme, Typography} from '../../../styles';
+import {InvalidRoleError, InvalidContainerError} from '../../../error';
+import {ThemeContext, Typography} from '../../../styles';
 import {useCSSClass} from '../../../util';
-import {ContainerContext, valid_role} from '../container-context';
+import {ContainerContext, valid_container, valid_role} from '../container-context';
 
 // local imports
 import Card from './card';
@@ -27,6 +27,8 @@ function ElevatedCard(props) {
         throw new InvalidContainerError();
     const container_type = props.containerType?? 'container_lowest';
 
+    const {Scheme} = React.useContext(ThemeContext);
+
     const context = React.useContext(ContainerContext);
     const [class_name, set_style] = useCSSClass();
     React.useEffect(() => {
@@ -37,7 +39,7 @@ function ElevatedCard(props) {
                 box-shadow: 0 ${0.2 * Typography.font_size}${Typography.unit} ${0.2 * Typography.font_size}${Typography.unit} 0 ${Scheme.neutral.shadow};
             }
         `);
-    }, [class_name, Scheme, Typography.font_size, Typography.unit]);
+    }, [class_name, Scheme, container_type, context.container_type, context.role, role, set_style]);
 
     return (
         <ContainerContext.Provider value={{"role": role, "container_type": container_type}}>

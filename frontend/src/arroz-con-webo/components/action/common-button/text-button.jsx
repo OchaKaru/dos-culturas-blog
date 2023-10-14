@@ -1,8 +1,10 @@
 import * as React from 'react';
 
 // arroz imports
-import {Scheme, Typography} from '../../../styles';
+import {InvalidRoleError} from '../../../error';
+import {ThemeContext} from '../../../styles';
 import {useCSSClass} from '../../../util';
+import {valid_role} from '../../containment/container-context';
 
 // local imports
 import Button from './button';
@@ -21,15 +23,17 @@ export default function TextButton(props) {
         throw new InvalidRoleError({"code": "Invalid props.role value.", "value": props.role});
     const role = props.role? props.role : "neutral";
 
+    const {Scheme} = React.useContext(ThemeContext);
+
     const [class_name, set_style] = useCSSClass();
     React.useEffect(() => {
         set_style(`
             .${class_name} {
                 background-color: transparent;
-                color: ${role === "neutral"? Scheme["neutral"].on_container : Scheme[props.role].accent};
+                color: ${role === "neutral"? Scheme["neutral"].on_container : Scheme[role].accent};
             }
         `);
-    }, [class_name, Scheme]);
+    }, [class_name, Scheme, role, set_style]);
 
     return (
         <Button className={`${class_name} ${props.className?? ""}`} pill={props.pill} ripple={props.ripple} onClick={props.onClick}>

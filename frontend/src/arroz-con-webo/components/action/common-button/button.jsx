@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 // arroz imports
-import {Scheme, Typography} from '../../../styles';
+import {ThemeContext, Typography} from '../../../styles';
 import {useCSSClass} from '../../../util';
 import {ContainerContext, valid_container} from '../../containment/container-context';
 
@@ -23,6 +23,8 @@ import {ContainerContext, valid_container} from '../../containment/container-con
  */
 export default function Button(props) {
     const {role, container_type} = React.useContext(ContainerContext);
+
+    const {Scheme} = React.useContext(ThemeContext);
 
     const [class_name, set_style] = useCSSClass();
     React.useEffect(() => {
@@ -63,7 +65,7 @@ export default function Button(props) {
             ${props.ripple? "" : `.${class_name}:active::before {opacity: 20%;}`}
 
         `);
-    }, [class_name, role, container_type, Typography.label_font(), Typography.label_size, Typography.unit]);
+    }, [class_name, role, container_type, Scheme, props.pill, props.ripple, set_style]);
 
     return (
         <button className={`${class_name} ${props.className?? ""}`} onClick={props.onClick}>

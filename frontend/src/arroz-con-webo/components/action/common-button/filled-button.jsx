@@ -1,7 +1,8 @@
 import * as React from 'react';
 
 // arroz imports
-import {Scheme, Typography} from '../../../styles';
+import {InvalidRoleError} from '../../../error';
+import {ThemeContext} from '../../../styles';
 import {useCSSClass} from '../../../util';
 import {ContainerContext, valid_role} from '../../containment/container-context';
 
@@ -22,6 +23,8 @@ export default function FilledButton(props) {
         throw new InvalidRoleError({"code": "Invalid props.role value.", "value": props.role});
     const role = props.role? props.role : "primary";
 
+    const {Scheme} = React.useContext(ThemeContext);
+
     const [class_name, set_style] = useCSSClass();
     React.useEffect(() => {
         set_style(`
@@ -30,7 +33,7 @@ export default function FilledButton(props) {
                 color: ${Scheme[role].on_accent};
             }
         `);
-    }, [class_name, Scheme]);
+    }, [class_name, Scheme, set_style, role]);
 
     return (
         <ContainerContext.Provider value={{"role": role, "container_type": "button"}}>

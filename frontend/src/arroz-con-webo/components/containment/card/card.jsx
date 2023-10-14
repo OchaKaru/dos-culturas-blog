@@ -1,8 +1,9 @@
 import * as React from 'react';
 
 // arroz imports
-import {Typography} from '../../../styles';
-import {ContainerContext} from '../container-context';
+import {ThemeContext, Typography} from '../../../styles';
+import {useCSSClass} from '../../../util';
+import {ContainerContext, valid_container} from '../container-context';
 
 /**
  * This is the Arroz con Webo Card: Used where content needs to be in subcontainers. The cards
@@ -14,6 +15,8 @@ import {ContainerContext} from '../container-context';
  */
 function Card(props) {
     const {role, container_type} = React.useContext(ContainerContext);
+
+    const {Scheme} = React.useContext(ThemeContext);
 
     const [class_name, set_style] = useCSSClass();
     React.useEffect(() => {
@@ -48,7 +51,7 @@ function Card(props) {
                 ""
             }
         `);
-    }, [class_name, role, container_type, Typography.font_size, Typography.unit]);
+    }, [class_name, role, container_type, Scheme, set_style, props.ripple, props.rounded, props.interactable]);
 
     return (
         <div className={`${class_name} ${props.className?? ""}`}>
