@@ -1,34 +1,26 @@
 import * as React from 'react';
 import RecipeCard from '../recipe-card';
 
-export default class AllRecipeSlide extends React.Component {
-    constructor(props) {
-        super(props)
+export default function AllRecipeSlide({data}) {
+    const [card_list, set_card_list] = React.useState();
 
-        this.state = {
-            "card_list": this.cardify_data(props.data)
-        }
+    function cardify_data(data) {
+        let cards = [];
+
+        if(data)
+            for(let i = 0; i < data.length; i++)
+                cards.push(<RecipeCard key={i} data={data[i]} />);
+
+        return cards;
     }
 
-    componentDidUpdate(prevProps) {
-        if(prevProps.data !== this.props.data)
-            this.setState({"card_list": this.cardify_data(this.props.data)});
-    }
+    React.useEffect(() => {
+        set_card_list(cardify_data(data));
+    }, [data]);
 
-    cardify_data(data) {
-        let card_list = [];
-
-        for(let i = 0; i < data.length; i++)
-            card_list.push(<RecipeCard key={i} data={data[i]} />);
-
-        return card_list;
-    }
-
-    render() {
-        return (
-            <div className="all-recipe-slide">
-                {this.state.card_list}
-            </div>
-        );
-    }
+    return (
+        <div className="all-recipe-slide">
+            {card_list}
+        </div>
+    );
 }
