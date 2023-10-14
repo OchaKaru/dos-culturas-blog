@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 /**
  * 
  */
@@ -15,7 +17,7 @@ export function valid_container(role, container_type) {
         'container',
         'container_higher', 'container_highest'
     ]
-    if(role != "neutral" && container_type != "container")
+    if(role !== "neutral" && container_type !== "container")
         return false;
     return CONTAINER_ROLES.includes(container_type)? true : false;
 }
