@@ -32,20 +32,20 @@ export default function Button(props) {
 
         set_style(`
             .${class_name} {
-                // unstyle the button
+                /* unstyle the button */
                 outline: none;
                 border: none;
 
-                // position
+                /* position */
                 position: relative;
 
-                // text
+                /* text */
                 font-family: ${Typography.label_font()};
                 font-size: ${Typography.label_size}${Typography.unit};
                 text-wrap: nowrap;
                 text-align: center;
 
-                // structure
+                /* structure */
                 padding: ${Typography.label_size / 2}${Typography.unit} ${Typography.label_size}${Typography.unit};
                 overflow: hidden;
                 cursor: pointer;

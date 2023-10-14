@@ -24,10 +24,10 @@ function Card(props) {
 
         set_style(`
             .${class_name} {
-                // position
+                /* position */
                 position: relative;
             
-                // structure
+                /* structure */
                 display: inline-block;
                 padding: 0;
                 overflow: hidden;

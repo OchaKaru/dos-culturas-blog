@@ -36,11 +36,11 @@ function SideSheet({className, children, open, role = "neutral", containerType =
 
         set_style(`
             .${class_name} {
-                // color
+                /* color */
                 background-color: ${(context.role === role && context.container_type === containerType)? "transparent" : Scheme[role][containerType]};
                 color: ${(context.role === role && context.container_type === containerType)? Scheme[context.role].on_container : Scheme[role][containerType]}
 
-                // structure
+                /* structure */
                 height: 100%;
                 align-self: flex-start;
                 overflow-x: hidden;
@@ -54,11 +54,11 @@ function SideSheet({className, children, open, role = "neutral", containerType =
             }
 
             .${class_name}-shim {
-                // color
+                /* color */
                 background-color: ${Scheme.neutral.on_container};
                 opacity: 50%;
 
-                // structure
+                /* structure */
                 height: 100%;
                 width: 100%;
                 position: absolute;

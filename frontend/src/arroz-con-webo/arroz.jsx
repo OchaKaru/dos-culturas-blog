@@ -15,11 +15,11 @@ export default function Root({children}) {
     React.useEffect(() => {
         set_style(`
             .${class_name} {
-                // container color information
+                /* container color information */
                 background-color: ${scheme.neutral.container_lowest};
                 color: ${scheme.neutral.on_container};
 
-                // container body information
+                /* container body information */
                 height: 100%;
                 width: 100%;
             }
