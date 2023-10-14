@@ -9,7 +9,7 @@ export default function AllRecipeSlide({data}) {
 
         if(data)
             for(let i = 0; i < data.length; i++)
-                cards.push(<RecipeCard key={i} data={data[i]} />);
+                cards.push(<RecipeCard key={i} index={i} data={data[i]} />);
 
         return cards;
     }
@@ -19,7 +19,7 @@ export default function AllRecipeSlide({data}) {
     }, [data]);
 
     return (
-        <div className="all-recipe-slide">
+        <div className="all-recipe-slide" style={{"width": "1200px"}}>
             {card_list}
         </div>
     );
