@@ -23,11 +23,11 @@ export default class Palette {
      */
     constructor(primary_key, secondary_key, tertiary_key, error_key, neutral_key) {
         // convert hexcodes to Color object
-        this._primary_color = Color(primary_key);
-        this._secondary_color = Color(secondary_key);
-        this._tertiary_color = Color(tertiary_key);
-        this._error_color = Color(error_key);
-        this._neutral_color = Color(neutral_key);
+        this._primary_color = new Color(primary_key);
+        this._secondary_color = new Color(secondary_key);
+        this._tertiary_color = new Color(tertiary_key);
+        this._error_color = new Color(error_key);
+        this._neutral_color = new Color(neutral_key);
     }
 
     /**
@@ -38,7 +38,8 @@ export default class Palette {
      */
     _tonal_mapping(color, lightness) {
         const color_hsl = color.hsl();
-        return rgb_to_hex(...hsl_to_rgb(color_hsl.hue, color_hsl.saturation, lightness));
+        const color_rgb = hsl_to_rgb(color_hsl.hue, color_hsl.saturation, lightness)
+        return rgb_to_hex(color_rgb.red, color_rgb.green, color_rgb.blue);
     }
 
     /**
@@ -47,9 +48,9 @@ export default class Palette {
      * @returns The hexcode for the color, by default the hexcode is the 50% lightness value.
      */
     primary(lightness = undefined) {
-        if(lightness && lightness.isInteger())
+        if(lightness && Number.isInteger(lightness))
             return this._tonal_mapping(this._primary_color, lightness);
-        if(lightness && !lightness.isInteger())
+        if(lightness && !Number.isInteger(lightness))
             throw NotAnIntegerError();
 
         return this._primary_color;        
@@ -61,9 +62,9 @@ export default class Palette {
      * @returns The hexcode for the color, by default the hexcode is the 50% lightness value.
      */
     secondary(lightness = undefined) {
-        if(lightness && lightness.isInteger())
+        if(lightness && Number.isInteger(lightness))
             return this._tonal_mapping(this._primary_color, lightness);
-        if(lightness && !lightness.isInteger())
+        if(lightness && !Number.isInteger(lightness))
             throw NotAnIntegerError();
 
         return this._primary_color;        
@@ -75,9 +76,9 @@ export default class Palette {
      * @returns The hexcode for the color, by default the hexcode is the 50% lightness value.
      */
     tertiary(lightness = undefined) {
-        if(lightness && lightness.isInteger())
+        if(lightness && Number.isInteger(lightness))
             return this._tonal_mapping(this._primary_color, lightness);
-        if(lightness && !lightness.isInteger())
+        if(lightness && !Number.isInteger(lightness))
             throw NotAnIntegerError();
 
         return this._primary_color;        
@@ -89,9 +90,9 @@ export default class Palette {
      * @returns The hexcode for the color, by default the hexcode is the 50% lightness value.
      */
     error(lightness = undefined) {
-        if(lightness && lightness.isInteger())
+        if(lightness && Number.isInteger(lightness))
             return this._tonal_mapping(this._primary_color, lightness);
-        if(lightness && !lightness.isInteger())
+        if(lightness && !Number.isInteger(lightness))
             throw NotAnIntegerError();
 
         return this._primary_color;        
@@ -103,9 +104,9 @@ export default class Palette {
      * @returns The hexcode for the color, by default the hexcode is the 50% lightness value.
      */
     neutral(lightness = undefined) {
-        if(lightness && lightness.isInteger())
+        if(lightness && Number.isInteger(lightness))
             return this._tonal_mapping(this._primary_color, lightness);
-        if(lightness && !lightness.isInteger())
+        if(lightness && !Number.isInteger(lightness))
             throw NotAnIntegerError();
 
         return this._primary_color;        

@@ -20,6 +20,6 @@ export {
 } from './palette';
 
 export {
-    default as Scheme,
+    ThemeContext,
     Themer,
 } from './themer';

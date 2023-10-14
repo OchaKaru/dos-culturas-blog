@@ -57,8 +57,9 @@ class Theme {
             for(const mapping of ["accent", "on_accent", "container", "on_container"])
                 this.light[color][mapping] = this.palette[color](this.lightness_mappings.light.accent_color[mapping]); // I have called a member function using map syntax...
         }
+        this.light.neutral = {};
         for(const mapping of ["container_lowest", "container_lower", "container", "container_higher", "container_highest", "on_container", "outline", "shadow"])
-            this.light["neutral"][mapping] = this.palette["neutral"](this.lightness_mappings.light.neutral_color[mapping]);
+            this.light.neutral[mapping] = this.palette["neutral"](this.lightness_mappings.light.neutral_color[mapping]);
 
         this.dark = {}
         for(const color of ["primary", "secondary", "tertiary", "error"]) {
@@ -66,8 +67,9 @@ class Theme {
             for(const mapping of ["accent", "on_accent", "container", "on_container"])
                 this.dark[color][mapping] = this.palette[color](this.lightness_mappings.dark.accent_color[mapping]);
         }
+        this.dark.neutral = {};
         for(const mapping of ["container_lowest", "container_lower", "container", "container_higher", "container_highest", "on_container", "outline", "shadow"])
-            this.dark["neutral"][mapping] = this.palette["neutral"](this.lightness_mappings.dark.neutral_color[mapping]);
+            this.dark.neutral[mapping] = this.palette["neutral"](this.lightness_mappings.dark.neutral_color[mapping]);
     }
 
     /**
@@ -91,6 +93,8 @@ export class Themer {
     static _palette_dictionary = {};
     static _current_theme = undefined;
 
+    static scheme = undefined;
+
     /**
      * This function is used to initialize the singleton. Essentially a constructor.
      * @param {boolean} default_dark_mode (optional) Specifies whehter to use dark mode by default.
@@ -100,8 +104,10 @@ export class Themer {
         if(this._initialized)
             throw new AlreadyInitializedError();
 
+
+        this._initialized = true;
         // Adding the Arroz Con Webo Palette
-        this.palette_dictionary["arroz_con_webo"] = Theme(Palette(egg_yellow, broth_brown, kidney_red, tomato_red, rice_pot_gray));
+        this._palette_dictionary["arroz_con_webo"] = new Theme(new Palette(egg_yellow, broth_brown, kidney_red, tomato_red, rice_pot_gray));
         this._current_theme = "arroz_con_webo";
         this.set_scheme("arroz_con_webo");
     }
@@ -124,7 +130,7 @@ export class Themer {
     static add_palette(name, palette) {
         if(!this._initialized)
             this.initialize();
-        this.palette_list[name] = Theme(palette);
+        this.palette_list[name] = new Theme(palette);
     }
 
     /**
@@ -145,7 +151,7 @@ export class Themer {
 
         try {
             this._current_theme = name;
-            set_scheme(this.palette_dictionary[name][this.dark_mode? "dark" : "light"]);
+            this.scheme = this._palette_dictionary[name][this.dark_mode? "dark" : "light"];
         } catch {
             throw new NoPaletteFoundError();
         }
@@ -166,8 +172,6 @@ export class Themer {
         }
     }
 }
-
-const [scheme, set_scheme] = React.useState(undefined); // using state for the scheme object
 Themer.initialize(); // initializing the Themer.
 
-export default scheme;
+export const ThemeContext = React.createContext({"Scheme": Themer.scheme, "change_theme": undefined});
