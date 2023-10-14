@@ -41,17 +41,19 @@ export function useCSSClass() {
     const [class_name, set_class_name] = React.useState();
     const CLASS_NAME_LENGTH = 10; // The size of the class name
 
-    React.useEffect(() => {
+    React.useMemo(() => {
         do {
             set_class_name("arroz-" + generate_class_name(CLASS_NAME_LENGTH));
         } while(Manager.exists(class_name));
-        Manager.add_style_sheet(class_name, "");
-    }, [class_name])
-
+    }, [])
+    
     const set_style = React.useCallback(sheet_text => {
         Manager.modify_style_sheet(class_name, sheet_text);
     }, [class_name])
 
+    React.useEffect(() => {
+        Manager.add_style_sheet(class_name, "");
+    }, [])
     return [class_name, set_style];
 }
 
