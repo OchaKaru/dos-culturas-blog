@@ -4,6 +4,12 @@ export class InvalidFormatError extends Error {
     }
 }
 
+export class InvalidKeyError extends Error {
+    constructor(cause = undefined) {
+        super("Invalid key used for a dictionary, map, or object.", {"cause": cause})
+    }
+}
+
 export class NoMatchError extends Error {
     constructor(cause = undefined) {
         super("No matching value for provided property or argument.", {"cause": cause})

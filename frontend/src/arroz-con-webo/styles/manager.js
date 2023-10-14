@@ -1,4 +1,5 @@
 // arroz imports
+import {StyleSheetExistsError, NoStyleSheetExistsError} from "../error";
 
 /**
  * @class
@@ -35,7 +36,7 @@ export default class StyleManager {
      * @param {string} name This is the name and key that will be used for the sheet.
      */
     static exists(name) {
-        return this._style_sheets.key().includes(name);
+        return Object.keys(this._style_sheets).includes(name);
     }
 
     /**
