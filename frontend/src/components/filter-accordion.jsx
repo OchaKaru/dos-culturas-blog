@@ -1,7 +1,7 @@
 import * as React from 'react';
-import {Checkbox, FilledButton, SideSheet, Submenu, TonalButton} from '../arroz-con-webo';
+import {Checkbox, ElevatedButton, FilledButton, SideSheet, Submenu, TonalButton} from '../arroz-con-webo';
 
-export default function FilterAccordion({data}) {
+export default function FilterAccordion({data, onFilter, onReset}) {
     const [tab_list, set_tab_list] = React.useState();
     const checked_list = React.useMemo(() => {
         return new Set();
@@ -46,24 +46,25 @@ export default function FilterAccordion({data}) {
 
     
     function filter() {
-        this.props.onFilter(Array.from(checked_list));
+        onFilter(Array.from(checked_list));
     }
 
     function reset() {
         checked_list.clear();
-        this.props.onReset();
+        onReset();
     }
 
     return (
         <div className='filter-accordion'>
             <SideSheet open={open}>
+                <ElevatedButton pill onClick={() => set_open(false)}>Close</ElevatedButton>
                 {tab_list}
                 <div className='filter-button-container'>
                     <FilledButton pill onClick={filter}>Filter Recipes</FilledButton>
                     <TonalButton pill onClick={reset}>Reset Filters</TonalButton>
                 </div>
             </SideSheet>
-            <FilledButton className='collapse-button' onClick={() => set_open(!open)} >{open? "▶" : "◀"}</FilledButton>
+            <FilledButton className='collapse-button' pill onClick={() => set_open(true)} >Filters</FilledButton>
         </div>
     );
 }
