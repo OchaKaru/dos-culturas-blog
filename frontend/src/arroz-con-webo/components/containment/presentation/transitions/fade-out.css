@@ -1,4 +1,4 @@
-// fade out
+/* fade out */
 .fade-out {
     opacity: 1;
 }
@@ -7,7 +7,7 @@
     transition: opacity 500ms;
 }
 
-// fade out downward
+/* fade out downward */
 .fade-out-up {
     opacity: 1;
     transform: translateY(0%);
@@ -18,7 +18,7 @@
     transition: opacity 500ms ease-out, transform 500ms;
 }
 
-// fade out downward
+/* fade out downward */
 .fade-out-down {
     opacity: 1;
     transform: translateY(0%);
@@ -29,7 +29,7 @@
     transition: opacity 500ms ease-out, transform 500ms;
 }
 
-// fade out leftward
+/* fade out leftward */
 .fade-out-left {
     opacity: 1;
     transform: translateX(0%);
@@ -40,7 +40,7 @@
     transition: opacity 500ms ease-out, transform 500ms;
 }
 
-// fade out rightward
+/* fade out rightward */
 .fade-out-right {
     opacity: 1;
     transform: translateX(0%);
