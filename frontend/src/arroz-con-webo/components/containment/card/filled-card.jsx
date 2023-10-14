@@ -35,7 +35,7 @@ export default function FilledCard(props) {
         set_style(`
             .${class_name} {
                 background-color: ${(context.role === role && context.container_type === container_type)? "transparent" : Scheme[role][container_type]};
-                color: ${(context.role === role && context.container_type === container_type)? Scheme[context.role].on_container : Scheme[role][container_type]}
+                color: ${Scheme[context.role].on_container}
             }
         `);
     }, [class_name, Scheme, container_type, context.container_type, context.role, role, set_style]);

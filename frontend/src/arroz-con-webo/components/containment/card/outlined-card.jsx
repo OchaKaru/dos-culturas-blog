@@ -34,7 +34,7 @@ export default function OutlinedCard(props) {
         set_style(`
             .${class_name} {
                 background-color: ${(context.role === role && context.container_type === container_type)? "transparent" : Scheme[role][container_type]};
-                color: ${(context.role === role && context.container_type === container_type)? Scheme[context.role].on_container : Scheme[role][container_type]}
+                color: ${Scheme[context.role].on_container}
                 box-shadow: inset 0 0 0 ${0.1 * Typography.font_size}${Typography.unit} ${role === "neutral"? Scheme.neutral.outline : Scheme[role].accent};
             }
         `);
