@@ -31,7 +31,7 @@ export default function ElevatedButton(props) {
             .${class_name} {
                 background-color: transparent;
                 color: ${role === "neutral"? Scheme["neutral"].on_container : Scheme[role].accent};
-                box-shadow: 0 ${0.2 * Typography.font_size}${Typography.unit} ${0.2 * Typography.font_size}${Typography.unit} 0 ${Scheme.shadow};
+                box-shadow: 0 ${0.2 * Typography.font_size}${Typography.unit} ${0.2 * Typography.font_size}${Typography.unit} 0 ${Scheme.neutral.shadow};
             }
         `);
     }, [class_name, Scheme, role, set_style]);
