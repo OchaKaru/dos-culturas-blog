@@ -3,8 +3,6 @@
 
 $background-color: $verdigris-gradient; //radial-background($gray);
 
-@import '../arroz-con-webo/styles/global.scss';
-
 @import 'navigation/header';
 @import 'recipe-card';
 @import 'recipe-library/recipe-library';
