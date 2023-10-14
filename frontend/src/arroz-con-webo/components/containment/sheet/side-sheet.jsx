@@ -42,8 +42,10 @@ function SideSheet({className, children, open, role = "neutral", containerType =
 
                 /* structure */
                 height: 100%;
+                width: 0;
                 align-self: flex-start;
                 overflow-x: hidden;
+                overflow-y: auto;
 
                 position: ${modal? "absolute" : "relative"};
                 ${modal?
@@ -71,7 +73,7 @@ function SideSheet({className, children, open, role = "neutral", containerType =
             .side-sheet-open {
                 width: 0;
             }
-            .side-sheet-open-active {
+            .side-sheet-open-active, .side-sheet-open-done {
                 width: ${side_sheet_width}px;
                 transition: width ${ANIMATION_DURATION}ms ease;
             }
@@ -100,6 +102,7 @@ function SideSheet({className, children, open, role = "neutral", containerType =
                 classNames={animate? {
                     "enter": "side-sheet-open",
                     "enterActive": "side-sheet-open-active",
+                    "enterDone": "side-sheet-open-done",
                     "exit": "side-sheet-close",
                     "exitActive": "side-sheet-close-active"
                 } : "undefined"}

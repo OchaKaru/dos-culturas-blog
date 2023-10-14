@@ -40,10 +40,14 @@ export default function Submenu({className, children, name, role = "neutral", co
 
     let reference = React.useRef(null);
     const [panel_height, set_panel_height] = React.useState();
-    React.useEffect(() => { // I don't know why this function is necessary for exit to work
-        if(reference.current)
+    React.useEffect(() => {
+        
+        if(reference.current) {
+            console.log(reference.current.scrollHeight);
             set_panel_height(reference.current.scrollHeight);
-    }, [reference.current.scrollHeight]);
+        }
+            
+    }, [open]);
 
     const [class_name, set_style] = useCSSClass();
     React.useEffect(() => {
@@ -70,6 +74,7 @@ export default function Submenu({className, children, name, role = "neutral", co
             }
         
             .${class_name}-panel {
+                height: 0;
                 display: flex;
                 flex-direction: column;
                 overflow: hidden;
@@ -78,17 +83,17 @@ export default function Submenu({className, children, name, role = "neutral", co
                 margin-left: 2vw;
             }
 
-            .submenu-open {
+            .${class_name}-open {
                 height: 0;
             }
-            .submenu-open-active {
+            .${class_name}-open-active, .${class_name}-open-done {
                 height: ${panel_height}px;
                 transition: height ${ANIMATION_DURATION}ms ease;
             }
-            .submenu-close {
+            .${class_name}-close {
                 height: ${panel_height}px;
             }
-            .submenu-close-active {
+            .${class_name}-close-active {
                 height: 0;
                 transition: height ${ANIMATION_DURATION}ms ease;
             }
@@ -109,10 +114,11 @@ export default function Submenu({className, children, name, role = "neutral", co
                         reference.current.addEventListener("transitionend", done, false);
                     }}
                     classNames={animate? {
-                        "enter": "submenu-open",
-                        "enterActive": "submenu-open-active",
-                        "exit": "submenu-close",
-                        "exitActive": "submenu-close-active"
+                        "enter": `${class_name}-open`,
+                        "enterActive": `${class_name}-open-active`,
+                        "enterDone": `${class_name}-open-done`,
+                        "exit": `${class_name}-close`,
+                        "exitActive": `${class_name}-close-active`
                     } : "undefined"}
                 >
                     <div ref={reference} className={`${class_name}-panel`}>
