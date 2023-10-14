@@ -139,3 +139,4 @@ export default class Typography {
         return this._code_font;
     }
 }
+Typography.initialize();
