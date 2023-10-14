@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 // arroz import
-import {Manager} from '../styles';
+import {Manager, Themer} from '../styles';
 
 function get_window_dimensions() {
     const {innerWidth: width, innerHeight: height} = window;
@@ -24,7 +24,7 @@ export function useWindowDimensions() {
     return dimensions;
 }
 
-function generate_class_name() {
+function generate_class_name(length) {
     if(length <= 0)
         return "";
 
@@ -45,12 +45,23 @@ export function useCSSClass() {
         do {
             set_class_name("arroz-" + generate_class_name(CLASS_NAME_LENGTH));
         } while(Manager.exists(class_name));
-        Manager.add_style_sheet(class_name, sheet_text);
-    }, [])
+        Manager.add_style_sheet(class_name, "");
+    }, [class_name])
 
     const set_style = React.useCallback(sheet_text => {
         Manager.modify_style_sheet(class_name, sheet_text);
-    }, [])
+    }, [class_name])
 
     return [class_name, set_style];
+}
+
+export function useTheme() {
+    const [scheme, set_scheme] = React.useState(Themer.scheme);
+
+    const change_theme = React.useCallback(theme_name => {
+        Themer.set_scheme(theme_name);
+        set_scheme(Themer.scheme);
+    }, [])
+
+    return [scheme, change_theme]
 }
