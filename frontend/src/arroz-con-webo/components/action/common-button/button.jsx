@@ -28,7 +28,7 @@ export default function Button(props) {
 
     const [class_name, set_style] = useCSSClass();
     React.useEffect(() => {
-        const interaction_color = valid_container(container_type)? Scheme[role].on_container : Scheme[role].on_accent;
+        const interaction_color = valid_container(role, container_type)? Scheme[role].on_container : Scheme[role].on_accent;
 
         set_style(`
             .${class_name} {

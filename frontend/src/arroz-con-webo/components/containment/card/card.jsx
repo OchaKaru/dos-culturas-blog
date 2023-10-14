@@ -20,7 +20,7 @@ function Card(props) {
 
     const [class_name, set_style] = useCSSClass();
     React.useEffect(() => {
-        const interaction_color = valid_container(container_type)? Scheme[role].on_container : "transparent";
+        const interaction_color = valid_container(role, container_type)? Scheme[role].on_container : "transparent";
 
         set_style(`
             .${class_name} {
