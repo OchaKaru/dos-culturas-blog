@@ -1,11 +1,11 @@
 import * as React from "react";
 import Header from '../components/navigation/header';
 import AllRecipeCarousel from '../components/all-recipe-carousel/all-recipe-carousel';
-import FilterAccordion from '../components/filter-accordion/filter-accordion';
+import FilterAccordion from '../components/filter-accordion';
 
 import RecipeAPI from "../api/recipeapi";
 
-const LibraryPage = () => {
+export default function LibraryPage() {
   let [recipe_data, set_recipe_data] = React.useState([]);
   let [group_data, set_group_data] = React.useState({"Main Ingredient": [], "Dietary Restriction": [], "Culture": [], "Cooking Method": []});
 
@@ -41,7 +41,5 @@ const LibraryPage = () => {
     </main>
   );
 }
-
-export default LibraryPage
 
 export const Head = () => <title>All Recipes Page</title>
