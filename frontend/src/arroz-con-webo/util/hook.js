@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 // arroz import
-import {Manager, Themer} from '../styles';
+import {Styler} from '../styles';
 
 function get_window_dimensions() {
     const {innerWidth: width, innerHeight: height} = window;
@@ -24,46 +24,17 @@ export function useWindowDimensions() {
     return dimensions;
 }
 
-function generate_class_name(length) {
-    if(length <= 0)
-        return "";
-
-    let random_CSS_class = Math.random().toString(36).substr(2, length);
-    random_CSS_class += generate_class_name(length - random_CSS_class.length);
-
-    return random_CSS_class;
-}
-
 /**
  * 
+ * @returns 
  */
-export function useCSSClass() {
-    const [class_name, set_class_name] = React.useState();
-    const CLASS_NAME_LENGTH = 10; // The size of the class name
-
-    React.useMemo(() => {
-        do {
-            set_class_name("arroz-" + generate_class_name(CLASS_NAME_LENGTH));
-        } while(Manager.exists(class_name));
-    }, [])
-    
-    const set_style = React.useCallback(sheet_text => {
-        Manager.modify_style_sheet(class_name, sheet_text);
-    }, [class_name])
-
-    React.useEffect(() => {
-        Manager.add_style_sheet(class_name, "");
-    }, [])
-    return [class_name, set_style];
-}
-
-export function useTheme() {
-    const [scheme, set_scheme] = React.useState(Themer.scheme);
+export function useChangeTheme() {
+    const [theme_context, set_theme_context] = React.useState(Styler.theme_context());
 
     const change_theme = React.useCallback(theme_name => {
-        Themer.set_scheme(theme_name);
-        set_scheme(Themer.scheme);
+        Themer.set_theme(theme_name);
+        set_theme_context(Styler.theme_context());
     }, [])
 
-    return [scheme, change_theme]
+    return [theme_context, change_theme]
 }
