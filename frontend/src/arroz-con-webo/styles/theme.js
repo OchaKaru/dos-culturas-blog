@@ -1,10 +1,20 @@
+/**
+ * @author Kalvin Garcia
+ * 
+ * I wanted to create a dynamic theme for the Arroz con Webo library, but there wasn't a way to natively
+ * do that with React. I decided to opt for a CSS and JavaScript hybrid that could instead infrom
+ *  the components. Essentially, letting them be
+ * dynamically themed by giving SCSS's prettier variables the values of CSS's uglier cousins.
+ */
+
 import * as React from 'react';
 
 // arroz imports
-import {AlreadyInitializedError, NotInitializedError, NoPaletteFoundError} from '../../error';
+import {AlreadyInitializedError, NotInitializedError, NoPaletteFoundError} from '../error';
 
 // local imports
-import Palette from "./palette";
+import Palette from "./color/palette";
+import Typography from './typography/typography';
 
 /**
  * This is the default color palette for the Arroz con Webo component library.
@@ -20,7 +30,7 @@ const rice_pot_gray = "#8C7380";
  * This class is an internal theming class that converts Palette objects into the tonal mappings
  * for a given theme with 2 schemes: light and dark.
  */
-class Theme {
+export default class Theme {
     // The lightness mappings of the tonal dynamic colors.
     lightness_mappings = {
         "light": {
@@ -45,10 +55,12 @@ class Theme {
 
     /**
      * This constructor just takes a Palette and converts it to a theme using dark JS magic.
-     * @param {Palette} palette 
+     * @param {Palette} palette
+     * @param {Typography} typography
      */
-    constructor(palette) {
+    constructor(palette, typography) {
         this.palette = palette;
+        this.typography = typography;
 
         // Today I have performed acts that the C++ gods would look down upon...
         this.light = {}
@@ -81,97 +93,11 @@ class Theme {
     get_tone(color, lightness) {
         return this.palette[color](lightness);
     }
-}
-
-/**
- * @class
- * The Arroz con Webo Themer: This is a singleton that keeps track of the palettes added to the website.
- */
-export class Themer {
-    static _initialized = false;
-    static _dark_mode = false;
-    static _palette_dictionary = {};
-    static _current_theme = undefined;
-
-    static scheme = undefined;
 
     /**
-     * This function is used to initialize the singleton. Essentially a constructor.
-     * @param {boolean} default_dark_mode (optional) Specifies whehter to use dark mode by default.
-     * @param {Palette} default_palette (optional) Specifies the default palette to use.
+     * 
      */
-    static initialize() {
-        if(this._initialized)
-            throw new AlreadyInitializedError();
-
-
-        this._initialized = true;
-        // Adding the Arroz Con Webo Palette
-        this._palette_dictionary["arroz_con_webo"] = new Theme(new Palette(egg_yellow, broth_brown, kidney_red, tomato_red, rice_pot_gray));
-        this._current_theme = "arroz_con_webo";
-        this.set_scheme("arroz_con_webo");
-    }
-
-    /**
-     * This function just toggles if dark mode is being used.
-     */
-    static toggle_dark_mode() {
-        if(!this._initialized)
-            this.initialize();
-        this._dark_mode = !this._dark_mode;
-        this.set_scheme(this._current_theme);
-    }
-
-    /**
-     * This function adds a new color palette to the Themer.
-     * @param {string} name This is the name of the color palette.
-     * @param {Palette} palette This is a Palette object.
-     */
-    static add_palette(name, palette) {
-        if(!this._initialized)
-            this.initialize();
-        this._palette_dictionary[name] = new Theme(palette);
-    }
-
-    /**
-     * This function adds a new color palette to the Themer as default.
-     * @param {Palette} palette This is a Palette object.
-     */
-    static add_default(palette) {
-        this.add_palette("default", palette);
-    }
-
-    /**
-     * This function sets the color scheme that is active.
-     * @param {*} name The name of the theme.
-     */
-    static set_scheme(name) {
-        if(!this._initialized)
-            throw new NotInitializedError();
-
-        try {
-            this._current_theme = name;
-            this.scheme = this._palette_dictionary[name][this._dark_mode? "dark" : "light"];
-        } catch {
-            throw new NoPaletteFoundError();
-        }
-    }
-
-    /**
-     * This function sets the named theme as the default theme.
-     * @param {*} name The name of the theme.
-     */
-    static set_default(name) {
-        if(!this._initialized)
-            throw new NotInitializedError();
-
-        try {
-            this._palette_dictionary["default"] = this._palette_dictionary[name];
-        } catch {
-            throw new NoPaletteFoundError();
-        }
+    scheme(dark_mode) {
+        return this[dark_mode? "dark" : "light"];
     }
 }
-Themer.initialize(); // initializing the Themer.
-
-export const ThemeContext = React.createContext({"Scheme": Themer.scheme, "change_theme": undefined});
