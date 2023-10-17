@@ -1,62 +1,54 @@
 import * as React from 'react';
+import {createUseStyles, ThemeProvider} from 'react-jss';
 
 //arroz imports
-import {ThemeContext} from './styles';
-import {useCSSClass, useTheme} from './util';
+import {useChangeTheme} from './util';
 import {ContainerContext} from './components';
+
+const useStyles = createUseStyles({
+    "arroz-root": {
+        backgroundColor: ({theme, role, container_type}) => theme.scheme[role][container_type],
+        color: ({theme, role}) => theme.scheme[role].on_container,
+        height: "100%",
+        width: "100%",
+        "&::-webkit-scrollbar": {
+            width: "0.5vw"
+        },
+        "&::-webkit-scrollbar-track": {
+            background: "none"
+        },
+        "&::-webkit-scrollbar-thumb": {
+            background: ({theme}) => theme.scheme.neutral.outline,
+            opacity: "20%",
+            transition: "opacity 200ms ease",
+            borderRadius: "1vw"
+        },
+        "&::-webkit-scrollbar-thumb:hover": {
+            opacity: "30%"
+        },
+        "&::-webkit-scrollbar-thumb:active": {
+            opacity: "40%"
+        }
+    }
+});
 
 /**
  * 
  */
 export default function Root({children}) {
-    const [scheme, change_theme] = useTheme();
+    const role = "neutral";
+    const container_type = "container_lowest";
 
-    const [class_name, set_style] = useCSSClass();
-    React.useEffect(() => {
-        set_style(`
-            .${class_name} {
-                /* container color information */
-                background-color: ${scheme.neutral.container_lowest};
-                color: ${scheme.neutral.on_container};
+    const [theme_context, change_theme] = useChangeTheme();
 
-                /* container body information */
-                height: 100%;
-                width: 100%;
-            }
-
-            ::-webkit-scrollbar {
-                width: 0.5%;
-            }
-
-            ::-webkit-scrollbar-track {
-                background: none;
-            }
-
-            ::-webkit-scrollbar-thumb {
-                background: ${scheme.neutral.outline};
-                opacity: 20%;
-                transition: opacity 200ms ease;
-                border-radius: 10vw;
-            }
-
-            ::-webkit-scrollbar-thumb:hover {
-                opacity: 30%;
-            }
-
-            ::-webkit-scrollbar-thumb:active {
-                opacity: 40%;
-            }
-        `);
-    }, [class_name, scheme, set_style]);
-
+    const classes = useStyles({"theme": theme_context, "role": role, "container_type": container_type})
     return (
-        <ThemeContext.Provider value={{"Scheme": scheme, "change_theme": change_theme}}>
-            <ContainerContext.Provider value={{"role": "neutral", "container_type": "container_lowest"}}>
-                <div className={class_name}>
+        <ThemeProvider theme={{"theme": theme_context, "change_theme": change_theme}}>
+            <ContainerContext.Provider value={{"role": role, "container_type": container_type}}>
+                <div className={classes['arroz-root']}>
                     {children}
                 </div>
             </ContainerContext.Provider>
-        </ThemeContext.Provider>
-
+        </ThemeProvider>
     );
 }

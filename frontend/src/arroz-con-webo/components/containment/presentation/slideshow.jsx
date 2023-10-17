@@ -1,14 +1,24 @@
 import * as React from "react";
 import {SwitchTransition, CSSTransition} from "react-transition-group";
+import {createUseStyles} from "react-jss";
 
 // arroz imports
 import {InvalidFormatError, InvalidKeyError, InvalidModeError} from "../../../error";
-import {clamp, modulo, useCSSClass} from '../../../util';
-import {IconButton} from '../../action/icon-button';
+import {clamp, modulo} from '../../../util';
+import {IconButton} from '../../action/picto-button/icon-button';
 
 // local imports
 import "./transitions/fade-in.css";
 import "./transitions/fade-out.css";
+
+const useStyles = createUseStyles({
+    "arroz-slideshow-button-container": {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between"
+    }
+})
 
 /**
  * The Arroz con Webo Slideshow Component: Use this component to create a slideshow. The slides will created from the
@@ -23,7 +33,7 @@ import "./transitions/fade-out.css";
  * 
  * @param {*} custom (optional) If this prop is true, then `enterStyle` and `exitStyle` will all be ignored.
  */
-export default function Slideshow({className, children, enterStyle = "fade-in", exitStyle = "fade-out", animate = true, wrap = false, mode = "out-in", custom}) {
+export default function Slideshow({className, enterStyle = "fade-in", exitStyle = "fade-out", animate = true, wrap = false, mode = "out-in", custom, children}) {
     // Default animation modes for SwitchTransition.
     const ACCEPTED_MODES = ["out-in", "in-out"];
     if(mode && !ACCEPTED_MODES.includes(mode)) // Verify the proper mode is set.
@@ -89,23 +99,11 @@ export default function Slideshow({className, children, enterStyle = "fade-in", 
         change_slide(current_slide + 1, 'right');
     }
 
-    const [class_name, set_style] = useCSSClass();
-    React.useEffect(() => {
-        set_style(`
-            .${class_name} {
+    function display_page_buttons() {
 
-            }
+    }
 
-            .${class_name}-slide-container {
-
-            }
-
-            .${class_name}-button-container {
-
-            }
-        `);
-    }, [class_name, set_style]);
-
+    const classes = useStyles();
     return (
         <div className={`${class_name} ${className?? ""}`}>
             <SwitchTransition mode={mode}>
@@ -117,18 +115,23 @@ export default function Slideshow({className, children, enterStyle = "fade-in", 
                     }}
                     classNames={direction === 'left'? {...left} : {...right}}
                 >
-                    <div ref={slide_references[current_slide]} className={`${class_name}-slide-container`}>
+                    <div ref={slide_references[current_slide]}>
                         {children? children[current_slide] : "No slides"}
                     </div>
                 </CSSTransition>
             </SwitchTransition>
-            <div className={`${class_name}-button-container`}>
-                <button onClick={next_left}>
-                    -1
-                </button>
-                <button onClick={next_right}>
-                    +1
-                </button>
+            <div className={classes['arroz-slideshow-button-container']}>
+                <IconButton onClick={next_left}>
+                    <svg>
+
+                    </svg>
+                </IconButton>
+                {display_page_buttons()}
+                <IconButton onClick={next_right}>
+                    <svg>
+                        
+                    </svg>
+                </IconButton>
             </div>
         </div>
     );

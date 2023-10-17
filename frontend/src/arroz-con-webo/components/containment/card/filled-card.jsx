@@ -1,13 +1,21 @@
 import * as React from 'react';
+import {createUseStyles} from 'react-jss';
 
 // arroz imports
 import {InvalidRoleError, InvalidContainerError} from '../../../error';
-import {ThemeContext} from '../../../styles';
-import {useCSSClass} from '../../../util';
 import {ContainerContext, valid_container, valid_role} from '../container-context';
 
 // local imports
 import Card from './card';
+
+const useStyles = createUseStyles(({theme}) => ({
+    "arroz-filled-card": {
+        backgroundColor: ({context, role, container_type}) => {
+            return context.role === role && context.container_type === container_type? "transparent" : theme.scheme[role][container_type]
+        },
+        color: ({role}) => theme.scheme[role].on_container,
+    }
+}));
 
 /**
  * This is the Arroz con Webo Filled Card: Used where content needs to be in subcontainers. The cards
@@ -19,31 +27,18 @@ import Card from './card';
  * @param {boolean} interactable (optional) Specifies if the card should have a hover effect.
  * @param {boolean} ripple (optional) Specifies if the card should have a ripple animation.
  */
-export default function FilledCard(props) {
-    if(props.role && !valid_role(props.role))
+export default function FilledCard({className, role = "neutral", containerType = "container", rounded, interactable, ripple, children}) {
+    if(role && !valid_role(role))
         throw new InvalidRoleError();
-    const role = props.role?? 'neutral';
-    if(props.containerType && !valid_container(role, props.containerType))
+    if(containerType && !valid_container(role, containerType))
         throw new InvalidContainerError();
-    const container_type = props.containerType?? 'container_lowest';
-
-    const {Scheme} = React.useContext(ThemeContext);
 
     const context = React.useContext(ContainerContext);
-    const [class_name, set_style] = useCSSClass();
-    React.useEffect(() => {
-        set_style(`
-            .${class_name} {
-                background-color: ${(context.role === role && context.container_type === container_type)? "transparent" : Scheme[role][container_type]};
-                color: ${Scheme[context.role].on_container}
-            }
-        `);
-    }, [class_name, Scheme, container_type, context.container_type, context.role, role, set_style]);
-
+    const classes = useStyles({context, role, "container_type": containerType})
     return (
         <ContainerContext.Provider value={{"role": role, "container_type": container_type}}>
-            <Card className={`${class_name} ${props.className?? ""}`} rounded={props.rounded} interactable={props.interactable} ripple={props.ripple}>
-                {props.children}
+            <Card className={`${classes['arroz-filled-card']} ${className?? ""}`} rounded={rounded} interactable={interactable} ripple={ripple}>
+                {children}
             </Card>
         </ContainerContext.Provider>
 
