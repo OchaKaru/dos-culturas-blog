@@ -36,5 +36,16 @@ export function useChangeTheme() {
         set_theme_context(Styler.theme_context());
     }, [])
 
-    return [theme_context, change_theme]
+    return [theme_context, change_theme];
+}
+
+export function useToggleDarkMode() {
+    const [dark_mode, set_dark_mode] = React.useState(Styler._dark_mode);
+
+    const toggle_dark_mode = React.useCallback(() => {
+        Styler.toggle_dark_mode();
+        set_dark_mode(Styler._dark_mode);
+    }, [])
+
+    return [dark_mode, toggle_dark_mode];
 }

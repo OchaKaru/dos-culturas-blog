@@ -77,7 +77,7 @@ export class Styler {
         if(!this._initialized)
             this.initialize();
         this._dark_mode = !this._dark_mode;
-        this.set_scheme(this._current_theme);
+        this.set_theme(this._current_theme);
     }
 
     /**
