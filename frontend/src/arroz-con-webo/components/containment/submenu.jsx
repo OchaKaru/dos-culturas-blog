@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {CSSTransition} from 'react-transition-group';
+import {animated, useSpring} from '@react-spring/web';
 import {createUseStyles} from 'react-jss';
 
 // arroz imports
@@ -78,15 +78,32 @@ export default function Submenu({className, name, role = "neutral", containerTyp
     
     // Defining the animation duration and the transition information
     const ANIMATION_DURATION = 300;
+    const [animation, api] = useSpring(() => ({
+        from: {
+            height: "0"
+        }
+    }));
 
     // Computing the height that the animations should open and close to based on scroll height
     const [open, set_open] = React.useState(false);
     const toggle_panel = () => {
         set_open(!open);
+        api.start({
+            from: {
+                height: "0"
+            },
+            to: {
+                height: !open? `${panel_height}px` : "0"
+            }
+        });
     }
 
     let reference = React.useRef(null);
     const [panel_height, set_panel_height] = React.useState();
+    React.useEffect(() => {
+        if(reference.current)
+            set_panel_height(reference.current.scrollHeight);
+    }, [open]);
 
     const classes = useStyles({context, role, "container_type": containerType, ANIMATION_DURATION, panel_height});
     return (
@@ -96,24 +113,9 @@ export default function Submenu({className, name, role = "neutral", containerTyp
                     {name}
                     <span className={`${classes['arroz-submenu-button-icon']} ${open? `${classes['arroz-submenu-button-icon.open']}` : ""}`}>▼</span>
                 </TextButton>
-                <CSSTransition
-                    in={open}
-                    nodeRef={reference}
-                    onEnter={() => set_panel_height(reference.current.scrollHeight)}
-                    onExit={() => set_panel_height(reference.current.scrollHeight)}
-                    timeout={ANIMATION_DURATION}
-                    classNames={animate? {
-                        "enter": `${classes['panel-enter']}`,
-                        "enterActive": `${classes['panel-enter-active']}`,
-                        "enterDone": `${classes['panel-enter-active']}`,
-                        "exit":  `${classes['panel-exit']}`,
-                        "exitActive":  `${classes['panel-exit-active']}`
-                    } : "undefined"}
-                >
-                    <div ref={reference} className={`${classes['arroz-submenu-panel']}`}>
-                        {children}
-                    </div>
-                </CSSTransition>
+                <animated.div ref={reference} style={animation} className={`${classes['arroz-submenu-panel']}`}>
+                    {children}
+                </animated.div>
             </div>
         </ContainerContext.Provider>
     );

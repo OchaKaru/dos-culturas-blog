@@ -1,5 +1,5 @@
 import * as React from "react";
-import {SwitchTransition, CSSTransition} from "react-transition-group";
+import {animated, useTransition} from '@react-spring/web';
 import {createUseStyles} from "react-jss";
 
 // arroz imports
@@ -104,22 +104,30 @@ export default function Slideshow({className, enterStyle = "fade-in", exitStyle 
     }
 
     const ANIMATION_DURATION = 300;
+    const transition = useTransition(current_slide, {
+        exitBeforeEnter: mode === "out-in",
+        from: {
+            opacity: 0,
+            transform: "translateY(-100%)"
+        },
+        enter: {
+            opacity: 1,
+            transform: "translateY(0%)"
+        },
+        leave: {
+            opacity: 1,
+            transform: `translateX(${direction === 'left'? "100%" : "-100%"})`
+        }
+    });
 
     const classes = useStyles();
     return (
         <div className={`${className?? ""}`}>
-            <SwitchTransition mode={mode}>
-                <CSSTransition
-                    key={current_slide}
-                    nodeRef={slide_references[current_slide]}
-                    timeout={ANIMATION_DURATION}
-                    classNames={direction === 'left'? {...left} : {...right}}
-                >
-                    <div ref={slide_references[current_slide]}>
-                        {children? children[current_slide] : "No slides"}
-                    </div>
-                </CSSTransition>
-            </SwitchTransition>
+            {transition((style, slide) => (
+                <animated.div style={style}>
+                    {React.Children.toArray(children)[slide]}
+                </animated.div>
+            ))}
             <div className={classes['arroz-slideshow-button-container']}>
                 <IconButton onClick={next_left}>
                     <svg>

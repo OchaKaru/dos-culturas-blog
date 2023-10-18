@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {CSSTransition} from 'react-transition-group';
+import {animated, useSpring} from '@react-spring/web';
 import {createUseStyles} from 'react-jss';
 
 // arroz imports
@@ -40,7 +40,7 @@ const useStyles = createUseStyles(({theme}) => ({
         transition: ({ANIMATION_DURATION}) => `width ${ANIMATION_DURATION}ms ease`
     },
     "side-sheet-enter-done": {
-        width: ({side_sheet_width}) => `${side_sheet_width}px`,
+        width: ({side_sheet_width}) => `${side_sheet_width}px`
     },
     "side-sheet-exit": {
         width: ({side_sheet_width}) => `${side_sheet_width}px`
@@ -48,6 +48,9 @@ const useStyles = createUseStyles(({theme}) => ({
     "side-sheet-exit-active": {
         width: 0,
         transition: ({ANIMATION_DURATION}) => `width ${ANIMATION_DURATION}ms ease`
+    },
+    "side-sheet-exit-done": {
+        width: 0        
     }
 }))
 
@@ -71,6 +74,11 @@ function SideSheet({className, open, role = "neutral", containerType = "containe
 
     // Defining the animation duration and the transition information
     const ANIMATION_DURATION = 300;
+    const [animation, api] = useSpring(() => ({
+        from: {
+            width: "0"
+        }
+    }));
 
     const {'width': window_width} = useWindowDimensions();
     const [side_sheet_width, set_side_sheet_width] = React.useState(clamp(-0.0332 * window_width + 88.7448, 25, 75) / 100 * window_width);
@@ -78,27 +86,25 @@ function SideSheet({className, open, role = "neutral", containerType = "containe
         set_side_sheet_width(clamp(-0.0332 * window_width + 88.7448, 25, 75) / 100 * window_width);
     }, [window_width]);
 
+    React.useEffect(() => {
+        api.start({
+            from: {
+                width: "0"
+            },
+            to: {
+                width: open? `${side_sheet_width}px` : "0"
+            }
+        });
+    }, [open, side_sheet_width])
+
     let reference = React.useRef(null);
-    const classes = useStyles({context, role, "container_type": containerType, modal, ANIMATION_DURATION, side_sheet_width})
+    const classes = useStyles({context, role, "container_type": containerType, modal, ANIMATION_DURATION, side_sheet_width});
     return (
         <ContainerContext.Provider value={{"role": role, "container_type": containerType}}>
             <div className={`${classes['arroz-shim']}`} />
-            <CSSTransition
-                in={open}
-                nodeRef={reference}
-                timeout={ANIMATION_DURATION}
-                classNames={animate? {
-                    enter: classes["side-sheet-enter"],
-                    enterActive: classes["side-sheet-enter-active"],
-                    enterDone: classes["side-sheet-enter-done"],
-                    exit: classes["side-sheet-exit"],
-                    exitActive: classes["side-sheet-exit-active"]
-                } : "none"}
-            >
-                <div ref={reference} className={`${classes['arroz-side-sheet']} ${className?? ""}`}>
-                    {children}
-                </div>
-            </CSSTransition>
+            <animated.div style={animation} className={`${classes['arroz-side-sheet']} ${className?? ""}`}>
+                {children}
+            </animated.div>
         </ContainerContext.Provider>
     );
 }
