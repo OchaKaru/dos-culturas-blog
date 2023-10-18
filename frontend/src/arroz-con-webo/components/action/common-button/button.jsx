@@ -12,12 +12,12 @@ const useStyles = createUseStyles(({theme}) => ({
         font: theme.typography.label(),
         textWrap: "nowrap",
         textAlign: "center",
-        padding: `${theme.typography.calculate(0.5)} ${theme.typography.calculate()}`,
+        padding: `${theme.typography.calculate(0.5)} ${theme.typography.calculate(1)}`,
         overflow: "hidden",
         cursor: "pointer",
         borderRadius: ({pill}) => theme.typography.calculate(pill? 1 : 0.2),
         "&::before": {
-            content: "",
+            content: '""',
             backgroundColor: ({role, container_type}) => {
                 return valid_container(role, container_type)? theme.scheme[role].on_container : theme.scheme[role].on_accent
             },

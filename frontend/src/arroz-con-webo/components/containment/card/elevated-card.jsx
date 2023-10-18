@@ -31,7 +31,6 @@ const useStyles = createUseStyles(({theme}) => ({
 function ElevatedCard({className, role = "neutral", containerType = "container", rounded, interactable, ripple, children}) {
     if(role && !valid_role(role))
         throw new InvalidRoleError();
-    const role = props.role?? 'neutral';
     if(containerType && !valid_container(role, containerType))
         throw new InvalidContainerError();
 

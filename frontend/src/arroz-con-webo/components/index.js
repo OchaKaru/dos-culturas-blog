@@ -9,6 +9,8 @@ export {default as OutlinedButton} from './action/common-button/outlined-button'
 export {default as TextButton} from './action/common-button/text-button';
 export {default as TonalButton} from './action/common-button/tonal-button';
 
+export {default as IconButton} from './action/picto-button/icon-button';
+
 // export * from './communication';
 
 export {default as ElevatedCard} from './containment/card/elevated-card';

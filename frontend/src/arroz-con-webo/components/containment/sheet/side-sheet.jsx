@@ -4,7 +4,6 @@ import {createUseStyles} from 'react-jss';
 
 // arroz imports
 import {InvalidRoleError, InvalidContainerError} from '../../../error';
-import {ThemeContext, Typography} from '../../../styles';
 import {clamp, useWindowDimensions} from '../../../util';
 import {ContainerContext, valid_container, valid_role} from '../container-context';
 
@@ -16,7 +15,7 @@ const useStyles = createUseStyles(({theme}) => ({
         color: ({role}) => theme.scheme[role].on_container,
         height: "100%",
         width: 0,
-        alignSelf: flex-start,
+        alignSelf: "flex-start",
         overflowX: "hidden",
         overflowY: "auto",
         position: ({modal}) => modal? "absolute" : "relative",
@@ -39,6 +38,9 @@ const useStyles = createUseStyles(({theme}) => ({
     "side-sheet-enter-active": {
         width: ({side_sheet_width}) => `${side_sheet_width}px`,
         transition: ({ANIMATION_DURATION}) => `width ${ANIMATION_DURATION}ms ease`
+    },
+    "side-sheet-enter-done": {
+        width: ({side_sheet_width}) => `${side_sheet_width}px`,
     },
     "side-sheet-exit": {
         width: ({side_sheet_width}) => `${side_sheet_width}px`
@@ -71,7 +73,7 @@ function SideSheet({className, open, role = "neutral", containerType = "containe
     const ANIMATION_DURATION = 300;
 
     const {'width': window_width} = useWindowDimensions();
-    const [side_sheet_width, set_side_sheet_width] = React.useState();
+    const [side_sheet_width, set_side_sheet_width] = React.useState(clamp(-0.0332 * window_width + 88.7448, 25, 75) / 100 * window_width);
     React.useEffect(() => {
         set_side_sheet_width(clamp(-0.0332 * window_width + 88.7448, 25, 75) / 100 * window_width);
     }, [window_width]);
@@ -80,19 +82,18 @@ function SideSheet({className, open, role = "neutral", containerType = "containe
     const classes = useStyles({context, role, "container_type": containerType, modal, ANIMATION_DURATION, side_sheet_width})
     return (
         <ContainerContext.Provider value={{"role": role, "container_type": containerType}}>
-            <div className={`${class_name}-shim`} />
+            <div className={`${classes['arroz-shim']}`} />
             <CSSTransition
                 in={open}
                 nodeRef={reference}
-                addEndListener={(done) => {
-                    reference.current.addEventListener("transitionend", done, false);
-                }}
+                timeout={ANIMATION_DURATION}
                 classNames={animate? {
-                    "enter": classes['side-sheet-enter'],
-                    "enterActive": classes['side-sheet-enter-active'],
-                    "exit": classes['side-sheet-exit'],
-                    "exitActive": classes['side-sheet-exit-active']
-                } : "undefined"}
+                    enter: classes["side-sheet-enter"],
+                    enterActive: classes["side-sheet-enter-active"],
+                    enterDone: classes["side-sheet-enter-done"],
+                    exit: classes["side-sheet-exit"],
+                    exitActive: classes["side-sheet-exit-active"]
+                } : "none"}
             >
                 <div ref={reference} className={`${classes['arroz-side-sheet']} ${className?? ""}`}>
                     {children}

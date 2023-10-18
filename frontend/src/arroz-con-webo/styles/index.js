@@ -1,10 +1,20 @@
 /**
  * 
  */
+// arroz imports
+import {AlreadyInitializedError, NotInitializedError, NoPaletteFoundError} from '../error';
 import Palette from './color/palette';
 import Typography from './typography/typography';
 import Theme from './theme';
 
+/**
+ * This is the default color palette for the Arroz con Webo component library.
+ */
+const egg_yellow = "#CDAE32";
+const broth_brown = "#A67359";
+const kidney_red = "#A25D80";
+const tomato_red = "#BF4040";
+const rice_pot_gray = "#8C7380";
 /**
  * @class
  * The Arroz con Webo Themer: This is a singleton that keeps track of the palettes added to the website.
@@ -35,25 +45,25 @@ export class Styler {
         );
 
         this._theme_dictionary["arroz_con_webo"].typography.set_display(
-            "Belanosima", 6, source = "https://fonts.googleapis.com/css2?family=Belanosima:wght@400;600;700&display=swap"
+            "Belanosima", 6, "https://fonts.googleapis.com/css2?family=Belanosima:wght@400;600;700&display=swap"
         );
         this._theme_dictionary["arroz_con_webo"].typography.set_headline(
-            "Belanosima", 4, source = "https://fonts.googleapis.com/css2?family=Belanosima:wght@400;600;700&display=swap"
+            "Belanosima", 4, "https://fonts.googleapis.com/css2?family=Belanosima:wght@400;600;700&display=swap"
         );
         this._theme_dictionary["arroz_con_webo"].typography.set_title(
-            "Josefin Sans", 3, source = "https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600;1,700&display=swap"
+            "Josefin Sans", 3, "https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600;1,700&display=swap"
         );
         this._theme_dictionary["arroz_con_webo"].typography.set_heading(
-            "Josefin Sans", 2, source = "https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600;1,700&display=swap"
+            "Josefin Sans", 2, "https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600;1,700&display=swap"
         );
         this._theme_dictionary["arroz_con_webo"].typography.set_body(
-            "Lato", 1, source = "https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;1,300;1,400&display=swap"
+            "Lato", 1, "https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;1,300;1,400&display=swap"
         );
         this._theme_dictionary["arroz_con_webo"].typography.set_label(
-            "Lato", 1, source = "https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;1,300;1,400&display=swap"
+            "Lato", 1, "https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;1,300;1,400&display=swap"
         );
         this._theme_dictionary["arroz_con_webo"].typography.set_code(
-            "Inconsolata", 1, source = "https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;400;500;600;700&display=swap"
+            "Inconsolata", 1, "https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;400;500;600;700&display=swap"
         );
 
         this._current_theme = "arroz_con_webo";

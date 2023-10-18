@@ -10,8 +10,8 @@ import Button from './button';
 
 const useStyles = createUseStyles(({theme}) => ({
     "arroz-filled-button": {
-        backgroundColor: theme.scheme[role].accent,
-        color: theme.scheme[role].on_accent
+        backgroundColor: ({role}) => theme.scheme[role].accent,
+        color: ({role}) => theme.scheme[role].on_accent
     }
 }));
 

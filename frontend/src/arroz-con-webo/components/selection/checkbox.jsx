@@ -1,10 +1,99 @@
 import * as React from 'react';
+import {createUseStyles} from 'react-jss';
 
 // arroz imports
 import {InvalidRoleError, NoNameError} from '../../error';
-import {useCSSClass} from '../../util';
-import {ThemeContext, Typography} from '../../styles';
 import {ContainerContext, valid_role} from '../containment/container-context';
+
+const useStyles = createUseStyles(({theme}) => ({
+    "arroz-checkbox": {
+        display: "flex",
+        alignItems: "center"
+    },
+    "arroz-checkbox-box": {
+        position: "relative",
+        padding: `${theme.typography.calculate(0.5)}`,
+        borderRadius: "50%",
+        cursor: "pointer",
+        overflow: "hidden",
+        "&::before": {
+            content: '""',
+            backgroundColor: ({context}) => `${theme.scheme[context.role].on_container}`,
+            position: "absolute",
+            inset: 0,
+            borderRadius: "50%",
+            opacity: 0,
+            transition: ({ANIMATION_DURATION}) => `opacity ${ANIMATION_DURATION}ms ease`,
+        },
+        "&:hover::before": {
+            opacity: "10%"
+        },
+        "&:active::before": {
+            opacity: ({ripple}) => ripple? "0%": "20%"
+        },
+        "& input[type='checkbox']": {
+            appearance: "none",
+            verticalAlign: "middle",
+            position: "relative",
+            width: `${theme.typography.calculate(1)}`,
+            height: `${theme.typography.calculate(1)}`,
+            background: "transparent",
+            border: ({context}) => `${theme.typography.calculate(0.2)} solid ${theme.scheme[context.role].on_container}`,
+            borderRadius: `${theme.typography.calculate(0.1)}`,
+            cursor: "pointer",
+            transition: ({ANIMATION_DURATION}) => `border ${ANIMATION_DURATION}ms ease-out`
+        },
+        "& input[type='checkbox']:checked": {
+            border: ({role}) => `${theme.typography.calculate(0.5)} solid ${theme.scheme[role].accent}`,
+            animation: ({ANIMATION_DURATION}) => `$shrink-bounce ${ANIMATION_DURATION}ms ease-out`,
+            "&::before": {
+                content: '""',
+                position: "absolute",
+                top: `${theme.typography.calculate(-0.125)}`,
+                left: `${theme.typography.calculate(-0.375)}`,
+                borderRight: `${theme.typography.calculate(0.2)} solid transparent`,
+                borderBottom: `${theme.typography.calculate(0.2)} solid transparent`,
+                transform: `rotate(45deg)`,
+                transformOrigin: "0% 100%",
+                animation: ({ANIMATION_DURATION}) => `$checkbox-check ${ANIMATION_DURATION / 2}ms ${ANIMATION_DURATION}ms ease forwards`
+            }
+        }
+    },
+    "@keyframes shrink-bounce": {
+        "0%": {
+            transform: `scale(1)`
+        },
+        "33%": {    
+            transform: `scale(.85)`
+        },
+        "100%": {
+            transform: `scale(1)`   
+        }
+    },
+    "@keyframes checkbox-check": {
+        "0%": {
+            width: 0,
+            height: 0,
+            borderColor: ({role}) => `${theme.scheme[role].on_accent}`,
+            transform: "translate(0, 0) rotate(45deg)",
+        },
+        "33%": {
+            width: `${theme.typography.calculate(0.2)}`,
+            height: 0,
+            transform: "translate(0, 0) rotate(45deg)"
+        },
+        "100%": {    
+            width: `${theme.typography.calculate(0.2)}`,
+            height: `${theme.typography.calculate(0.5)}`,
+            borderColor: ({role}) => `${theme.scheme[role].on_accent}`,
+            transform: `translate(0, ${theme.typography.calculate(-0.5)}) rotate(45deg)`
+        }
+    },
+    "arroz-checkbox-label": {
+        font: theme.typography.label(),
+        textWrap: "nowrap"
+    }
+}));
 
 /**
  * This is the Arroz Con Webo Checkbox: It should be used when a user can select multiple items in a list.
@@ -22,123 +111,19 @@ function Checkbox({className, label, role = "primary", defaultChecked, ripple, o
     if(role && !valid_role(role))
         throw new InvalidRoleError({"code": "Invalid props.role value.", "value": role});
 
-    const [checked, set_checked] = React.useState(defaultChecked? true : false);
     const context = React.useContext(ContainerContext);
-    const {Scheme} = React.useContext(ThemeContext);
 
     const ANIMATION_DURATION = 200;
-    const [class_name, set_style] = useCSSClass();
-    React.useEffect(() => {
-        set_style(`
-            .${class_name} {
-                display: flex;
-                align-items: center;
-            }
-            
-            .${class_name}-checkbox {
-                position: relative;
-                padding: ${0.5 * Typography.font_size}${Typography.unit};
-                border-radius: 50%;
-                cursor: pointer;
-                overflow: hidden;
-            }
 
-            .${class_name}-checkbox input[type='checkbox'] {
-                appearance: none;
-                vertical-align: middle;
-                position: relative;
-                width: ${Typography.font_size}${Typography.unit};
-                height: ${Typography.font_size}${Typography.unit};
-                background: transparent;
-                border: ${0.2 * Typography.font_size}${Typography.unit} solid ${Scheme[context.role].on_container};
-                border-radius: ${0.1 * Typography.font_size}${Typography.unit};
-                cursor: pointer;
-                
-                transition: border ${ANIMATION_DURATION}ms ease-out;
-            }
-        
-            .${class_name}-checkbox input[type='checkbox']:checked {
-                border: ${0.5 * Typography.font_size}${Typography.unit} solid ${Scheme[role].accent};
-                animation: shrink-bounce ${ANIMATION_DURATION}ms ease-out;
-            }
-
-            .${class_name}-checkbox input[type='checkbox']:checked:before{
-                content: "";
-                position: absolute;
-                top: ${-Typography.font_size / 8}${Typography.unit};
-                left: ${-3 * Typography.font_size / 8}${Typography.unit};
-                border-right: ${0.2 * Typography.font_size}${Typography.unit} solid transparent;
-                border-bottom: ${0.2 * Typography.font_size}${Typography.unit} solid transparent;
-                transform: rotate(45deg);
-                transform-origin: 0% 100%;
-                animation: checkbox-check ${ANIMATION_DURATION / 2}ms ${ANIMATION_DURATION}ms ease forwards;
-            }
-            
-            @keyframes shrink-bounce{
-                0%{
-                    transform: scale(1);
-                }
-                33%{    
-                    transform: scale(.85);
-                }
-                100%{
-                    transform: scale(1);    
-                }
-            }
-            @keyframes checkbox-check{
-                0%{
-                    width: 0;
-                    height: 0;
-                    border-color: ${Scheme[role].on_accent};
-                    transform: translate(0, 0) rotate(45deg);
-                }
-                33%{
-                    width: ${0.2 * Typography.font_size}${Typography.unit};
-                    height: 0;
-                    transform: translate(0, 0) rotate(45deg);
-                }
-                100%{    
-                    width: ${0.2 * Typography.font_size}${Typography.unit};
-                    height: ${0.5 * Typography.font_size}${Typography.unit};   
-                    border-color: ${Scheme[role].on_accent};
-                    transform: translate(0, ${-0.5 * Typography.font_size}${Typography.unit}) rotate(45deg);
-                }
-            }
-            
-            .${class_name}-checkbox::before {
-                content: "";
-                background-color: ${Scheme[context.role].on_container};
-                position: absolute;
-                inset: 0;
-                border-radius: 50%;
-                opacity: 0%;
-                transition: opacity ${ANIMATION_DURATION}ms ease;
-            }
-
-            .${class_name}-checkbox:hover::before {
-                opacity: 10%;
-            }
-            
-            ${ripple? "" :
-                `.${class_name}-checkbox:active::before {
-                    opacity: 20%;
-                }`
-            }
-
-            .${class_name}-label {
-                font-family: ${Typography.label_font()};
-                font-size: ${Typography.label_size}${Typography.unit};
-                text-wrap: nowrap;
-            }
-        `);
-    }, [ANIMATION_DURATION, Scheme, class_name, context.role, ripple, role, set_style]);
-
+    const [checked, set_checked] = React.useState(defaultChecked? true : false);
+    
+    const classes = useStyles({context, role, ripple, ANIMATION_DURATION})
     return (
-        <label htmlFor={label} className={`${class_name} ${className?? ""}`}>
-            <div className={`${class_name}-checkbox`}>
+        <label htmlFor={label} className={`${classes['arroz-checkbox']} ${className?? ""}`}>
+            <div className={`${classes['arroz-checkbox-box']}`}>
                 <input id={label} type="checkbox" name={label} defaultChecked={checked} onClick={() => set_checked(!checked)} onChange={onToggle}/>
             </div>
-            <span className={`${class_name}-label`}>
+            <span className={`${classes['arroz-checkbox-label']}`}>
                 {label}
             </span>
         </label>

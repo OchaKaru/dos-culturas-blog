@@ -5,7 +5,7 @@ import {createUseStyles} from "react-jss";
 // arroz imports
 import {InvalidFormatError, InvalidKeyError, InvalidModeError} from "../../../error";
 import {clamp, modulo} from '../../../util';
-import {IconButton} from '../../action/picto-button/icon-button';
+import IconButton from '../../action/picto-button/icon-button';
 
 // local imports
 import "./transitions/fade-in.css";
@@ -103,16 +103,16 @@ export default function Slideshow({className, enterStyle = "fade-in", exitStyle 
 
     }
 
+    const ANIMATION_DURATION = 300;
+
     const classes = useStyles();
     return (
-        <div className={`${class_name} ${className?? ""}`}>
+        <div className={`${className?? ""}`}>
             <SwitchTransition mode={mode}>
                 <CSSTransition
                     key={current_slide}
                     nodeRef={slide_references[current_slide]}
-                    addEndListener={(done) => {
-                        slide_references[current_slide].current.addEventListener("transitionend", done, false);
-                    }}
+                    timeout={ANIMATION_DURATION}
                     classNames={direction === 'left'? {...left} : {...right}}
                 >
                     <div ref={slide_references[current_slide]}>

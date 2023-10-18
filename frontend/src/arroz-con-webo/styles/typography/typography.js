@@ -1,4 +1,4 @@
-import FontFace from './font-face';
+import Font from './font';
 /**
  * 
  */
@@ -28,54 +28,54 @@ export default class Typography {
     }
 
     set_display(font_name, scale, source) {
-        this._display_font = FontFace(font_name, this.calculate(scale), source);
+        this._display_font = new Font(font_name, this.calculate(scale), source);
     }
 
     headline(weight = 400, style = undefined) {
-        return this._display_font.font_rule(weight, style);
+        return this._headline_font.font_rule(weight, style);
     }
 
     set_headline(font_name, scale, source) {
-        this._headline_font = FontFace(font_name, this.calculate(scale), source);
+        this._headline_font = new Font(font_name, this.calculate(scale), source);
     }
 
     title(weight = 400, style = undefined) {
-        return this._display_font.font_rule(weight, style);
+        return this._title_font.font_rule(weight, style);
     }
 
     set_title(font_name, scale, source) {
-        this._title_font = FontFace(font_name, this.calculate(scale), source);
+        this._title_font = new Font(font_name, this.calculate(scale), source);
     }
 
     heading(weight = 400, style = undefined) {
-        return this._display_font.font_rule(weight, style);
+        return this._heading_font.font_rule(weight, style);
     }
 
     set_heading(font_name, scale, source) {
-        this._heading_font = FontFace(font_name, this.calculate(scale), source);
+        this._heading_font = new Font(font_name, this.calculate(scale), source);
     }
 
     body(weight = 400, style = undefined) {
-        return this._display_font.font_rule(weight, style);
+        return this._body_font.font_rule(weight, style);
     }
 
     set_body(font_name, scale, source) {
-        this._body_font = FontFace(font_name, this.calculate(scale), source);
+        this._body_font = new Font(font_name, this.calculate(scale), source);
     }
 
     label(weight = 400, style = undefined) {
-        return this._display_font.font_rule(weight, style);
+        return this._label_font.font_rule(weight, style);
     }
 
     set_label(font_name, scale, source) {
-        this._label_font = FontFace(font_name, this.calculate(scale), source);
+        this._label_font = new Font(font_name, this.calculate(scale), source);
     }
 
     code(weight = 400, style = undefined) {
-        return this._display_font.font_rule(weight, style);
+        return this._code_font.font_rule(weight, style);
     }
 
     set_code(font_name, scale, source) {
-        this._code_font = FontFace(font_name, this.calculate(scale), source, weights);
+        this._code_font = new Font(font_name, this.calculate(scale), source);
     }
 }

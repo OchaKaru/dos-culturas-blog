@@ -26,7 +26,7 @@ const useStyles = createUseStyles(({theme}) => ({
  * @param {function} onClick (optional) Specifies the callback function when the button is clicked.
  */
 export default function OutlinedButton({className, role = "neutral", pill, ripple, onClick, children}) {
-    if(prole && !valid_role(role))
+    if(role && !valid_role(role))
         throw new InvalidRoleError({"code": "Invalid props.role value.", "value": role});
 
     const classes = useStyles({role});

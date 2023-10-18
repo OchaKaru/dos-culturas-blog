@@ -32,7 +32,7 @@ export function useChangeTheme() {
     const [theme_context, set_theme_context] = React.useState(Styler.theme_context());
 
     const change_theme = React.useCallback(theme_name => {
-        Themer.set_theme(theme_name);
+        Styler.set_theme(theme_name);
         set_theme_context(Styler.theme_context());
     }, [])
 

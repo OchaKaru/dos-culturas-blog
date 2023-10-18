@@ -36,7 +36,7 @@ export default function FilledCard({className, role = "neutral", containerType =
     const context = React.useContext(ContainerContext);
     const classes = useStyles({context, role, "container_type": containerType})
     return (
-        <ContainerContext.Provider value={{"role": role, "container_type": container_type}}>
+        <ContainerContext.Provider value={{"role": role, "container_type": containerType}}>
             <Card className={`${classes['arroz-filled-card']} ${className?? ""}`} rounded={rounded} interactable={interactable} ripple={ripple}>
                 {children}
             </Card>

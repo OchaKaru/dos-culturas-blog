@@ -10,9 +10,9 @@ const useStyles = createUseStyles(({theme}) => ({
         display: "inline-block",
         padding: 0,
         overflow: "hidden",
-        borderRadius: theme.typography.calculate(props.rounded? 1 : 0.2),
+        borderRadius: ({rounded}) => theme.typography.calculate(rounded? 1 : 0.2),
         "&::before": {
-            content: "",
+            content: '""',
             backgroundColor: ({role, container_type}) => valid_container(role, container_type)? theme.scheme[role].on_container : "transparent",
             position: "absolute",
             inset: 0,

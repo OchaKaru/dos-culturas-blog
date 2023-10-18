@@ -64,7 +64,7 @@ export default function FilterAccordion({data, onFilter, onReset}) {
                     <TonalButton pill onClick={reset}>Reset Filters</TonalButton>
                 </div>
             </SideSheet>
-            <FilledButton className='collapse-button' pill onClick={() => set_open(true)} >Filters</FilledButton>
+            <FilledButton className='collapse-button' pill onClick={() => set_open(!open)} >Filters</FilledButton>
         </div>
     );
 }

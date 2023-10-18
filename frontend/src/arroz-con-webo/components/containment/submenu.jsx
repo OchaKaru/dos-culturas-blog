@@ -32,7 +32,7 @@ const useStyles = createUseStyles(({theme}) => ({
         height: 0,
         display: "flex",
         flexDirection: "column",
-        overflow: hidden,
+        overflow: "hidden",
         textWrap: "nowrap",
         marginLeft: theme.typography.calculate(2)
     },
@@ -42,6 +42,9 @@ const useStyles = createUseStyles(({theme}) => ({
     "panel-enter-active": {
         height: ({panel_height}) => `${panel_height}px`,
         transition: ({ANIMATION_DURATION}) => `height ${ANIMATION_DURATION}ms ease`
+    },
+    "panel-enter-done": {
+        height: ({panel_height}) => `${panel_height}px`
     },
     "panel-exit": {
         height: ({panel_height}) => `${panel_height}px`
@@ -84,34 +87,27 @@ export default function Submenu({className, name, role = "neutral", containerTyp
 
     let reference = React.useRef(null);
     const [panel_height, set_panel_height] = React.useState();
-    React.useEffect(() => {        
-        if(reference.current) {
-            console.log(reference.current.scrollHeight);
-            set_panel_height(reference.current.scrollHeight);
-        } 
-    }, [open]);
 
-    const [class_name, set_style] = useCSSClass();
     const classes = useStyles({context, role, "container_type": containerType, ANIMATION_DURATION, panel_height});
     return (
         <ContainerContext.Provider value={{"role": role, "container_type": containerType}}>
             <div className={`${classes['arroz-submenu']} ${className?? ""}`}>
                 <TextButton className={`${classes['arroz-submenu-button']}`} pill={pill} role={role} onClick={toggle_panel}>
                     {name}
-                    <span className={`${classes['arroz-submenu-icon']} ${open? "open" : ""}`}>▼</span>
+                    <span className={`${classes['arroz-submenu-button-icon']} ${open? `${classes['arroz-submenu-button-icon.open']}` : ""}`}>▼</span>
                 </TextButton>
                 <CSSTransition
                     in={open}
                     nodeRef={reference}
-                    addEndListener={(done) => {
-                        reference.current.addEventListener("transitionend", done, false);
-                    }}
+                    onEnter={() => set_panel_height(reference.current.scrollHeight)}
+                    onExit={() => set_panel_height(reference.current.scrollHeight)}
+                    timeout={ANIMATION_DURATION}
                     classNames={animate? {
-                        "enter": `${class_name}-open`,
-                        "enterActive": `${class_name}-open-active`,
-                        "enterDone": `${class_name}-open-done`,
-                        "exit": `${class_name}-close`,
-                        "exitActive": `${class_name}-close-active`
+                        "enter": `${classes['panel-enter']}`,
+                        "enterActive": `${classes['panel-enter-active']}`,
+                        "enterDone": `${classes['panel-enter-active']}`,
+                        "exit":  `${classes['panel-exit']}`,
+                        "exitActive":  `${classes['panel-exit-active']}`
                     } : "undefined"}
                 >
                     <div ref={reference} className={`${classes['arroz-submenu-panel']}`}>

@@ -7,24 +7,6 @@
  * dynamically themed by giving SCSS's prettier variables the values of CSS's uglier cousins.
  */
 
-import * as React from 'react';
-
-// arroz imports
-import {AlreadyInitializedError, NotInitializedError, NoPaletteFoundError} from '../error';
-
-// local imports
-import Palette from "./color/palette";
-import Typography from './typography/typography';
-
-/**
- * This is the default color palette for the Arroz con Webo component library.
- */
-const egg_yellow = "#CDAE32";
-const broth_brown = "#A67359";
-const kidney_red = "#A25D80";
-const tomato_red = "#BF4040";
-const rice_pot_gray = "#8C7380";
-
 /**
  * @class
  * This class is an internal theming class that converts Palette objects into the tonal mappings
