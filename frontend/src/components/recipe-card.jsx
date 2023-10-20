@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Link } from "gatsby";
+import {Link} from "gatsby";
 
-import FilledCard from '../arroz-con-webo/components/containment/card/filled-card';
+import {FilledCard, Label} from '../arroz-con-webo';
 
 export default class RecipeCard extends React.Component {
     constructor(props) {
@@ -44,7 +44,7 @@ export default class RecipeCard extends React.Component {
                         <img src={this.state.image} alt={this.state.description} />
                     </figure>
                     <div className='recipe-meta'>
-                        <p className='recipe-culture'>{this.state.culture}</p>
+                        <Label className='recipe-culture' role="primary">{this.state.culture}</Label>
                         <h1 className='recipe-name'>{this.state.name}</h1>
                     </div>
                 </FilledCard>
