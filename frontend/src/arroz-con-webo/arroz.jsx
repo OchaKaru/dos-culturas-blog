@@ -12,23 +12,24 @@ const useStyles = createUseStyles({
         color: ({theme, role}) => theme.scheme[role].on_container,
         height: "100%",
         width: "100%",
-        "& *::-webkit-scrollbar": {
+        overflow: "auto",
+        "&::-webkit-scrollbar, & *::-webkit-scrollbar": {
             width: "0.5vw"
         },
-        "& *::-webkit-scrollbar-track": {
+        "&::-webkit-scrollbar-track, & *::-webkit-scrollbar-track": {
             background: "none"
         },
-        "& *::-webkit-scrollbar-thumb": {
+        "&::-webkit-scrollbar-thumb, & *::-webkit-scrollbar-thumb": {
             background: ({theme}) => theme.scheme.neutral.outline,
             opacity: "20%",
             transition: "opacity 200ms ease",
-            borderRadius: "1vw"
-        },
-        "& *::-webkit-scrollbar-thumb:hover": {
-            opacity: "30%"
-        },
-        "& *::-webkit-scrollbar-thumb:active": {
-            opacity: "40%"
+            borderRadius: "1vw",
+            "&:hover": {
+                opacity: "30%"
+            },
+            "&:active": {
+                opacity: "40%"
+            }
         }
     }
 });
@@ -66,7 +67,6 @@ export default function Root({children}) {
     return (
         <ThemeProvider theme={{...theme}}>
             <ContainerContext.Provider value={{"role": role, "container_type": container_type}}>
-                <button onClick={handle_toggle}>Toggle Scheme</button>
                 <div className={classes['arroz-root']}>
                     {children}
                 </div>
