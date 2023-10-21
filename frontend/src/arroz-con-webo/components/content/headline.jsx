@@ -7,7 +7,7 @@ const useStyles = createUseStyles(({theme}) => ({
     }
 }));
 
-export default function Headline({}) {
+export default function Headline({className, children}) {
     const classes = useStyles({});
     return (
         <h2 className={`${classes['arroz-headline']} ${className?? ""}`}>{children}</h2>
