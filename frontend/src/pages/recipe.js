@@ -1,52 +1,90 @@
 import * as React from "react"
+import {Image, Headline, Subheading, Body, Pane, FilledCard, OutlinedCard, TonalButton, Checkbox, Label, SideSheet} from '../arroz-con-webo';
 
 import RecipeAPI from "../api/recipeapi";
+import Header from '../components/navigation/header';
+
+import '../styles/recipe/recipe-page.scss';
 
 const RecipePage = ({location: {state}}) => {
-  const [recipe_data, set_recipe_data] = React.useState(undefined);
-  const [image, set_image] = React.useState("")
-
   let recipe_id = state.recipe_clicked;
 
+  const [recipe_data, set_recipe_data] = React.useState(undefined);
   React.useEffect(() => {
     (async () => {
       set_recipe_data(await RecipeAPI.get_recipe_details(recipe_id));
     })();
   }, [recipe_id]);
 
+  const [image, set_image] = React.useState("");
   React.useEffect(() => {
-    if(recipe_data)
-      (async () => {
-        set_image((await import(`../images/${recipe_data.image}`)).default)
-      })();
-  }, [recipe_data]);
+    (async () => {
+      set_image((await import(`../images/${recipe_data?.image}`)).default);
+    })();
+  }, [recipe_data])
+
+  const [open, set_open] = React.useState(false);
 
   return (
     <main>
-          <img src={image} alt={recipe_data?.desc} />
-          <h1>{recipe_data?.name}</h1>
-          <p>{recipe_data?.desc}</p>
-          <ul>
+      <Header />
+      <div className="recipe-page">
+        <SideSheet open={open}>
+          <Subheading>Ingredients</Subheading>
+          <TonalButton className="recipe-ingredients-pin" pill onClick={() => set_open(false)}>Pin</TonalButton>
+          <Body>
             {recipe_data?.ingredients.map(ingredient => {
-              return (<li key={ingredient.name}>
-                {ingredient.measure + ' ' + ingredient.unit + ' ' + ingredient.name}
-              </li>);
+              return (
+                <Checkbox className="recipe-ingredient" label={ingredient.measure + ' ' + ingredient.unit + ' ' + ingredient.name} />
+              );
             })}
-          </ul>
-          <ol>
-            {recipe_data?.steps.map(step => {
-              return (<li key={step}>
-                {step}
-              </li>);
-            })}
-          </ol>
+          </Body>
+        </SideSheet>
+        <Pane className="recipe-pane" rounded>
+          <div className="recipe-content">
+          <FilledCard className="recipe-metadata" role="primary" containerType="container" rounded >
+            <Image source={image} alternate={recipe_data?.desc} />
+            <div>
+              <Headline>{recipe_data?.name}</Headline>
+              <Subheading>Description</Subheading>
+              <Body>
+                {recipe_data?.desc}
+              </Body>
+            </div>
+          </FilledCard>
+          <OutlinedCard className="recipe-ingredients" rounded>
+            <Subheading>Ingredients</Subheading>
+            <TonalButton className="recipe-ingredients-pin" pill onClick={() => set_open(true)}>Pin</TonalButton>
+            <Body>
+              {recipe_data?.ingredients.map(ingredient => {
+                return (
+                  <Checkbox className="recipe-ingredient" label={ingredient.measure + ' ' + ingredient.unit + ' ' + ingredient.name} />
+                );
+              })}
+            </Body>
+          </OutlinedCard>
+          <Subheading>Directions</Subheading>
+          <Body>
+            <ol>
+              {recipe_data?.steps.map(step => {
+                return (<li key={step}>
+                  {step}
+                </li>);
+              })}
+            </ol>
+          </Body>
           <ul>
             {recipe_data?.groups.map(group => {
-              return (<li key={group.name}>
-                {group.name + ': ' + group.desc}
-              </li>);
+              return (
+                <li key={group.name}>
+                  <Label role="secondary" pill>{group.name + ': ' + group.desc}</Label>
+                </li>
+              );
             })}
           </ul>
+          </div>
+        </Pane>
+      </div>
     </main>
   );
 }
