@@ -9,7 +9,7 @@ export default class Typography {
     _display_font;
     _headline_font;
     _title_font;
-    _heading_font;
+    _subheading_font;
     _body_font;
     _label_font;
     _code_font;
@@ -47,12 +47,12 @@ export default class Typography {
         this._title_font = new Font(font_name, this.calculate(scale), source);
     }
 
-    heading(weight = 400, style = undefined) {
-        return this._heading_font.font_rule(weight, style);
+    subheading(weight = 400, style = undefined) {
+        return this._subheading_font.font_rule(weight, style);
     }
 
-    set_heading(font_name, scale, source) {
-        this._heading_font = new Font(font_name, this.calculate(scale), source);
+    set_subheading(font_name, scale, source) {
+        this._subheading_font = new Font(font_name, this.calculate(scale), source);
     }
 
     body(weight = 400, style = undefined) {

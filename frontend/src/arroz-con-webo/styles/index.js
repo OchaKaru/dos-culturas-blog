@@ -53,7 +53,7 @@ export class Styler {
         this._theme_dictionary["arroz_con_webo"].typography.set_title(
             "Josefin Sans", 3, "https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600;1,700&display=swap"
         );
-        this._theme_dictionary["arroz_con_webo"].typography.set_heading(
+        this._theme_dictionary["arroz_con_webo"].typography.set_subheading(
             "Josefin Sans", 2, "https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600;1,700&display=swap"
         );
         this._theme_dictionary["arroz_con_webo"].typography.set_body(
