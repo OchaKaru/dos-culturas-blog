@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Slideshow} from '../../arroz-con-webo';
+import {Slideshow, Pane} from '../../arroz-con-webo';
 
 import AllRecipeSlide from './all-recipe-slide';
 
@@ -25,8 +25,10 @@ export default function AllRecipeCarousel({data}) {
     }, [data])
 
     return (
-        <Slideshow className='all-recipe-carousel' enterStyle="fade-in-up" exitStyle="fade-out-against">
-            {page_list}
-        </Slideshow>
+        <Pane className='all-recipe-carousel' containerType="container_highest" rounded>
+            <Slideshow enterStyle="fade-in-up" exitStyle="fade-out-against">
+                {page_list}
+            </Slideshow>
+        </Pane>
     );
 }

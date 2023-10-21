@@ -1,9 +1,3 @@
-$recipe-card-color: radial-background($platinum);
-$recipe-name-color: $eerie-black;
-$recipe-culture-color: $light-coral-gradient;
-$recipe-card-width: 20vw;
-$recipe-card-radius: 2vh;
-
 .recipe-card {
     padding: 0;
     overflow: hidden;
@@ -20,25 +14,19 @@ $recipe-card-radius: 2vh;
     }
 
     .recipe-meta {
-        margin: 2vh 1vw;
+        margin-top: 1vh;
+        margin-left: 2vh;
+        margin-right: 2vh;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         justify-content: center;
 
         .recipe-culture {
-            font-size: 2vh;
-            margin: 0;
-            padding: 1vh 1vw;
-            border-radius: 10vh;
             font-weight: 600;
-            color: white;
-            background: $recipe-culture-color;
         }
 
         .recipe-name {
-            font-size: 3vh;
-            line-height: 4vh;
             font-weight: 900;
         }
     }            
