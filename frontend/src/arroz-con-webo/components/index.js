@@ -17,13 +17,15 @@ export {default as OutlinedCard} from './containment/card/outlined-card';
 export {default as Slideshow} from './presentation/slideshow';
 export {default as SideSheet} from './containment/sheet/side-sheet';
 export {default as Submenu} from './containment/drawer/submenu';
+export {default as Pane} from './containment/pane';
 export * from './containment/container-context';
 
 export {default as Body} from './content/body';
 export {default as Code} from './content/code';
 export {default as Display} from './content/display';
+export {default as Headline} from './content/headline';
 export {default as Image} from './content/image';
-export {default as label} from './content/label';
+export {default as Label} from './content/label';
 export {default as Subheading} from './content/subheading';
 export {default as Title} from './content/title';
 
