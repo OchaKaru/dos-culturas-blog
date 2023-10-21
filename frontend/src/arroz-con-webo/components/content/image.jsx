@@ -17,20 +17,10 @@ const useStyles = createUseStyles(({theme}) => ({
 }));
 
 export default function Image({className, source, alternate}) {
-    if(!source)
-        throw new NoSourceProvidedError();
-
-    const [image, set_image] = React.useState();
-    React.useEffect(() => {
-        (async () => {
-            set_image((await import(source)).default);
-        })();
-    }, [source])
-
     const classes = useStyles();
     return (
         <figure className={`${classes['arroz-image']} ${className?? ""}`}>
-            <img src={image} alt={alternate} />
+            <img src={source} alt={alternate} />
         </figure>
     );
 }
