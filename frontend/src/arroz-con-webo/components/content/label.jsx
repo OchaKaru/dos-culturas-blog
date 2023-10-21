@@ -11,6 +11,7 @@ const useStyles = createUseStyles(({theme}) => ({
             return role === "neutral"? "transparent" : theme.scheme[role].accent
         },
         color: ({context, role}) => role === "neutral"? theme.scheme[context.role].on_container : theme.scheme[role].on_accent,
+        borderRadius: ({pill}) => theme.typography.calculate(pill? 1 : 0.2),
         font: theme.typography.label(),
         textWrap: "nowrap",
         textAlign: "center",
@@ -24,13 +25,13 @@ const useStyles = createUseStyles(({theme}) => ({
  * @param 
  * @returns 
  */
-export default function Label({className, role = "neutral", children}) {
+export default function Label({className, role = "neutral", pill, children}) {
     if(role && !valid_role(role))
         throw new InvalidRoleError();
 
     const context = React.useContext(ContainerContext);
 
-    const classes = useStyles({context, role})
+    const classes = useStyles({context, role, pill})
     return (
         <span className={`${classes['arroz-label']} ${className?? ""}`}>{children}</span>
     );
