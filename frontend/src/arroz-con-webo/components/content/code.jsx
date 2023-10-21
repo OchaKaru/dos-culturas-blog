@@ -8,6 +8,7 @@ import {valid_container} from '../containment/container-context';
 const useStyles = createUseStyles(({theme}) => ({
     "arroz-code": {
         "&.prettyprint": {
+            border: "none",
             display: "block",
             padding: theme.typography.calculate(1),
             backgroundColor: ({container_type}) => theme.scheme.neutral[container_type],
@@ -15,17 +16,17 @@ const useStyles = createUseStyles(({theme}) => ({
             boxShadow: ({outlined}) => outlined? `inset 0 0 0 ${theme.typography.calculate(0.1)} ${theme.scheme.neutral.outline}` : 0,
             font: theme.typography.code(),
         },
-        "&.str": {color: theme.scheme.neutral.code.string},
-        "&.kwd": {color: theme.scheme.neutral.code.keyword, fontWeight: "bold"},
-        "&.com": {color: theme.scheme.neutral.code.comment},
-        "&.typ": {color: theme.scheme.neutral.code.type},
-        "&.lit": {color: theme.scheme.neutral.code.literal},
-        "&.pun": {color: theme.scheme.neutral.code.punctuation},
-        "&.pln": {color: theme.scheme.neutral.code.plaintext},
-        "&.tag": {color: theme.scheme.neutral.code.tag, fontWeight: "bold"},
-        "&.atn": {color: theme.scheme.neutral.code.attribute_name, fontWeight: "bold"},
-        "&.atv": {color: theme.scheme.neutral.code.attribute_value},
-        "&.dec": {color: theme.scheme.neutral.code.decimal},
+        "& .str": {color: theme.scheme.neutral.code.string},
+        "& .kwd": {color: theme.scheme.neutral.code.keyword, fontWeight: "bold"},
+        "& .com": {color: theme.scheme.neutral.code.comment},
+        "& .typ": {color: theme.scheme.neutral.code.type},
+        "& .lit": {color: theme.scheme.neutral.code.literal},
+        "& .pun": {color: theme.scheme.neutral.code.punctuation},
+        "& .pln": {color: theme.scheme.neutral.code.plaintext},
+        "& .tag": {color: theme.scheme.neutral.code.tag, fontWeight: "bold"},
+        "& .atn": {color: theme.scheme.neutral.code.attribute_name, fontWeight: "bold"},
+        "& .atv": {color: theme.scheme.neutral.code.attribute_value},
+        "& .dec": {color: theme.scheme.neutral.code.decimal},
         "& ol.linenums": {
             marginTop: 0, 
             marginBottom: 0, 
@@ -53,7 +54,7 @@ export default function Code({className, containerType = "container", rounded, o
 
     const classes = useStyles({"container_type": containerType, rounded, outlined, "all_lined": allLined});
     return (
-        <pre className={`${classes['arroz-code']} ${className?? ""} prettyprint ${showLineNumbers? `linenums:${startingLine}` : ""}`}>
+        <pre className={`prettyprint ${classes['arroz-code']} ${className?? ""} ${showLineNumbers? `linenums:${startingLine}` : ""}`}>
             <code className={`language-${language}`}>
                 {children}
             </code>
