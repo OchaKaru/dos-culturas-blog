@@ -3,9 +3,9 @@ import {animated, useTransition} from '@react-spring/web';
 import {createUseStyles} from "react-jss";
 
 // arroz imports
-import {InvalidFormatError, InvalidKeyError, InvalidModeError} from "../../../error";
-import {clamp, modulo} from '../../../util';
-import IconButton from '../../action/picto-button/icon-button';
+import {InvalidFormatError, InvalidKeyError, InvalidModeError} from "../../error";
+import {clamp, modulo} from '../../util';
+import IconButton from '../action/picto-button/icon-button';
 
 // local imports
 import "./transitions/fade-in.css";

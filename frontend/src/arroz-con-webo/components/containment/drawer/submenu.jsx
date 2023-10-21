@@ -3,9 +3,9 @@ import {animated, useSpring} from '@react-spring/web';
 import {createUseStyles} from 'react-jss';
 
 // arroz imports
-import {InvalidContainerError, InvalidRoleError, NoNameError} from '../../error';
-import TextButton from '../action/common-button/text-button';
-import {ContainerContext, valid_container, valid_role} from './container-context';
+import {InvalidContainerError, InvalidRoleError, NoNameError} from '../../../error';
+import TextButton from '../../action/common-button/text-button';
+import {ContainerContext, valid_container, valid_role} from '../container-context';
 
 const useStyles = createUseStyles(({theme}) => ({
     "arroz-submenu": {

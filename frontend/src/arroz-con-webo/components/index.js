@@ -11,16 +11,20 @@ export {default as TonalButton} from './action/common-button/tonal-button';
 
 export {default as IconButton} from './action/picto-button/icon-button';
 
-// export * from './communication';
-
 export {default as ElevatedCard} from './containment/card/elevated-card';
 export {default as FilledCard} from './containment/card/filled-card';
 export {default as OutlinedCard} from './containment/card/outlined-card';
-export {default as Slideshow} from './containment/presentation/slideshow';
+export {default as Slideshow} from './presentation/slideshow';
 export {default as SideSheet} from './containment/sheet/side-sheet';
+export {default as Submenu} from './containment/drawer/submenu';
 export * from './containment/container-context';
-export {default as Submenu} from './containment/submenu';
 
-export {default as Checkbox} from './selection/checkbox';
+export {default as Body} from './content/body';
+export {default as Code} from './content/code';
+export {default as Display} from './content/display';
+export {default as Image} from './content/image';
+export {default as label} from './content/label';
+export {default as Subheading} from './content/subheading';
+export {default as Title} from './content/title';
 
-// export * from './specialized';
+export {default as Checkbox} from './form/checkbox';
