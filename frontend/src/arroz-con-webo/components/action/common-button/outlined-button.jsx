@@ -12,7 +12,7 @@ const useStyles = createUseStyles(({theme}) => ({
     "arroz-outlined-button": {
         backgroundColor: "transparent",
         color: ({role}) => role === "neutral"? theme.scheme.neutral.on_container : theme.schem[role].accent,
-        boxShadow: ({role}) => `inset 0 0 0 ${theme.typography.calculate(0.1)} ${role === "neutral"? theme.scheme.neutral.on_container : theme.schem[role].accent}`
+        boxShadow: ({role}) => `inset 0 0 0 ${theme.typography.calculate(0.1)} ${role === "neutral"? theme.scheme.neutral.outline : theme.schem[role].accent}`
     }
 }));
 
