@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {Script} from 'gatsby';
 import {createUseStyles, ThemeProvider} from 'react-jss';
 
 //arroz imports
@@ -69,6 +70,7 @@ export default function Root({children}) {
                 <div className={classes['arroz-root']}>
                     {children}
                 </div>
+                <Script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"/>
             </ContainerContext.Provider>
         </ThemeProvider>
     );
