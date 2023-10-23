@@ -12,9 +12,10 @@ const useStyles = createUseStyles(({theme}) => ({
         },
         color: ({role}) => theme.scheme[role].on_container,
         borderRadius: ({rounded}) => theme.typography.calculate(rounded? 1 : 0.2),
+        display: "inline-block",
         position: "relative",
-        padding: 0,
-        overflow: "hidden"
+        overflowX: "hidden",
+        overflowY: "auto"
     }
 }));
 
