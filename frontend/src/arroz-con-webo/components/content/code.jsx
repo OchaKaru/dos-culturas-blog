@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {Script} from 'gatsby';
 import {createUseStyles} from 'react-jss';
 
 // arroz imports
@@ -54,10 +55,13 @@ export default function Code({className, containerType = "container", rounded, o
 
     const classes = useStyles({"container_type": containerType, rounded, outlined, "all_lined": allLined});
     return (
-        <pre className={`prettyprint ${classes['arroz-code']} ${className?? ""} ${showLineNumbers? `linenums:${startingLine}` : ""}`}>
-            <code className={`language-${language}`}>
-                {children}
-            </code>
-        </pre>
+        <>
+            <pre className={`prettyprint ${classes['arroz-code']} ${className?? ""} ${showLineNumbers? `linenums:${startingLine}` : ""}`}>
+                <code className={`language-${language}`}>
+                    {children}
+                </code>
+            </pre>
+            <Script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"/>
+        </>
     );
 }
