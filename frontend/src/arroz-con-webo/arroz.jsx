@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {Script} from 'gatsby';
 import {createUseStyles, ThemeProvider} from 'react-jss';
 
 //arroz imports
@@ -10,11 +9,12 @@ const useStyles = createUseStyles({
     "arroz-root": {
         backgroundColor: ({theme, role, container_type}) => theme.scheme[role][container_type],
         color: ({theme, role}) => theme.scheme[role].on_container,
-        height: "100%",
-        width: "100%",
-        overflow: "auto",
+        height: "100vh",
+        width: "100vw",
+        overflowX: "hidden",
+        overflowY: "auto",
         "&::-webkit-scrollbar, & *::-webkit-scrollbar": {
-            width: "0.5vw"
+            width: ({theme}) => theme.typography.calculate(0.5)
         },
         "&::-webkit-scrollbar-track, & *::-webkit-scrollbar-track": {
             background: "none"
@@ -23,7 +23,7 @@ const useStyles = createUseStyles({
             background: ({theme}) => theme.scheme.neutral.outline,
             opacity: "20%",
             transition: "opacity 200ms ease",
-            borderRadius: "1vw",
+            borderRadius: ({theme}) => theme.typography.calculate(1),
             "&:hover": {
                 opacity: "30%"
             },
@@ -70,7 +70,6 @@ export default function Root({children}) {
                 <div className={classes['arroz-root']}>
                     {children}
                 </div>
-                <Script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"/>
             </ContainerContext.Provider>
         </ThemeProvider>
     );
