@@ -1,10 +1,14 @@
 import * as React from "react"
-import {Image, Headline, Subheading, Body, Pane, FilledCard, OutlinedCard, TonalButton, Checkbox, Label, SideSheet} from '../arroz-con-webo';
+import {Pane} from '../arroz-con-webo';
 
 import RecipeAPI from "../api/recipeapi";
-import Header from '../components/navigation/header';
 
 import '../styles/recipe/recipe-page.scss';
+import IngredientSheet from "../components/ingredient-sheet";
+import IngredientCard from "../components/ingredient-card";
+import RecipeInformation from '../components/recipe-information';
+import RecipeDirections from "../components/recipe-direction";
+import TagList from "../components/tag-list";
 
 const RecipePage = ({location: {state}}) => {
   let recipe_id = state.recipe_clicked;
@@ -26,65 +30,16 @@ const RecipePage = ({location: {state}}) => {
   const [open, set_open] = React.useState(false);
 
   return (
-    <main>
-      <Header />
-      <div className="recipe-page">
-        <SideSheet open={open}>
-          <Subheading>Ingredients</Subheading>
-          <TonalButton className="recipe-ingredients-pin" pill onClick={() => set_open(false)}>Pin</TonalButton>
-          <Body>
-            {recipe_data?.ingredients.map(ingredient => {
-              return (
-                <Checkbox className="recipe-ingredient" label={ingredient.measure + ' ' + ingredient.unit + ' ' + ingredient.name} />
-              );
-            })}
-          </Body>
-        </SideSheet>
-        <Pane className="recipe-pane" rounded>
-          <div className="recipe-content">
-          <FilledCard className="recipe-metadata" role="primary" containerType="container" rounded >
-            <Image source={image} alternate={recipe_data?.desc} />
-            <div>
-              <Headline>{recipe_data?.name}</Headline>
-              <Subheading>Description</Subheading>
-              <Body>
-                {recipe_data?.desc}
-              </Body>
-            </div>
-          </FilledCard>
-          <OutlinedCard className="recipe-ingredients" rounded>
-            <Subheading>Ingredients</Subheading>
-            <TonalButton className="recipe-ingredients-pin" pill onClick={() => set_open(true)}>Pin</TonalButton>
-            <Body>
-              {recipe_data?.ingredients.map(ingredient => {
-                return (
-                  <Checkbox className="recipe-ingredient" label={ingredient.measure + ' ' + ingredient.unit + ' ' + ingredient.name} />
-                );
-              })}
-            </Body>
-          </OutlinedCard>
-          <Subheading>Directions</Subheading>
-          <Body>
-            <ol>
-              {recipe_data?.steps.map(step => {
-                return (<li key={step}>
-                  {step}
-                </li>);
-              })}
-            </ol>
-          </Body>
-          <ul>
-            {recipe_data?.groups.map(group => {
-              return (
-                <li key={group.name}>
-                  <Label role="secondary" pill>{group.name + ': ' + group.desc}</Label>
-                </li>
-              );
-            })}
-          </ul>
-          </div>
-        </Pane>
-      </div>
+    <main className="recipe-page">
+      <IngredientSheet ingredients={recipe_data?.ingredients} open={open} handleOpen={set_open} />
+      <Pane className="recipe-pane" rounded>
+        <div className="recipe-content">
+          <RecipeInformation image={image} name={recipe_data?.name} description={recipe_data?.desc} />
+          <IngredientCard ingredients={recipe_data?.ingredients} open={!open} handleOpen={set_open} />
+          <RecipeDirections steps={recipe_data?.steps} />
+          <TagList tags={recipe_data?.groups} />
+        </div>
+      </Pane>
     </main>
   );
 }
