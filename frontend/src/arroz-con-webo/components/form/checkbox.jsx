@@ -4,6 +4,7 @@ import {createUseStyles} from 'react-jss';
 // arroz imports
 import {InvalidRoleError, NoNameError} from '../../error';
 import {ContainerContext, valid_role} from '../containment/container-context';
+import Label from '../content/label';
 
 const useStyles = createUseStyles(({theme}) => ({
     "arroz-checkbox": {
@@ -88,10 +89,6 @@ const useStyles = createUseStyles(({theme}) => ({
             borderColor: ({role}) => `${theme.scheme[role].on_accent}`,
             transform: `translate(0, ${theme.typography.calculate(-0.5)}) rotate(45deg)`
         }
-    },
-    "arroz-checkbox-label": {
-        font: theme.typography.label(),
-        textWrap: "nowrap"
     }
 }));
 
@@ -123,9 +120,9 @@ function Checkbox({className, label, role = "primary", defaultChecked, ripple, o
             <div className={`${classes['arroz-checkbox-box']}`}>
                 <input id={label} type="checkbox" name={label} defaultChecked={checked} onClick={() => set_checked(!checked)} onChange={onToggle}/>
             </div>
-            <span className={`${classes['arroz-checkbox-label']}`}>
+            <Label>
                 {label}
-            </span>
+            </Label>
         </label>
     );
 }
