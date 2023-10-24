@@ -1,9 +1,8 @@
 import * as React from "react";
-import Header from '../components/navigation/header';
-import AllRecipeCarousel from '../components/all-recipe-carousel/all-recipe-carousel';
-import FilterAccordion from '../components/filter-accordion';
 
 import RecipeAPI from "../api/recipeapi";
+import RecipeCarousel from '../components/recipe-carousel';
+import FilterAccordion from '../components/filter-accordion';
 
 export default function LibraryPage() {
   let [recipe_data, set_recipe_data] = React.useState([]);
@@ -32,12 +31,9 @@ export default function LibraryPage() {
   }, [reset]);
 
   return (
-    <main>
-      <Header />
-      <div className="recipe-library">
-        <FilterAccordion data={group_data} onFilter={filter_recipes} onReset={reset_recipes} />
-        <AllRecipeCarousel data={recipe_data} />
-      </div>
+    <main className="recipe-library">
+      <FilterAccordion data={group_data} onFilter={filter_recipes} onReset={reset_recipes} />
+      <RecipeCarousel data={recipe_data} />
     </main>
   );
 }
