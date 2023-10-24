@@ -89,7 +89,7 @@ export function rgb_to_hsl(red, green, blue) {
             case delta === 0:
                 return 0;
             case Cmax === red_normalized:
-                return 60 * (modulo((green_normalized - blue_normalized) / delta), 6);
+                return 60 * (modulo((green_normalized - blue_normalized) / delta, 6));
             case Cmax === green_normalized:
                 return 60 * ((blue_normalized - red_normalized) / delta + 2);
             case Cmax === blue_normalized:
@@ -190,7 +190,7 @@ export default class Color {
      * @returns The color in RBG.
      */
     rgb(red = undefined, green = undefined, blue = undefined) {
-        if((red && (!green || !blue)) || (green && (!red || !blue)) || (blue && (!green || !red)))
+        if((red && !green) || (green && !blue) || (blue && !red))
             NotEnoughArgumentsError();
         if(red && green && blue)
             this.hexcode = rgb_to_hex(red, green, blue);
@@ -206,12 +206,16 @@ export default class Color {
      * @returns The color in HSL.
      */
     hsl(hue = undefined, saturation = undefined, lightness = undefined) {
-        if((hue && (!saturation || !lightness)) || (saturation && (!hue || !lightness)) || (lightness && (!saturation || !hue)))
+        if((hue && !saturation) || (saturation && !lightness) || (lightness && !hue))
             throw new NotEnoughArgumentsError();
-        if(hue && saturation && lightness)
-            this.hexcode = rgb_to_hex(...hsl_to_rgb(hue, saturation, lightness)); // spread the rgb object to fit the parameters
 
         let rgb = hex_to_rgb(this.hexcode);
-        return rgb_to_hsl(rgb.red, rgb.green, rgb.blue); // return the hsl
+        let hsl = rgb_to_hsl(rgb.red, rgb.green, rgb.blue);; 
+        if(hue && saturation && lightness) {
+            hsl = hsl_to_rgb(hue, saturation, lightness);
+            this.hexcode = rgb_to_hex(hsl.hue, hsl.saturation, hsl.lightness); // spread the rgb object to fit the parameters
+        }
+        
+        return hsl; // return the hsl
     }
 }
