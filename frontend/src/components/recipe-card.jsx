@@ -39,7 +39,7 @@ export default class RecipeCard extends React.Component {
     render() {
         return (
             <Link to="/recipe/" state={{'recipe_clicked': this.state.id}}>
-                <FilledCard className='recipe-card' role={(this.props.index % 2) === 0? "secondary" : "tertiary"} containerType="container" rounded interactable>
+                <FilledCard className='recipe-card' role={"secondary"} containerType="container" rounded interactable>
                     <figure className='recipe-image'>
                         <img src={this.state.image} alt={this.state.description} />
                     </figure>
