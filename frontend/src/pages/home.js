@@ -1,10 +1,25 @@
 import * as React from "react";
-import Header from '../components/navigation/header';
+
+import RecipeAPI from "../api/recipeapi";
+
+import WeeklyRecipeCard from "../components/weekly-recipe-card";
+import NewsLetterSubscribe from "../components/news-letter-subscribe";
+import FeaturedRecipes from "../components/featured-recipes";
 
 const HomePage = () => {
+  let [recipe_data, set_recipe_data] = React.useState([]);
+
+  React.useEffect(() => {
+    (async () => {
+      set_recipe_data(await RecipeAPI.get_featured());
+    })();
+  }, []);
+
   return (
     <main>
-      <Header />
+      <WeeklyRecipeCard />
+      <NewsLetterSubscribe />
+      <FeaturedRecipes />
     </main>
   );
 }
