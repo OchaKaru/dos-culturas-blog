@@ -24,13 +24,13 @@ const useStyles = createUseStyles(({theme}) => ({
  * @param {boolean} ripple (optional) Specifies whether the ripple animation should play.
  * @param {function} onClick (optional) Specifies the callback function when the button is clicked.
  */
-export default function TextButton({className, role = "neutral", pill, ripple, onClick, children}) {
+export default function TextButton({className, role = "neutral", pill, ripple, children, ...props}) {
     if(role && !valid_role(role))
         throw new InvalidRoleError({"code": "Invalid props.role value.", "value": role});
 
     const classes = useStyles({role});
     return (
-        <Button className={`${classes['arroz-text-button']} ${className?? ""}`} pill={pill} ripple={ripple} onClick={onClick}>
+        <Button className={`${classes['arroz-text-button']} ${className?? ""}`} pill={pill} ripple={ripple} {...props}>
             {children}
         </Button>
     );

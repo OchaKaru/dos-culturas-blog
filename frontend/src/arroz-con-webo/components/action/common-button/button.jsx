@@ -51,13 +51,13 @@ const useStyles = createUseStyles(({theme}) => ({
  * @param {boolean} ripple (optional) Specifies whether the ripple animation should play.
  * @param {function} onClick (optional) Specifies the callback function when the button is clicked.
  */
-export default function Button({className, pill, ripple, onClick, children}) {
+export default function Button({className, pill, ripple, children, ...props}) {
     const {role, container_type} = React.useContext(ContainerContext);
     const ANIMATION_DURATION = 200;
 
     const classes = useStyles({role, container_type, pill, ripple, ANIMATION_DURATION});
     return (
-        <button className={`${classes['arroz-button']} ${className?? ""}`} onClick={onClick}>
+        <button className={`${classes['arroz-button']} ${className?? ""}`} {...props}>
             {children}
         </button>
     );

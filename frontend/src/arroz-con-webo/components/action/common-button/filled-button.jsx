@@ -24,14 +24,14 @@ const useStyles = createUseStyles(({theme}) => ({
  * @param {boolean} ripple (optional) Specifies whether the ripple animation should play.
  * @param {function} onClick (optional) Specifies the callback function when the button is clicked.
  */
-export default function FilledButton({className, role = "primary", pill, ripple, onClick, children}) {
+export default function FilledButton({className, role = "primary", pill, ripple, children, ...props}) {
     if(role && (!valid_role(role) || role === "neutral"))
         throw new InvalidRoleError({"code": "Invalid props.role value.", "value": role});
 
     const classes = useStyles({role});
     return (
         <ContainerContext.Provider value={{"role": role, "container_type": "button"}}>
-            <Button className={`${classes['arroz-filled-button']} ${className?? ""}`} pill={pill} ripple={ripple} onClick={onClick}>
+            <Button className={`${classes['arroz-filled-button']} ${className?? ""}`} pill={pill} ripple={ripple} {...props}>
                 {children}
             </Button>
         </ContainerContext.Provider>
