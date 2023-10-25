@@ -11,9 +11,7 @@ let pageStyle = {
 
 const LandingPage = () => {
   return (
-    <main style={pageStyle}>
-      {/* <img src={background} alt="The background image" /> */}
-    </main>
+    <main style={pageStyle} />
   )
 }
 
