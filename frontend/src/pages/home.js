@@ -7,7 +7,7 @@ import NewsLetterSubscribe from "../components/news-letter-subscribe";
 import FeaturedRecipes from "../components/featured-recipes";
 
 const HomePage = () => {
-  let [recipe_data, set_recipe_data] = React.useState([]);
+  const [recipe_data, set_recipe_data] = React.useState([]);
 
   React.useEffect(() => {
     (async () => {
@@ -17,9 +17,9 @@ const HomePage = () => {
 
   return (
     <main>
-      <WeeklyRecipeCard />
+      <WeeklyRecipeCard data={recipe_data[0]} />
       <NewsLetterSubscribe />
-      <FeaturedRecipes />
+      <FeaturedRecipes data={recipe_data.slice(1)} />
     </main>
   );
 }
