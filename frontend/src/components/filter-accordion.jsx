@@ -55,16 +55,17 @@ export default function FilterAccordion({data, onFilter, onReset}) {
     }
 
     return (
-        <div className='filter-accordion'>
+        <>
+            <FilledButton className='collapse-button' pill onClick={() => set_open(!open)} >Filters</FilledButton>
             <SideSheet open={open}>
-                <ElevatedButton pill onClick={() => set_open(false)}>Close</ElevatedButton>
-                {tab_list}
+                <div className='filter-accordion'>
+                    {tab_list}
+                </div>
                 <div className='filter-button-container'>
                     <FilledButton pill onClick={filter}>Filter Recipes</FilledButton>
                     <TonalButton pill onClick={reset}>Reset Filters</TonalButton>
                 </div>
             </SideSheet>
-            <FilledButton className='collapse-button' pill onClick={() => set_open(!open)} >Filters</FilledButton>
-        </div>
+        </>
     );
 }
