@@ -1,7 +1,7 @@
 import * as React from "react";
-import {Form, OutlinedTextBox, OutlinedTextArea, Headline, Body, Image, FilledCard, Subheading} from "../arroz-con-webo";
+import {Form, OutlinedTextBox, OutlinedTextArea, Headline, Body, Image, FilledCard, Subheading, FilledButton} from "../arroz-con-webo";
 
-const AboutPage = () => {
+export default function AboutPage() {
   return (
     <main>
       <Headline>About</Headline>
@@ -10,19 +10,17 @@ const AboutPage = () => {
           <Image />
           <Body></Body>
         </div>
-        <FilledCard>
+        <FilledCard role="secondary">
           <Subheading>Contact Us</Subheading>
           <Form>
-            <OutlinedTextBox>example@email.com</OutlinedTextBox>
-            <OutlinedTextBox>Jose Tamal</OutlinedTextBox>
-            <OutlinedTextArea />
+            <OutlinedTextBox label="Your email" rounded>example@email.com</OutlinedTextBox>
+            <OutlinedTextBox label="Your name" rounded>Jose Tamal</OutlinedTextBox>
+            <FilledButton role="primary" pill type="submit">Send!</FilledButton>
           </Form>
         </FilledCard>
       </div>
     </main>
   );
 }
-
-export default AboutPage;
 
 export const Head = () => <title>About Us</title>;
