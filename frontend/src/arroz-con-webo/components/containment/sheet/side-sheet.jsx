@@ -1,10 +1,11 @@
 import * as React from 'react';
-import {animated, useSpring} from '@react-spring/web';
 import {createUseStyles} from 'react-jss';
 
 // arroz imports
 import {InvalidRoleError, InvalidContainerError} from '../../../error';
 import {clamp, useWindowDimensions} from '../../../util';
+import Collapse from '../../../styles/animation/collapse';
+import Shim from '../../communication/shim';
 import {ContainerContext, valid_container, valid_role} from '../container-context';
 
 const useStyles = createUseStyles(({theme}) => ({
@@ -14,43 +15,12 @@ const useStyles = createUseStyles(({theme}) => ({
         },
         color: ({role}) => theme.scheme[role].on_container,
         height: "100%",
-        width: 0,
-        alignSelf: "flex-start",
-        overflowX: "hidden",
-        overflowY: "auto",
+        width: ({side_sheet_width}) => `${side_sheet_width}px`,
         position: ({modal}) => modal? "absolute" : "relative",
         borderRadius: ({modal}) => modal? `0 ${theme.typography.calculate(1)} ${theme.typography.calculate(1)} 0` : 0,
-        borderRight: ({modal}) => modal? "none" : `${theme.typography.calculate(0.1)}`,
-        zIndex: 100
-    },
-    "arroz-shim": {
-        backgroundColor: theme.scheme.neutral.shadow,
-        opacity: "50%",
-        height: "100%",
-        width: "100%",
-        position: "absolute",
+        borderRight: ({role, modal}) => modal? "none" : `solid ${theme.typography.calculate(0.1)} ${theme.scheme[role][role === "neutral"? "outline" : "accent"]}`,
         zIndex: 100,
-        display: ({modal}) => modal? "block" : "none"
-    },
-    "side-sheet-enter": {
-        width: 0
-    },
-    "side-sheet-enter-active": {
-        width: ({side_sheet_width}) => `${side_sheet_width}px`,
         transition: ({ANIMATION_DURATION}) => `width ${ANIMATION_DURATION}ms ease`
-    },
-    "side-sheet-enter-done": {
-        width: ({side_sheet_width}) => `${side_sheet_width}px`
-    },
-    "side-sheet-exit": {
-        width: ({side_sheet_width}) => `${side_sheet_width}px`
-    },
-    "side-sheet-exit-active": {
-        width: 0,
-        transition: ({ANIMATION_DURATION}) => `width ${ANIMATION_DURATION}ms ease`
-    },
-    "side-sheet-exit-done": {
-        width: 0        
     }
 }))
 
@@ -71,40 +41,24 @@ function SideSheet({className, open, role = "neutral", containerType = "containe
         throw new InvalidContainerError();
 
     const context = React.useContext(ContainerContext);
-
-    // Defining the animation duration and the transition information
-    const ANIMATION_DURATION = 300;
-    const [animation, api] = useSpring(() => ({
-        from: {
-            width: "0"
-        }
-    }));
-
+    
     const {'width': window_width} = useWindowDimensions();
     const [side_sheet_width, set_side_sheet_width] = React.useState(clamp(-0.0332 * window_width + 88.7448, 25, 75) / 100 * window_width);
     React.useEffect(() => {
         set_side_sheet_width(clamp(-0.0332 * window_width + 88.7448, 25, 75) / 100 * window_width);
     }, [window_width]);
 
-    React.useEffect(() => {
-        api.start({
-            from: {
-                width: "0"
-            },
-            to: {
-                width: open? `${side_sheet_width}px` : "0"
-            }
-        });
-    }, [open, side_sheet_width])
-
-    let reference = React.useRef(null);
+    // Defining the animation duration and the transition information
+    const ANIMATION_DURATION = 300;
     const classes = useStyles({context, role, "container_type": containerType, modal, ANIMATION_DURATION, side_sheet_width});
     return (
         <ContainerContext.Provider value={{"role": role, "container_type": containerType}}>
-            <div className={`${classes['arroz-shim']}`} />
-            <animated.div style={animation} className={`${classes['arroz-side-sheet']} ${className?? ""}`}>
-                {children}
-            </animated.div>
+            <Shim show={modal} />
+            <Collapse open={open}>
+                <div className={`${classes['arroz-side-sheet']} ${className?? ""}`}>
+                    {children}
+                </div>
+            </Collapse>
         </ContainerContext.Provider>
     );
 }
