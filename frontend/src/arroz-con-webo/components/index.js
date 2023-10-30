@@ -30,3 +30,6 @@ export {default as Subheading} from './content/subheading';
 export {default as Title} from './content/title';
 
 export {default as Checkbox} from './form/checkbox';
+export {default as FilledTextBox} from './form/filled-textbox';
+export {default as Form} from './form/form';
+export {default as OutlinedTextBox} from './form/outlined-textbox';
