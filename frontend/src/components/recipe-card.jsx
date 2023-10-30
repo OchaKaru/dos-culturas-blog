@@ -8,11 +8,11 @@ export default class RecipeCard extends React.Component {
         super(props);
 
         this.state = {
-            'id': props.data.pk,
-            'image_url': props.data.image,
+            'id': props.data?.pk,
+            'image_url': props.data?.image,
             'image': "",
-            'name': props.data.name,
-            'culture': props.data.culture,
+            'name': props.data?.name,
+            'culture': props.data?.culture,
         }
     }
 
