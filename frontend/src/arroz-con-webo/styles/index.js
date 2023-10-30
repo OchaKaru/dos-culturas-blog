@@ -45,25 +45,25 @@ export class Styler {
         );
 
         this._theme_dictionary["arroz_con_webo"].typography.set_display(
-            "Belanosima", 6, "https://fonts.googleapis.com/css2?family=Belanosima:wght@400;600;700&display=swap"
+            "Belanosima", 6, "https://fonts.gstatic.com/s/belanosima/v3/3y9n6bI8ejDo_3MfCDSL_Lx0A3Ngnqcd.woff2"
         );
         this._theme_dictionary["arroz_con_webo"].typography.set_headline(
-            "Belanosima", 4, "https://fonts.googleapis.com/css2?family=Belanosima:wght@400;600;700&display=swap"
+            "Belanosima", 4, "https://fonts.gstatic.com/s/belanosima/v3/3y9n6bI8ejDo_3MfCDSL_Nh1A3Ngnqcd.woff2"
         );
         this._theme_dictionary["arroz_con_webo"].typography.set_title(
-            "Josefin Sans", 3, "https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600;1,700&display=swap"
+            "Josefin Sans", 3, "https://fonts.gstatic.com/s/josefinsans/v32/Qw3JZQNVED7rKGKxtqIqX5EUCGZ2dIn0FyA96fCThoJRIyzoYV0.woff2"
         );
         this._theme_dictionary["arroz_con_webo"].typography.set_subheading(
-            "Josefin Sans", 2, "https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600;1,700&display=swap"
+            "Josefin Sans", 2, "https://fonts.gstatic.com/s/josefinsans/v32/Qw3JZQNVED7rKGKxtqIqX5EUCGZ2dIn0FyA96fCTtIJRIyzoYV0.woff2"
         );
         this._theme_dictionary["arroz_con_webo"].typography.set_body(
-            "Lato", 1, "https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;1,300;1,400&display=swap"
+            "Lato", 1, "https://fonts.gstatic.com/s/lato/v24/S6u8w4BMUTPHjxsAUi-qJCY.woff2"
         );
         this._theme_dictionary["arroz_con_webo"].typography.set_label(
-            "Lato", 1, "https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;1,300;1,400&display=swap"
+            "Lato", 1, "https://fonts.gstatic.com/s/lato/v24/S6u8w4BMUTPHjxsAUi-qJCY.woff2"
         );
         this._theme_dictionary["arroz_con_webo"].typography.set_code(
-            "Inconsolata", 1, "https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;400;500;600;700&display=swap"
+            "Inconsolata", 1, "https://fonts.gstatic.com/s/inconsolata/v32/QldgNThLqRwH-OJ1UHjlKENVzkWGVkL3GZQmAwLYxYWI2qfdm7Lpp4U8WRP2l2eY.woff2"
         );
 
         this._current_theme = "arroz_con_webo";
