@@ -1,10 +1,7 @@
 import * as React from 'react';
-import {createUseStyles} from 'react-jss';
-import {Title, FilledButton, Form, FilledTextBox} from '../arroz-con-webo';
+import {Title, FilledButton, Form, FilledTextBox, FilledCard} from '../arroz-con-webo';
 
-const useStyles = createUseStyles(({theme}) => ({
-    
-}));
+import '../styles/home/news-letter-subscribe.scss';
 
 export default function NewsLetterSubscribe({}) {
     const handleSubmit = event => {
@@ -12,12 +9,12 @@ export default function NewsLetterSubscribe({}) {
     };
 
     return (
-        <div>
+        <FilledCard className="news-letter-subscribe">
             <Title>Subscribe to our newsletter!</Title>
             <Form onSubmit={handleSubmit}>
                 <FilledTextBox label="Your email">example@email.com</FilledTextBox>
                 <FilledButton pill type="submit">Submit</FilledButton>
             </Form>
-        </div>
+        </FilledCard>
     );
 }
