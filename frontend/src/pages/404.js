@@ -1,6 +1,8 @@
 import * as React from "react";
 import { Link } from "gatsby";
 
+import background from "../images/dinner.png";
+
 let pageStyle = {
   backgroundImage: `url(${background})`,
   backgroundSize: 'cover',
