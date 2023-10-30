@@ -132,26 +132,40 @@ def get_recipes_by_group(request, group) -> Response:
 
         return Response(content)
 
+@api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def get_random_recipes(request) -> Response:
     if request.method == 'GET':
         MAX_FEATURED_RECIPES = 4
 
         count = Recipe.objects.count()
-        data = Recipe.objects.all()
 
+        recipe_data = []
         if count <= MAX_FEATURED_RECIPES:
-            serializer = RecipeSerializer(data, context = {'request': request}, many = True)
+            recipe_data = Recipe.objects.all()
         else:
+            all_recipes = Recipe.objects.all()
             recipe_data = []
             for _ in range(MAX_FEATURED_RECIPES):
-                recipe_data.append(data[randint(0, count - 1)])
-            serializer = RecipeSerializer(recipe_data, context = {'request': request}, many = True)
+                recipe_data.append(all_recipes[randint(0, count - 1)])
+
+        data = []
+        for recipe in recipe_data:
+            group = RecipeGroup.objects.filter(recipe = recipe).filter(Q(group = Group.objects.get(name = "Mexican")) | Q(group = Group.objects.get(name = "Puerto Rican")))[0]
+            data.append({
+                'pk': str(recipe.pk),
+                'image': recipe.image,
+                'name': recipe.name,
+                'culture': group.group.name,
+                'desc': recipe.desc
+            })
 
         content = {
             'user': str(request.user),
             'auth': str(request.auth),
             'status': 'request was permitted',
-            'data': serializer.data
+            'data': data
         }
 
         return Response(content)
