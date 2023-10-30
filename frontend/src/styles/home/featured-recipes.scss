@@ -1,0 +1,14 @@
+.featured-recipes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .card-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        column-gap: 2vw;
+        justify-content: center;
+        align-items: center;
+        place-items: center;
+    }
+}

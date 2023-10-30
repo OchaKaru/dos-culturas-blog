@@ -1,4 +1,11 @@
-$button-color: radial-background($eerie-black);
+.collapse-button {
+    position: absolute;
+    z-index: 1001;
+}
+
+.filter-accordion {
+    padding-top: 50px;
+}
 
 .filter-button-container {
     padding-top: 2vh;
