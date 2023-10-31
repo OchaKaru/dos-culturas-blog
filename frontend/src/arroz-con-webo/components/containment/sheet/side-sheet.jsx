@@ -18,7 +18,6 @@ const useStyles = createUseStyles(({theme}) => ({
         width: ({side_sheet_width}) => `${side_sheet_width}px`,
         position: ({modal}) => modal? "absolute" : "relative",
         borderRadius: ({modal}) => modal? `0 ${theme.typography.calculate(1)} ${theme.typography.calculate(1)} 0` : 0,
-        borderRight: ({role, modal}) => modal? "none" : `solid ${theme.typography.calculate(0.1)} ${theme.scheme[role][role === "neutral"? "outline" : "accent"]}`,
         zIndex: 100,
         transition: ({ANIMATION_DURATION}) => `width ${ANIMATION_DURATION}ms ease`
     }
@@ -54,7 +53,7 @@ function SideSheet({className, open, role = "neutral", containerType = "containe
     return (
         <ContainerContext.Provider value={{"role": role, "container_type": containerType}}>
             <Shim show={modal} />
-            <Collapse open={open}>
+            <Collapse open={open} direction="horizontal">
                 <div className={`${classes['arroz-side-sheet']} ${className?? ""}`}>
                     {children}
                 </div>
