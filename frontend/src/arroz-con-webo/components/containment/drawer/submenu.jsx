@@ -1,9 +1,9 @@
 import * as React from 'react';
-import {animated, useSpring} from '@react-spring/web';
 import {createUseStyles} from 'react-jss';
 
 // arroz imports
 import {InvalidContainerError, InvalidRoleError, NoNameError} from '../../../error';
+import Collapse from '../../../styles/animation/collapse';
 import TextButton from '../../action/common-button/text-button';
 import {ContainerContext, valid_container, valid_role} from '../container-context';
 
@@ -29,29 +29,12 @@ const useStyles = createUseStyles(({theme}) => ({
         transform: `rotate(-180deg)`
     },
     "arroz-submenu-panel": {
-        height: 0,
+        height: ({panel_height}) => `${panel_height}px`,
         display: "flex",
         flexDirection: "column",
         overflow: "hidden",
         textWrap: "nowrap",
         marginLeft: theme.typography.calculate(2)
-    },
-    "panel-enter": {
-        height: 0
-    },
-    "panel-enter-active": {
-        height: ({panel_height}) => `${panel_height}px`,
-        transition: ({ANIMATION_DURATION}) => `height ${ANIMATION_DURATION}ms ease`
-    },
-    "panel-enter-done": {
-        height: ({panel_height}) => `${panel_height}px`
-    },
-    "panel-exit": {
-        height: ({panel_height}) => `${panel_height}px`
-    },
-    "panel-exit-active": {
-        height: 0,
-        transition: ({ANIMATION_DURATION}) => `height ${ANIMATION_DURATION}ms ease`
     }
 }))
 
@@ -75,36 +58,21 @@ export default function Submenu({className, name, role = "neutral", containerTyp
         throw new InvalidContainerError();
     
     const context = React.useContext(ContainerContext);
-    
-    // Defining the animation duration and the transition information
-    const ANIMATION_DURATION = 300;
-    const [animation, api] = useSpring(() => ({
-        from: {
-            height: "0"
-        }
-    }));
 
     // Computing the height that the animations should open and close to based on scroll height
     const [open, set_open] = React.useState(false);
+    const [panel_height, set_panel_height] = React.useState();
     const toggle_panel = () => {
+        const node = reference.current
+        console.log(node.scrollHeight);
+        if(node)
+            set_panel_height(node.scrollHeight);
         set_open(!open);
-        api.start({
-            from: {
-                height: "0"
-            },
-            to: {
-                height: !open? `${panel_height}px` : "0"
-            }
-        });
     }
 
+    // Defining the animation duration and the transition information
+    const ANIMATION_DURATION = 300;
     let reference = React.useRef(null);
-    const [panel_height, set_panel_height] = React.useState();
-    React.useEffect(() => {
-        if(reference.current)
-            set_panel_height(reference.current.scrollHeight);
-    }, [open]);
-
     const classes = useStyles({context, role, "container_type": containerType, ANIMATION_DURATION, panel_height});
     return (
         <ContainerContext.Provider value={{"role": role, "container_type": containerType}}>
@@ -113,9 +81,11 @@ export default function Submenu({className, name, role = "neutral", containerTyp
                     {name}
                     <span className={`${classes['arroz-submenu-button-icon']} ${open? `${classes['arroz-submenu-button-icon.open']}` : ""}`}>▼</span>
                 </TextButton>
-                <animated.div ref={reference} style={animation} className={`${classes['arroz-submenu-panel']}`}>
-                    {children}
-                </animated.div>
+                <Collapse open={open}>
+                    <div ref={reference} className={`${classes['arroz-submenu-panel']}`}>
+                        {children}
+                    </div>
+                </Collapse>
             </div>
         </ContainerContext.Provider>
     );
