@@ -24,7 +24,7 @@ export default function RecipeCarousel({data}) {
             for(let i = 0; i < data.length; i += MAX_RECIPES_ON_PAGE) {
                 const chunk = data.slice(i, i + MAX_RECIPES_ON_PAGE);
                 pages.push(
-                    <div className="recipe-slide" style={{"width": "1200px"}}>
+                    <div className="recipe-slide">
                         {cardify_data(chunk)}
                     </div>
                 );
