@@ -39,6 +39,7 @@ const useStyles = createUseStyles(({theme}) => ({
             borderBottom: ({role}) => `${theme.typography.calculate(0.2)} solid ${theme.scheme[role].accent}`
         },
         '& .arroz-textbox': {
+            width: `calc(98% - ${theme.typography.calculate(1)})`,
             outline: 'none',
             border: 'none',
             position: 'relative',

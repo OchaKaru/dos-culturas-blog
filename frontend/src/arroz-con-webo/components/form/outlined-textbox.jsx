@@ -19,6 +19,7 @@ const useStyles = createUseStyles(({theme, role, }) => ({
             inset: 0
         },
         '& .arroz-textbox': {
+            width: `calc(98% - ${theme.typography.calculate(1)})`,
             outline: 'none',
             border: 'none',
             position: 'relative',
