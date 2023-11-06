@@ -9,25 +9,28 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+import os
+from urllib.parse import urlparse
 
-from pathlib import Path
 import json
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# reading the environment variable
+env_file = os.path.join(BASE_DIR, "sessions/env.json")
+if not os.path.isfile(env_file):
+    raise Exception(f"No local environment variable file found @ {env_file}.")
+env = json.load(open(env_file, 'r'))
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
+APPENGINE_URL = env["APPENGINE_URL"]
+if not urlparse(APPENGINE_URL).scheme:
+    APPENGINE_URL = f"https://{APPENGINE_URL}"
+ALLOWED_HOSTS = [urlparse(APPENGINE_URL).netloc, "*"]
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-(e+-ggi606gp61l7*to-8h9lwt@ch(4c84avogt6lxi-_=s#gc'
+SECRET_KEY = env["SECRET_KEY"]
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
+DEBUG = env["DEBUG"]
 
 # Application definition
 
@@ -72,14 +75,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': json.load(open('./sessions/database/auth.json', 'r'))
-}
+database_file = os.path.join(BASE_DIR, "sessions/database/auth.json")
+if not os.path.isfile(database_file):
+    raise Exception(f"No local database file found @ {database_file}.")
 
+DATABASES = {
+    'default': json.load(open(database_file, 'r'))
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -99,7 +104,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -113,7 +117,9 @@ USE_TZ = True
 
 # static file location
 
-STATIC_URL = 'static/'
+STATIC_ROOT = "static"
+STATIC_URL = "/static/"
+STATICFILES_DIRS = []
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

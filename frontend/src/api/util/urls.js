@@ -1,4 +1,4 @@
-const base_url = "http://localhost:9000/contentmanager/"
+const base_url = "https://dos-culturas-server.uc.r.appspot.com/contentmanager/"
 
 export const GET_ALL_RECIPES = base_url + "get_all_recipes/"
 export const GET_RECIPES_BY_GROUP = base_url + "get_recipes_by_group/"

@@ -1,9 +1,15 @@
 #ignore files related to the pipenv
 Pipfile
 Pipfile.lock
+requirements.txt
 
 #ignore authentication files (no passwords for you)
 sessions/
+
+#ignore files related to gcloud deployment
+app.yaml
+main.py
+.gcloudignore
 
 #ignore gatsby files
 frontend/node_modules/
