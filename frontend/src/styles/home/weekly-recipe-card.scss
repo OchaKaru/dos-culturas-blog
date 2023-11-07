@@ -1,7 +1,19 @@
 .weekly-recipe-card {
-    display: flex;
+    display: flex !important;
     flex-direction: row;
     margin: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
     height: 500px;
-    width: 1500px;
+    width: 70%;
+
+    .weekly-recipe-image {
+        flex: 1 0 500px;
+    }
+
+    .weekly-recipe-info {
+        padding: 100px;
+        padding-top: 0px;
+        flex: 0 1 auto;
+    }
 }

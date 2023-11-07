@@ -15,7 +15,7 @@ export default function WeeklyRecipeCard({data}) {
     return (
         <Link to="/recipe/" state={{'recipe_clicked': data?.pk}}>
             <FilledCard className="weekly-recipe-card" role="primary" containerType="container" rounded interactable>
-                <Image source={image} />
+                <Image className="weekly-recipe-image" source={image} />
                 <div className="weekly-recipe-info">
                     <Title>Weekly Recipe!</Title>
                     <Subheading>{data?.name}</Subheading>
