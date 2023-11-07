@@ -7,6 +7,8 @@ import Palette from './color/palette';
 import Typography from './typography/typography';
 import Theme from './theme';
 
+export {default as Collapse} from './animation/collapse';
+
 /**
  * This is the default color palette for the Arroz con Webo component library.
  */
@@ -21,7 +23,7 @@ const rice_pot_gray = "#8C7380";
  */
 export class Styler {
     static _initialized = false;
-    static _dark_mode = false;
+    static _dark_mode = true;
     static _theme_dictionary = {};
     static _current_theme = undefined;
 
