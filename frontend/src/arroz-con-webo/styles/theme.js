@@ -56,11 +56,11 @@ export default class Theme {
             this.light.neutral[mapping] = this.palette.neutral(this.lightness_mappings.light.neutral_color[mapping]);
 
         this.light.neutral.code = {
-            "string": this.palette.secondary(30),
+            "string": this.palette.secondary(40),
             "keyword": this.palette.primary(40),
             "comment": this.palette.tertiary(70),
             "type": this.palette.secondary(40),
-            "literal": this.palette.tertiary(30),
+            "literal": this.palette.tertiary(40),
             "punctuation": this.palette.tertiary(10),
             "plaintext": this.palette.tertiary(10),
             "tag": this.palette.primary(40),
@@ -83,7 +83,7 @@ export default class Theme {
         this.dark.neutral.code = {
             "string": this.palette.secondary(70),
             "keyword": this.palette.primary(60),
-            "comment": this.palette.tertiary(30),
+            "comment": this.palette.tertiary(40),
             "type": this.palette.primary(60),
             "literal": this.palette.secondary(70),
             "punctuation": this.palette.tertiary(90),
@@ -94,16 +94,6 @@ export default class Theme {
             "decimal": this.palette.secondary(60),
             "line_numbers": this.palette.tertiary(90)
         }
-    }
-
-    /**
-     * This function is used to get a tone from a particular color.
-     * @param {string} color Can have values "primary", "secondary", "tertiary", and "neutral".
-     * @param {number} lightness Can be a value between 0-100.
-     * @returns The hexcode of the provided tonal mapping.
-     */
-    get_tone(color, lightness) {
-        return this.palette[color](lightness);
     }
 
     /**
