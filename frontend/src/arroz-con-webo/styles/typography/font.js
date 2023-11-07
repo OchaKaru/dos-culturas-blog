@@ -11,15 +11,14 @@ export default class Font {
 
     async load_font(source) {
         const font = new FontFace(this._font_name, `url(${source})`);
-        // document.classList.add('fonts-loading');
+        document.fonts.add(font);
+        console.log(`${this._font_name}: ${font.status}`);
         await font.load().then(() => {
-            // document.classList.remove('fonts-loading');
-            // document.classList.add('fonts-loaded');
+            console.log(`${this._font_name}: ${font.status}`);
         }).catch(() => {
             // document.classList.remove('fonts-loading');
             // document.classList.add('fonts-failed');
         });
-        document.fonts.add(font);
     }
 
     font_rule(weight, style) {
