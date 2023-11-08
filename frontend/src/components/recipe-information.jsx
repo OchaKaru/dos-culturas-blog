@@ -4,17 +4,15 @@ import {FilledCard, Image, Body, Label, Headline, Subheading} from '../arroz-con
 
 export default function RecipeInformation({image, name, culture, description}) {
     return (
-        <FilledCard role="secondary" containerType="container" rounded >
-            <div className="recipe-metadata">
-                <Image source={image} alternate={""} />
-                <div>
-                    <Headline>{name}</Headline>
-                    <Label>{culture}</Label>
-                    <Subheading>Description</Subheading>
-                    <Body>
-                        {description}
-                    </Body>
-                </div>
+        <FilledCard className="recipe-metadata" role="secondary" containerType="container" rounded >
+            <Image className="recipe-image" source={image} alternate={""} />
+            <div className="recipe-info">
+                <Headline>{name}</Headline>
+                <Label>{culture}</Label>
+                <Subheading>Description</Subheading>
+                <Body>
+                    {description}
+                </Body>
             </div>
         </FilledCard>
     );

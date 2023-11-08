@@ -1,13 +1,14 @@
 .recipe-pane {
     height: 94vh;
-    padding-left: 20%;
-    padding-right: 20%;
+    flex: 1 1 auto;
     flex-shrink: 3;
 
     .recipe-content {
         display: flex;
+        width: 1400px;
+        margin: auto;
         flex-direction: column;
-        align-items: center;
+        align-items: flex-start;
     }
 }
 
@@ -16,6 +17,21 @@
 }
 
 .recipe-metadata {
-    display: flex;
+    display: flex !important;
     flex-direction: row;
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    height: 500px;
+    width: 100%;
+
+    .recipe-image {
+        flex: 1 0 500px;
+    }
+
+    .recipe-info {
+        padding: 100px;
+        padding-top: 0px;
+        flex: 0 1 auto;
+    }
 }
