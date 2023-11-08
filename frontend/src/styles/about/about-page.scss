@@ -1,0 +1,21 @@
+.about-page {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin: auto;
+    width: 70%;
+
+    .about-bio {
+        flex: 0 1 auto;
+
+        .about-image {
+            height: 500px;
+            width: 500px
+        }
+    }
+    .contact-us {
+        flex: 1 0 auto;
+        padding: 50px;
+        margin-top: 150px;
+    }
+}
