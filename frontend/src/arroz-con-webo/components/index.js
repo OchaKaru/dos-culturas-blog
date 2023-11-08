@@ -24,6 +24,7 @@ export {default as Body} from './content/body';
 export {default as Code} from './content/code';
 export {default as Display} from './content/display';
 export {default as Headline} from './content/headline';
+export {default as Icon} from './content/icon';
 export {default as Image} from './content/image';
 export {default as Label} from './content/label';
 export {default as Subheading} from './content/subheading';
