@@ -1,25 +1,25 @@
 .recipe-carousel {
-    height: 100%;
-    flex: 1 0 auto;
+    flex: 1 1 auto;
     overflow-x: hidden;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    padding: 2vh 2vw;
-    border-radius: 3vh 3vh 0 0;
+    box-sizing: border-box;
+    padding-top: 50px;
+    padding-bottom: 50px;
 
     .recipe-slide {
         margin: auto;
-        width: 1200px;
+        width: 1000px;
         display: grid;
         justify-content: center;
         place-items: center;
         grid-template-columns: 1fr 1fr 1fr;
         grid-template-rows: 1fr 1fr;
-        column-gap: 2vw;
-        row-gap: 1vh;
+        column-gap: 10px;
+        row-gap: 5px;
     
         a {
             text-decoration: none;

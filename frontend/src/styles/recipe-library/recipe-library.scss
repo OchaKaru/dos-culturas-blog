@@ -4,6 +4,7 @@
 .recipe-library {
     height: 94vh;
     display: flex;
+    flex-direction: row;
     overflow: hidden;
     margin: 0;
 }
