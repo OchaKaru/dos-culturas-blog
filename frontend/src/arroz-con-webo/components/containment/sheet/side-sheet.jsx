@@ -10,8 +10,8 @@ import {ContainerContext, valid_container, valid_role} from '../container-contex
 
 const useStyles = createUseStyles(({theme}) => ({
     "arroz-side-sheet": {
-        backgroundColor: ({context, role, container_type}) => {
-            return context.role === role && context.container_type === container_type? "transparent" : theme.scheme[role][container_type]
+        backgroundColor: ({context, role, container_type, modal}) => {
+            return context.role === role && context.container_type === container_type && !modal? "transparent" : theme.scheme[role][container_type]
         },
         color: ({role}) => theme.scheme[role].on_container,
         height: "100%",
@@ -20,6 +20,9 @@ const useStyles = createUseStyles(({theme}) => ({
         borderRadius: ({modal}) => modal? `0 ${theme.typography.calculate(1)} ${theme.typography.calculate(1)} 0` : 0,
         zIndex: 100,
         transition: ({ANIMATION_DURATION}) => `width ${ANIMATION_DURATION}ms ease`
+    },
+    "position": {
+        position: ({modal}) => modal? "absolute !important" : "relative",
     }
 }))
 
@@ -53,7 +56,7 @@ function SideSheet({className, open, role = "neutral", containerType = "containe
     return (
         <ContainerContext.Provider value={{"role": role, "container_type": containerType}}>
             <Shim show={modal} />
-            <Collapse open={open} direction="horizontal">
+            <Collapse className={classes["position"]} open={open} direction="horizontal">
                 <div className={`${classes['arroz-side-sheet']} ${className?? ""}`}>
                     {children}
                 </div>

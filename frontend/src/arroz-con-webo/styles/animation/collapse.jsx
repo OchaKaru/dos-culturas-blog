@@ -14,7 +14,7 @@ const useStyles = createUseStyles(({theme}) => ({
     }
 }));
 
-export default function Collapse({open = false, direction = "vertical", children}) {
+export default function Collapse({className, open = false, direction = "vertical", children}) {
     const [animation, api] = useSpring(() => ({
         from: (direction === "vertical"? {height: "0"} : {width: "0"})
     }));
@@ -31,7 +31,7 @@ export default function Collapse({open = false, direction = "vertical", children
 
     const classes = useStyles({direction});
     return (
-        <animated.div ref={reference} className={classes['arroz-collapse']} style={animation}>
+        <animated.div ref={reference} className={`${classes['arroz-collapse']} ${className?? ""}`} style={animation}>
             {children}
         </animated.div>
     );

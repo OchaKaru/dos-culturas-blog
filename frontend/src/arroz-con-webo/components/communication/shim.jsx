@@ -13,9 +13,9 @@ const useStyles = createUseStyles(({theme}) => ({
     }
 }));
 
-export default function Shim({show = false}) {
+export default function Shim({className, show = false}) {
     const classes = useStyles({show});
     return (
-        <div className={`${classes['arroz-shim']}`} />
+        <div className={`${classes['arroz-shim']} ${className?? ""}`} />
     );
 }
