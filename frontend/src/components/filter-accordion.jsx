@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Checkbox, ElevatedButton, FilledButton, SideSheet, Submenu, TonalButton} from '../arroz-con-webo';
+import {Checkbox, Icon, FilledButton, SideSheet, Submenu, TonalButton, useWindowDimensions} from '../arroz-con-webo';
 
 export default function FilterAccordion({data, onFilter, onReset}) {
     const [tab_list, set_tab_list] = React.useState();
@@ -44,6 +44,16 @@ export default function FilterAccordion({data, onFilter, onReset}) {
         set_tab_list(tabify_data(data))
     }, [data, checked_list, tabify_data])
 
+    const [modal, set_modal] = React.useState(false);
+    const {width} = useWindowDimensions();
+    React.useEffect(() => {
+        if(width < 700)
+            set_modal(true);
+        else
+            set_modal(false);
+
+        console.log(modal);
+    }, [width]);
     
     function filter() {
         onFilter(Array.from(checked_list));
@@ -56,8 +66,18 @@ export default function FilterAccordion({data, onFilter, onReset}) {
 
     return (
         <>
-            <FilledButton className='collapse-button' pill onClick={() => set_open(!open)} >Filters</FilledButton>
-            <SideSheet open={open}>
+            <FilledButton className={`collapse-button ${open? "open" : ""}`} pill onClick={() => set_open(!open)} >
+                <Icon scale={2}>
+                    <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                        <rect class="fltr-line1" x="7" y="10" width="18" height="2"/>
+                        <rect class="fltr-line2" x="7" y="20" width="18" height="2"/>
+                        <circle class="fltr-crcl1" cx="13" cy="21" r="3"/>
+                        <circle class="fltr-crcl2" cx="19" cy="11" r="3"/>
+                    </svg>
+                </Icon>
+                <span>Filters</span>
+            </FilledButton>
+            <SideSheet open={open} modal={modal}>
                 <div className='filter-accordion'>
                     {tab_list}
                 </div>

@@ -1,17 +1,50 @@
 .collapse-button {
     position: absolute !important;
     z-index: 1001 !important;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
     top: 7%;
     left: 1%;
+
+    svg * {
+        transition: .15s cubic-bezier(0.35, 0.35, 0, 1.0);
+    }
+
+    rect {
+        transform-origin: 50% 50%;
+    }
+}
+
+.collapse-button:hover {
+    .fltr-crcl1 {
+        transform: translateX(6px);
+    }
+    .fltr-crcl2 {
+        transform: translateX(-6px);
+    }
+}
+
+.collapse-button.open {
+    circle {
+        opacity: 0;
+    }
+    .fltr-line1 {
+        transform: rotate(45deg) translateY(5.5px);
+    }
+    .fltr-line2 {
+        transform: rotate(-45deg) translateY(-4.5px);
+    }
 }
 
 .filter-accordion {
-    flex: 0 0 auto;
-    padding-top: 50px;
+    flex: 1 0 auto;
+    padding-top: 100px;
 }
 
 .filter-button-container {
-    padding-top: 2vh;
+    padding-top: 50px;
     display: flex;
     align-items: center;
     justify-content: space-around;
