@@ -1,16 +1,19 @@
-const React = require("react");
-const Arroz = require('./src/arroz-con-webo');
+import * as React from 'react';
+import loadable from '@loadable/component';
 
-require('./src/styles/global.scss');
-const Header = require('./src/components/header').default;
-// require('./src/components/footer');
+import Header from './src/components/header';
+// import Footer from './src/components/footer';
 
-exports.wrapPageElement = ({element, props}) => {
+import './src/styles/global.scss';
+
+const Root = loadable(() => import('./src/arroz-con-webo').Root);
+
+export const wrapPageElement = ({element, props}) => {
     return (
-        <Arroz.Root {...props}>
+        <Root {...props}>
             <Header />
             {element}
             {/* <Footer /> */}
-        </Arroz.Root>
+        </Root>
     );
 }
