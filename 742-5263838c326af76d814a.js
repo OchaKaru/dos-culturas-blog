@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkdos_culturas=self.webpackChunkdos_culturas||[]).push([[742],{5742:function(s,u,a){a.r(u),u.default=a.p+"static/tamales_rojos-803b1943c5528bf26217412106af6ee7.png"}}]);
+//# sourceMappingURL=742-5263838c326af76d814a.js.map

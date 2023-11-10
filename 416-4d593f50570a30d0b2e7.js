@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkdos_culturas=self.webpackChunkdos_culturas||[]).push([[416],{4416:function(a,s,c){c.r(s),s.default=c.p+"static/tacos_de_carne_asada-3f8a60f0a3c31e4d92d93a31147b6227.png"}}]);
+//# sourceMappingURL=416-4d593f50570a30d0b2e7.js.map

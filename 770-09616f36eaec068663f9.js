@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkdos_culturas=self.webpackChunkdos_culturas||[]).push([[770],{4770:function(s,u,a){a.r(u),u.default=a.p+"static/elotes-45a7d8f2f1811cf837ac9a33eb0bb285.png"}}]);
+//# sourceMappingURL=770-09616f36eaec068663f9.js.map

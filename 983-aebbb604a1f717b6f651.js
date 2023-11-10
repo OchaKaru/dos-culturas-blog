@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkdos_culturas=self.webpackChunkdos_culturas||[]).push([[983],{983:function(s,u,a){a.r(u),u.default=a.p+"static/flautas_taquitos_dorados-06c4e389d596986a56d65d4916443237.png"}}]);
+//# sourceMappingURL=983-aebbb604a1f717b6f651.js.map
