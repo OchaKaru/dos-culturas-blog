@@ -1,5 +1,7 @@
 import * as React from 'react';
-import {Label} from '../arroz-con-webo';
+import loadable from '@loadable/component';
+
+const Label = loadable(() => import('../arroz-con-webo').Label);
 
 export default function TagList({tags}) {
     return (

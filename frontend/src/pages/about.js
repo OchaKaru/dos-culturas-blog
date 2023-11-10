@@ -1,8 +1,17 @@
 import * as React from "react";
-import {Form, OutlinedTextBox, OutlinedTextArea, Headline, Body, Image, FilledCard, Subheading, FilledButton} from "../arroz-con-webo";
+import loadable from '@loadable/component';
 
 import image from '../images/tamales_broll.png';
 import '../styles/about/about-page.scss';
+
+const Headline = loadable(() => import('../arroz-con-webo').Headline);
+const Image = loadable(() => import('../arroz-con-webo').Image);
+const Body = loadable(() => import('../arroz-con-webo').Body);
+const FilledCard = loadable(() => import('../arroz-con-webo').FilledCard);
+const Form = loadable(() => import('../arroz-con-webo').Form);
+const OutlinedTextBox = loadable(() => import('../arroz-con-webo').OutlinedTextBox);
+const FilledButton = loadable(() => import('../arroz-con-webo').FilledButton);
+const Subheading = loadable(() => import('../arroz-con-webo').Subheading);
 
 export default function AboutPage() {
   return (

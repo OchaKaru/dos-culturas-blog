@@ -1,7 +1,10 @@
 import * as React from 'react';
-import {Slideshow, Pane} from '../arroz-con-webo';
+import loadable from '@loadable/component';
 
 import RecipeCard from './recipe-card';
+
+const Pane = loadable(() => import('../arroz-con-webo').Pane);
+const Slideshow = loadable(() => import('../arroz-con-webo').Slideshow);
 
 export default function RecipeCarousel({data}) {
     const MAX_RECIPES_ON_PAGE = 6;

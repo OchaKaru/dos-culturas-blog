@@ -1,5 +1,5 @@
-import * as React from "react"
-import {Pane} from '../arroz-con-webo';
+import * as React from "react";
+import loadable from '@loadable/component';
 
 import RecipeAPI from "../api/recipeapi";
 
@@ -10,8 +10,14 @@ import RecipeInformation from '../components/recipe-information';
 import RecipeDirections from "../components/recipe-direction";
 import TagList from "../components/tag-list";
 
-const RecipePage = ({location: {state}}) => {
-  let recipe_id = state.recipe_clicked;
+const Pane = loadable(() => import('../arroz-con-webo').Pane);
+
+export default function RecipePage({location: {state}}) {
+  let recipe_id;
+  if(typeof state !== 'undefined')
+    recipe_id = state.recipe_clicked;
+  else
+    recipe_id = "404";
 
   const [recipe_data, set_recipe_data] = React.useState(undefined);
   React.useEffect(() => {
@@ -28,7 +34,6 @@ const RecipePage = ({location: {state}}) => {
   }, [recipe_data])
 
   const [open, set_open] = React.useState(false);
-
   return (
     <main className="recipe-page">
       <IngredientSheet ingredients={recipe_data?.ingredients} open={open} handleOpen={set_open} />
@@ -44,6 +49,4 @@ const RecipePage = ({location: {state}}) => {
   );
 }
 
-export default RecipePage
-
-export const Head = () => <title>Recipe Page</title>
+export const Head = () => <title>Recipe Page</title>;

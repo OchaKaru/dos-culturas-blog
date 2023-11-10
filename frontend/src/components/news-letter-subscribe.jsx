@@ -1,7 +1,14 @@
 import * as React from 'react';
-import {Title, FilledButton, Form, FilledTextBox, FilledCard, Subheading} from '../arroz-con-webo';
+import loadable from '@loadable/component';
 
 import '../styles/home/news-letter-subscribe.scss';
+
+const FilledCard = loadable(() => import('../arroz-con-webo').FilledCard);
+const Title = loadable(() => import('../arroz-con-webo').Title);
+const Subheading = loadable(() => import('../arroz-con-webo').Subheading);
+const Form = loadable(() => import('../arroz-con-webo').Form);
+const FilledTextBox = loadable(() => import('../arroz-con-webo').FilledButton);
+const FilledButton = loadable(() => import('../arroz-con-webo').FilledButton);
 
 export default function NewsLetterSubscribe({}) {
     const handleSubmit = event => {

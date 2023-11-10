@@ -1,8 +1,15 @@
 import * as React from 'react';
 import {Link} from 'gatsby';
-import {FilledCard, Image, Title, Subheading, Label, Body} from '../arroz-con-webo';
+import loadable from '@loadable/component';
 
 import '../styles/home/weekly-recipe-card.scss';
+
+const FilledCard = loadable(() => import('../arroz-con-webo').FilledCard);
+const Title = loadable(() => import('../arroz-con-webo').Title);
+const Subheading = loadable(() => import('../arroz-con-webo').Subheading);
+const Label = loadable(() => import('../arroz-con-webo').Label);
+const Body = loadable(() => import('../arroz-con-webo').Body);
+const Image = loadable(() => import('../arroz-con-webo').Image);
 
 export default function WeeklyRecipeCard({data}) {
     const [image, set_image] = React.useState("");

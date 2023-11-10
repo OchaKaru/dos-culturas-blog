@@ -1,7 +1,11 @@
 import * as React from 'react';
 import {Link} from "gatsby";
+import loadable from '@loadable/component';
 
-import {FilledCard, Label, Subheading} from '../arroz-con-webo';
+const FilledCard = loadable(() => import('../arroz-con-webo').FilledCard);
+const Image = loadable(() => import('../arroz-con-webo').Image);
+const Label = loadable(() => import('../arroz-con-webo').Label);
+const Subheading = loadable(() => import('../arroz-con-webo').Subheading);
 
 export default class RecipeCard extends React.Component {
     constructor(props) {
@@ -41,7 +45,7 @@ export default class RecipeCard extends React.Component {
             <Link to="/recipe/" state={{'recipe_clicked': this.state.id}}>
                 <FilledCard className='recipe-card' role={"secondary"} containerType="container" rounded interactable>
                     <figure className='recipe-image'>
-                        <img src={this.state.image} alt={this.state.description} />
+                        <Image source={this.state.image} alternate={this.state.description} />
                     </figure>
                     <div className='recipe-meta'>
                         <Label className='recipe-culture' role="primary" pill>{this.state.culture}</Label>

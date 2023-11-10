@@ -1,5 +1,12 @@
 import * as React from 'react';
-import {Checkbox, Icon, FilledButton, SideSheet, Submenu, TonalButton, useWindowDimensions} from '../arroz-con-webo';
+import loadable from '@loadable/component';
+
+const Checkbox = loadable(() => import('../arroz-con-webo').Checkbox);
+const Submenu = loadable(() => import('../arroz-con-webo').Submenu);
+const FilledButton = loadable(() => import('../arroz-con-webo').FilledButton);
+const Icon = loadable(() => import('../arroz-con-webo').Icon);
+const SideSheet = loadable(() => import('../arroz-con-webo').SideSheet);
+const TonalButton = loadable(() => import('../arroz-con-webo').TonalButton);
 
 export default function FilterAccordion({data, onFilter, onReset}) {
     const [tab_list, set_tab_list] = React.useState();
@@ -43,17 +50,6 @@ export default function FilterAccordion({data, onFilter, onReset}) {
     React.useEffect(() => {
         set_tab_list(tabify_data(data))
     }, [data, checked_list, tabify_data])
-
-    const [modal, set_modal] = React.useState(false);
-    const {width} = useWindowDimensions();
-    React.useEffect(() => {
-        if(width < 700)
-            set_modal(true);
-        else
-            set_modal(false);
-
-        console.log(modal);
-    }, [width]);
     
     function filter() {
         onFilter(Array.from(checked_list));
@@ -77,7 +73,7 @@ export default function FilterAccordion({data, onFilter, onReset}) {
                 </Icon>
                 <span>Filters</span>
             </FilledButton>
-            <SideSheet open={open} modal={modal}>
+            <SideSheet open={open}>
                 <div className='filter-accordion'>
                     {tab_list}
                 </div>

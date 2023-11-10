@@ -1,8 +1,12 @@
 import * as React from "react";
 import {navigate} from "gatsby";
-import {FilledButton, Subheading, TextButton} from "../arroz-con-webo";
+import loadable from '@loadable/component';
 
 import logo from "../images/temp_logo.svg";
+
+const FilledButton = loadable(() => import('../arroz-con-webo').FilledButton);
+const TextButton = loadable(() => import('../arroz-con-webo').TextButton);
+const Subheading = loadable(() => import('../arroz-con-webo').Subheading);
 
 export default function Header() {
     const [active, set_active] = React.useState('home');

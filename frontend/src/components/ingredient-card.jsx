@@ -1,6 +1,12 @@
 import * as React from 'react';
-import {OutlinedCard, Subheading, FilledButton, Body, Checkbox, Collapse} from '../arroz-con-webo';
+import loadable from '@loadable/component';
 
+const Collapse = loadable(() => import('../arroz-con-webo').Collapse);
+const OutlinedCard = loadable(() => import('../arroz-con-webo').OutlinedCard);
+const Body = loadable(() => import('../arroz-con-webo').Body);
+const Subheading = loadable(() => import('../arroz-con-webo').Subheading);
+const FilledButton = loadable(() => import('../arroz-con-webo').FilledButton);
+const Checkbox = loadable(() => import('../arroz-con-webo').Checkbox);
 
 export default function IngredientCard({ingredients, open, handleOpen}) {
     return (
