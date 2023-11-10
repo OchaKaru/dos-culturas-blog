@@ -1,6 +1,3 @@
-$button-hover-color: adjust-color($platinum, $alpha: -0.75);
-$button-active-color: adjust-color($platinum, $alpha: -0.5);
-
 $header-height: 6vh;
 
 .header {
@@ -27,12 +24,6 @@ $header-height: 6vh;
             padding: 1vh 1vw;
             opacity: 50%;
         }
-
-        h1 {
-            // text
-            font-size: calc($header-height / 2);
-            color: $font-color-dark;
-        }
     }
 
     .nav-links {
@@ -47,34 +38,5 @@ $header-height: 6vh;
 
         // text
         list-style-type: none;
-        
-
-        li {
-            // physical
-            margin: 0 1vw;
-
-            // text
-            font-size: calc($header-height / 3);
-
-            a {
-                // physical
-                padding: 1vh 1vw;
-                border-radius: 10vh;
-
-                // text
-                color: $font-color-dark;
-                text-decoration: none;
-            }
-
-            a:hover {
-                // background
-                background-color: $button-hover-color;
-            }
-    
-            a:active {
-                // background
-                background-color: $button-active-color;
-            }
-        }
     }
 }
