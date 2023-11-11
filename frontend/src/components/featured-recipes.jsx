@@ -1,10 +1,7 @@
 import * as React from 'react';
-import loadable from '@loadable/component';
+import {Title} from '../arroz-con-webo';
 
 import RecipeCard from './recipe-card';
-import '../styles/home/featured-recipes.scss';
-
-const Title = loadable(() => import('../arroz-con-webo').Title);
 
 export default function FeaturedRecipes({data}) {
     React.useEffect(() => {

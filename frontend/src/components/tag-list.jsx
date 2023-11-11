@@ -1,14 +1,14 @@
 import * as React from 'react';
-import loadable from '@loadable/component';
-
-const Label = loadable(() => import('../arroz-con-webo').Label);
+import {Label} from '../arroz-con-webo';
 
 export default function TagList({tags}) {
     return (
-        tags?.map(tag => {
-            return (
-              <Label role="secondary" pill>{tag.name + ': ' + tag.desc}</Label>
-            );
-        })
+        <div className="tag-list">
+            {tags?.map(tag => {
+                return (
+                    <Label role="secondary" pill>{tag.name}</Label>
+                );
+            })}
+        </div>
     );
 }

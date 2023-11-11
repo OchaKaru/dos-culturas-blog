@@ -1,58 +1,27 @@
 import * as React from 'react';
-import {Link} from "gatsby";
-import loadable from '@loadable/component';
+import Link from "next/link";
+import {FilledCard, Image, Label, Subheading} from '../arroz-con-webo';
 
-const FilledCard = loadable(() => import('../arroz-con-webo').FilledCard);
-const Image = loadable(() => import('../arroz-con-webo').Image);
-const Label = loadable(() => import('../arroz-con-webo').Label);
-const Subheading = loadable(() => import('../arroz-con-webo').Subheading);
-
-export default class RecipeCard extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            'id': props.data?.pk,
-            'image_url': props.data?.image,
-            'image': "",
-            'name': props.data?.name,
-            'culture': props.data?.culture,
-        }
-    }
-
-    componentDidMount() {
-        (async () => {
-            this.setState({'image': (await import(`../images/${this.state.image_url}`)).default})
-        })();
-    }
-
-    componentDidUpdate(prevProps) {
-        if(prevProps.data !== this.props.data) {
+export default function RecipeCard({data}) {
+    const [recipe_data, set_recipe_data] = React.useState(undefined);
+    const [image, set_image] = React.useState("");
+    React.useEffect(() => {
+        set_recipe_data(data);
+        if(recipe_data)
             (async () => {
-                this.setState({
-                    'id': this.props.data.pk,
-                    'image_url': this.props.data.image,
-                    'image': (await import(`../images/${this.props.data.image}`)).default,
-                    'name': this.props.data.name,
-                    'culture': this.props.data.culture,
-                });
+                set_image((await import(`../images/${recipe_data.image}`)).default);
             })();
-        }
-    }
+    }, [data, recipe_data]);
 
-    render() {
-        return (
-            <Link to="/recipe/" state={{'recipe_clicked': this.state.id}}>
-                <FilledCard className='recipe-card' role={"secondary"} containerType="container" rounded interactable>
-                    <figure className='recipe-image'>
-                        <Image source={this.state.image} alternate={this.state.description} />
-                    </figure>
-                    <div className='recipe-meta'>
-                        <Label className='recipe-culture' role="primary" pill>{this.state.culture}</Label>
-                        <Subheading className='recipe-name'>{this.state.name}</Subheading>
-                    </div>
-                </FilledCard>
-            </Link>
-        );
-    }
+    return (
+        <Link href={`/library/${recipe_data?.pk}`}>
+            <FilledCard className='recipe-card' role={"secondary"} containerType="container" rounded interactable>
+                <Image className='recipe-image' source={image.src} alternate="" />
+                <div className='recipe-meta'>
+                    <Label className='recipe-culture' role="primary" pill>{recipe_data?.culture}</Label>
+                    <Subheading className='recipe-name'>{recipe_data?.name}</Subheading>
+                </div>
+            </FilledCard>
+        </Link>
+    );
 }

@@ -1,12 +1,5 @@
 import * as React from 'react';
-import loadable from '@loadable/component';
-
-const Checkbox = loadable(() => import('../arroz-con-webo').Checkbox);
-const Submenu = loadable(() => import('../arroz-con-webo').Submenu);
-const FilledButton = loadable(() => import('../arroz-con-webo').FilledButton);
-const Icon = loadable(() => import('../arroz-con-webo').Icon);
-const SideSheet = loadable(() => import('../arroz-con-webo').SideSheet);
-const TonalButton = loadable(() => import('../arroz-con-webo').TonalButton);
+import {Checkbox, Submenu, FilledButton, Icon, SideSheet, TonalButton} from '../arroz-con-webo';
 
 export default function FilterAccordion({data, onFilter, onReset}) {
     const [tab_list, set_tab_list] = React.useState();

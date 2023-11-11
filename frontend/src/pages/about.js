@@ -1,24 +1,14 @@
 import * as React from "react";
-import loadable from '@loadable/component';
+import {Headline, Image, Body, FilledCard, Form, OutlinedTextBox, FilledButton, Subheading} from '../arroz-con-webo';
 
 import image from '../images/tamales_broll.png';
-import '../styles/about/about-page.scss';
-
-const Headline = loadable(() => import('../arroz-con-webo').Headline);
-const Image = loadable(() => import('../arroz-con-webo').Image);
-const Body = loadable(() => import('../arroz-con-webo').Body);
-const FilledCard = loadable(() => import('../arroz-con-webo').FilledCard);
-const Form = loadable(() => import('../arroz-con-webo').Form);
-const OutlinedTextBox = loadable(() => import('../arroz-con-webo').OutlinedTextBox);
-const FilledButton = loadable(() => import('../arroz-con-webo').FilledButton);
-const Subheading = loadable(() => import('../arroz-con-webo').Subheading);
 
 export default function AboutPage() {
   return (
     <main className="about-page">
       <div className="about-bio">
         <Headline>About</Headline>
-        <Image className="about-image" source={image} />
+        <Image className="about-image" source={image.src} />
         <Body>
           Welcome to 'Dos Culturas,' a culinary journey into the heart of authentic and delicious
           recipes from Mexico and Puerto Rico. Our website is a vibrant tapestry of diverse and time-honored cuisines,
@@ -45,5 +35,3 @@ export default function AboutPage() {
     </main>
   );
 }
-
-export const Head = () => <title>About Us</title>;

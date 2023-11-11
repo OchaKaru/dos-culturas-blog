@@ -1,20 +1,19 @@
 import * as React from 'react';
-import loadable from '@loadable/component';
-
-const Body = loadable(() => import('../arroz-con-webo').Body);
-const Subheading = loadable(() => import('../arroz-con-webo').Subheading);
+import {Body, Subheading} from '../arroz-con-webo';
 
 export default function RecipeDirections({steps}) {
     return (
-        <Body>
+        <>
             <Subheading>Directions</Subheading>
-            <ol>
-            {steps?.map(step => {
-                return (<li key={step}>
-                {step}
-                </li>);
-            })}
-            </ol>
-        </Body>
+            <Body>
+                <ol>
+                {steps?.map(step => {
+                    return (<li key={step}>
+                    {step}
+                    </li>);
+                })}
+                </ol>
+            </Body>
+        </>
     );
 }
