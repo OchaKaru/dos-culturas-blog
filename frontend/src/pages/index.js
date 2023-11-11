@@ -2,19 +2,15 @@ import * as React from "react"
 import background from "../images/dinner.png";
 
 let pageStyle = {
-  backgroundImage: `url(${background})`,
+  backgroundImage: `url(${background.src})`,
   backgroundSize: 'cover',
   backgroundPosition: 'center',
   height: '100vh',
   width: '100vw',
 }
 
-const LandingPage = () => {
+export default function LandingPage() {
   return (
     <main style={pageStyle} />
   )
 }
-
-export default LandingPage
-
-export const Head = () => <title>Welcome Page</title>

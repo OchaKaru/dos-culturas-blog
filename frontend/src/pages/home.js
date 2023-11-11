@@ -6,9 +6,7 @@ import WeeklyRecipeCard from "../components/weekly-recipe-card";
 import NewsLetterSubscribe from "../components/news-letter-subscribe";
 import FeaturedRecipes from "../components/featured-recipes";
 
-import "../styles/home/home-page.scss";
-
-const HomePage = () => {
+export default function HomePage() {
   const [recipe_data, set_recipe_data] = React.useState([]);
 
   React.useEffect(() => {
@@ -25,20 +23,3 @@ const HomePage = () => {
     </main>
   );
 }
-
-export default HomePage;
-
-export const Head = () => <title>Home Page</title>;
-
-/*
-<div>
-    <Image>
-        <Filter />
-    </Image>
-    <div>
-        <Title />
-        <Subtitle />
-        <Button />
-    </div>
-</div>
-*/
