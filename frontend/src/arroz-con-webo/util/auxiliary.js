@@ -74,3 +74,11 @@ export function convert(measure) {
     } else
         throw new NoMatchError("No matches were found for given measure.");
 }
+
+/**
+ * @param {function} callback This should be a function that will be called only if on client side.
+ */
+export function on_client(callback) {
+    if(typeof window !== 'undefined')
+        return callback();
+}

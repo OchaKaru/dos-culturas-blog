@@ -2,6 +2,7 @@ import * as React from 'react';
 
 // arroz import
 import {Styler} from '../styles';
+import {on_client} from './auxiliary';
 
 function get_window_dimensions() {
     const {innerWidth: width, innerHeight: height} = window;
@@ -12,16 +13,16 @@ function get_window_dimensions() {
  * Creating a custom hook
  */
 export function useWindowDimensions() {
-    const [dimensions, set_dimensions] = React.useState(get_window_dimensions());
+    const [dimensions, set_dimensions] = React.useState(on_client(get_window_dimensions));
 
     React.useEffect(() => {
-        const handle_resize = () => set_dimensions(get_window_dimensions());
+        const handle_resize = () => set_dimensions(on_client(get_window_dimensions));
 
-        window.addEventListener('resize', handle_resize);
-        return () => window.removeEventListener('resize', handle_resize);
+        on_client(() => window.addEventListener('resize', handle_resize));
+        return on_client(() => () => window.removeEventListener('resize', handle_resize));
     }, []);
 
-    return dimensions;
+    return dimensions?? {width: 0, height: 0};
 }
 
 /**
