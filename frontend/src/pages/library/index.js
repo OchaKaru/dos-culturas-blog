@@ -1,8 +1,8 @@
 import * as React from "react";
 
-import RecipeAPI from "../api/recipeapi";
-import RecipeCarousel from '../components/recipe-carousel';
-import FilterAccordion from '../components/filter-accordion';
+import RecipeAPI from "../../api/recipeapi";
+import RecipeCarousel from '../../components/recipe-carousel';
+import FilterAccordion from '../../components/filter-accordion';
 
 export default function LibraryPage() {
   let [recipe_data, set_recipe_data] = React.useState([]);
