@@ -1,4 +1,4 @@
 Set-Location frontend
-npm run develop
+npm run dev
 Set-Location ..
 Clear-Host
