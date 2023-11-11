@@ -4,13 +4,7 @@ import {createUseStyles} from "react-jss";
 
 // arroz imports
 import {InvalidFormatError, InvalidKeyError, InvalidModeError} from "../../error";
-import {clamp, modulo} from '../../util';
-import IconButton from '../action/picto-button/icon-button';
 import Pagination from "../communication/pagination";
-
-// local imports
-import "./transitions/fade-in.css";
-import "./transitions/fade-out.css";
 
 const useStyles = createUseStyles({
     

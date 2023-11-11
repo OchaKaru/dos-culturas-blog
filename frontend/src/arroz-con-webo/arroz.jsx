@@ -51,10 +51,6 @@ export default function Root({children}) {
         "toggle_dark_mode": toggle_dark_mode
     });
 
-    const handle_toggle = () => {
-        toggle_dark_mode()
-    }
-
     React.useEffect(() => {
         console.log(dark_mode)
         set_theme({
@@ -63,7 +59,7 @@ export default function Root({children}) {
         })
     }, [theme_context, dark_mode])
 
-    const classes = useStyles({"theme": theme_context, "role": role, "container_type": container_type})
+    const classes = useStyles({"theme": theme_context, "role": role, "container_type": container_type});
     return (
         <ThemeProvider theme={{...theme}}>
             <ContainerContext.Provider value={{"role": role, "container_type": container_type}}>
