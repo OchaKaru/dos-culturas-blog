@@ -1,11 +1,12 @@
 @import 'utils/colors';
 @import 'fonts';
 
-$background-color: $verdigris-gradient; //radial-background($gray);
-
 @import 'navigation/header';
 @import 'recipe-card';
 @import 'recipe-library/recipe-library';
+@import 'recipe-page';
+@import 'home/home-page';
+@import 'about-page';
 
 html, body {
     height: 100%;
