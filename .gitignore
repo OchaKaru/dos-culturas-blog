@@ -1,0 +1,28 @@
+#ignore files related to the pipenv
+Pipfile
+Pipfile.lock
+requirements.txt
+
+#ignore authentication files (no passwords for you)
+sessions/
+
+#ignore files related to gcloud deployment
+app.yaml
+main.py
+.gcloudignore
+
+#ignore next files
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/package-lock.json
+frontend/package.json
+
+# production
+frontend/build/
+
+# debug
+frontend/npm-debug.log*
+
+# local env files
+frontend/.env*.local
