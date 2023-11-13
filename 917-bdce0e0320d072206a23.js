@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkdos_culturas=self.webpackChunkdos_culturas||[]).push([[917],{2917:function(e,s,u){u.r(s),s.default=u.p+"static/dinner-cfb7063380ef491e44376b1a065974e0.png"}}]);
-//# sourceMappingURL=917-bdce0e0320d072206a23.js.map

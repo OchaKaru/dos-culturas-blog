@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkdos_culturas=self.webpackChunkdos_culturas||[]).push([[374],{2374:function(c,s,u){u.r(s),s.default=u.p+"static/alcapurrias-0510c82b51534c5d0be67200a033ddc4.png"}}]);
-//# sourceMappingURL=374-fb3d50cb241e9912306e.js.map

@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkdos_culturas=self.webpackChunkdos_culturas||[]).push([[634],{7634:function(s,c,e){e.r(c),c.default=e.p+"static/chiles_rellenos_mexican-b395a2974a57dde6587b7c4831fb282c.png"}}]);
-//# sourceMappingURL=634-5bae3c7bc4e1a3431aae.js.map

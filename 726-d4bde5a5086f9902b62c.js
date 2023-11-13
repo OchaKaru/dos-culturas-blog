@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkdos_culturas=self.webpackChunkdos_culturas||[]).push([[726],{5726:function(a,s,u){u.r(s),s.default=u.p+"static/mofongo-01755c5021a6b4d6d2aada55b626da4b.png"}}]);
-//# sourceMappingURL=726-d4bde5a5086f9902b62c.js.map

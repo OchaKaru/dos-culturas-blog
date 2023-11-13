@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkdos_culturas=self.webpackChunkdos_culturas||[]).push([[913],{6913:function(a,c,u){u.r(c),c.default=u.p+"static/guacamole-a50ca388693dfb0732ba1b653cf3490c.png"}}]);
-//# sourceMappingURL=913-9b52926ba3d3b50d7e1b.js.map

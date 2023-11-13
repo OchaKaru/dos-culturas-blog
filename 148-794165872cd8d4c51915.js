@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkdos_culturas=self.webpackChunkdos_culturas||[]).push([[148],{5148:function(c,u,s){s.r(u),u.default=s.p+"static/arroz_con_pollo_puerto_rican-4565b029447cd8dc9bdef87f9b8106f8.png"}}]);
-//# sourceMappingURL=148-794165872cd8d4c51915.js.map

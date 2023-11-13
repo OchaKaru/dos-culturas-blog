@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkdos_culturas=self.webpackChunkdos_culturas||[]).push([[343],{2343:function(a,s,u){u.r(s),s.default=u.p+"static/tamales_broll-87d7a6aea0e69453bd2344015dd4971d.png"}}]);
-//# sourceMappingURL=343-22dd434c0b3cfc244849.js.map
